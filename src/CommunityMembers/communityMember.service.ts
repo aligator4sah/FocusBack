@@ -3,10 +3,6 @@ import { CommunityMemberEntity } from "./communityMember.entity";
 import { Repository } from 'typeorm';
 import { ICommunityMemberService, ICommunityMember} from "./Interfaces/index";
 
-// import { InjectRepository } from '@nestjs/typeorm';
-
-
-
 @Component()
 export class CommunityMemberService implements ICommunityMemberService{
 
@@ -14,11 +10,11 @@ export class CommunityMemberService implements ICommunityMemberService{
         @Inject('CommunityMemberRepository') private readonly communityMemberRepository: Repository<CommunityMemberEntity>
     ){}
 
-    public async getAllCommunityMember(): Promise<[ICommunityMember[],number]>{
-        return await this.communityMemberRepository.findAndCount();
+    public async getAllCommunityMember(): Promise<Array<CommunityMemberEntity>>{
+        return await this.communityMemberRepository.find();
     }
 
-    public async getCommunityMember(id:number): Promise<ICommunityMember | null>{
+    public async getCommunityMember(id:number): Promise<CommunityMemberEntity | null>{
         return await this.communityMemberRepository.findOneById(id);
     }
 
@@ -33,5 +29,16 @@ export class CommunityMemberService implements ICommunityMemberService{
         }
         await this.communityMemberRepository.updateById(id,newCommunityMember);
         return await this.communityMemberRepository.findOneById(id);
+    }
+
+    public async deleteCommunityMember(id:number): Promise<string>{
+        await this.communityMemberRepository.deleteById(id);
+        const communityMember = await this.communityMemberRepository.findOneById(id);
+        if(!communityMember){
+            return 'delete success';
+        }
+        else{
+            return 'delete fail';
+        }
     }
 }

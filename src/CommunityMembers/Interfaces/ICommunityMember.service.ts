@@ -1,9 +1,9 @@
 import {ICommunityMember} from "./ICommunityMember";
-import {CreateCMemberDto} from "../DTO/create-CMember.dto";
+import { CommunityMemberEntity} from "../communityMember.entity";
 
 export interface ICommunityMemberService {
-    getAllCommunityMember():Promise<[ICommunityMember[] ,number]>;
-    getCommunityMember(id: number): Promise<ICommunityMember | null>;
-    addCommunityMember(communityMember: CreateCMemberDto): Promise<ICommunityMember>;
-    updateCommunityMember(id: number, newCommunityMember: CreateCMemberDto): Promise<ICommunityMember | null>;
+    getAllCommunityMember():Promise<Array<CommunityMemberEntity>>;
+    getCommunityMember(id: number): Promise<CommunityMemberEntity | null>;
+    addCommunityMember(communityMember: ICommunityMember): Promise<CommunityMemberEntity>;
+    updateCommunityMember(id: number, newCommunityMember: ICommunityMember): Promise<CommunityMemberEntity | null>;
 }

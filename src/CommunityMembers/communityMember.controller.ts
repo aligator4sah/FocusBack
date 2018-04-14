@@ -1,4 +1,4 @@
-import {Controller, Get, HttpCode, Post, Param, Body,UseFilters} from '@nestjs/common';
+import {Controller, Get, Patch, Post, Param, Body,Delete,UseFilters} from '@nestjs/common';
 import { CreateCMemberDto } from './DTO/create-CMember.dto'
 import {CommunityMemberService} from "./communityMember.service";
 
@@ -47,19 +47,24 @@ export class CommunityMemberController{
         return msg;
     };
 
-    @Get(':id')
+    @Get('/:id')
     // @Roles('general')
-    public async getCommunityMember(@Param('id') id){
-        await this.communityMemberService.getCommunityMember(id)
-            .then((communityMember)=>{
-                return communityMember
-            })
-            .catch((error)=>{
-                console.log(error);
-                return error;
-            })
-
+    public async getCommunityMember(@Param() params){
+        const msg = await this.communityMemberService.getCommunityMember(params.id);
+        return msg;
     };
+
+    @Patch(':id')
+    public async upadateCommunityMember(@Param('id') id,@Body() newCommunityMember:CreateCMemberDto){
+        const msg = this.communityMemberService.updateCommunityMember(id,newCommunityMember);
+        return msg;
+    }
+
+    @Delete(':id')
+    public async deleteCommunityMember(@Param() params){
+        const msg = this.communityMemberService.deleteCommunityMember(params.id);
+        return msg;
+    }
 
     // @Get('testInterceptor')
     // @UseInterceptors(LoggingInterceptor)

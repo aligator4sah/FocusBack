@@ -1,4 +1,4 @@
-import { Connection, Repository } from 'typeorm';
+import { Connection } from 'typeorm';
 import { CommunityMemberEntity} from "./communityMember.entity";
 
 export const communityMemberProvider = {
