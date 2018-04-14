@@ -6,4 +6,5 @@ export interface ICommunityMemberService {
     getCommunityMember(id: number): Promise<CommunityMemberEntity | null>;
     addCommunityMember(communityMember: ICommunityMember): Promise<CommunityMemberEntity>;
     updateCommunityMember(id: number, newCommunityMember: ICommunityMember): Promise<CommunityMemberEntity | null>;
+    deleteCommunityMember(id:number): Promise<string>;
 }

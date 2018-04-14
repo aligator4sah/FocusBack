@@ -6,4 +6,5 @@ export interface IBhcoService {
     getBhco(id:number):Promise<BhcoEntity|null>;
     addBhco(bhco: IBcho): Promise<IBcho>;
     updateBhco(id:number,newBhco:IBcho): Promise<BhcoEntity|null>;
+    deleteBhco(id:number):Promise<string>;
 }

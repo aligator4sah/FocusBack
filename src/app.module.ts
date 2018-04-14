@@ -4,11 +4,13 @@ import { LoggerMiddleware } from './shared/middlewares/logger.middleware'
 import { CommunityMemberController } from "./CommunityMembers/communityMember.controller";
 import { HttpExceptionFilter } from './Shared/ExceptionFilters/http-exception.filter';
 import {BhcoModule} from "./Bhco/bhco.module";
+import {StateAdminModule} from "./StateAdmin/stateAdmin.module";
 
 @Module({
   modules:[
       CommunityMemberModule,
-      BhcoModule
+      BhcoModule,
+      StateAdminModule
   ]
 })
 

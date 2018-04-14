@@ -47,7 +47,7 @@ export class CommunityMemberController{
         return msg;
     };
 
-    @Get('/:id')
+    @Get(':id')
     // @Roles('general')
     public async getCommunityMember(@Param() params){
         const msg = await this.communityMemberService.getCommunityMember(params.id);
@@ -55,8 +55,8 @@ export class CommunityMemberController{
     };
 
     @Patch(':id')
-    public async upadateCommunityMember(@Param('id') id,@Body() newCommunityMember:CreateCMemberDto){
-        const msg = this.communityMemberService.updateCommunityMember(id,newCommunityMember);
+    public async upadateCommunityMember(@Param() params,@Body() newCommunityMember:CreateCMemberDto){
+        const msg = this.communityMemberService.updateCommunityMember(params.id,newCommunityMember);
         return msg;
     }
 
