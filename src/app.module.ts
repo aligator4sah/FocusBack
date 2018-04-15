@@ -6,13 +6,15 @@ import { HttpExceptionFilter } from './Shared/ExceptionFilters/http-exception.fi
 import {BhcoModule} from "./Bhco/bhco.module";
 import {StateAdminModule} from "./StateAdmin/stateAdmin.module";
 import {SystemAdminModule} from "./SystemAdmin/systemAdmin.module";
+import {CommunityAdminModule} from "./CommunityAdmin/communityAdmin.module";
 
 @Module({
   modules:[
       CommunityMemberModule,
       BhcoModule,
       StateAdminModule,
-      SystemAdminModule
+      SystemAdminModule,
+      CommunityAdminModule
   ]
 })
 
