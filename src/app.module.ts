@@ -5,12 +5,14 @@ import { CommunityMemberController } from "./CommunityMembers/communityMember.co
 import { HttpExceptionFilter } from './Shared/ExceptionFilters/http-exception.filter';
 import {BhcoModule} from "./Bhco/bhco.module";
 import {StateAdminModule} from "./StateAdmin/stateAdmin.module";
+import {SystemAdminModule} from "./SystemAdmin/systemAdmin.module";
 
 @Module({
   modules:[
       CommunityMemberModule,
       BhcoModule,
-      StateAdminModule
+      StateAdminModule,
+      SystemAdminModule
   ]
 })
 
