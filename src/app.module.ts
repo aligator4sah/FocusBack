@@ -7,6 +7,7 @@ import {BhcoModule} from "./Bhco/bhco.module";
 import {StateAdminModule} from "./StateAdmin/stateAdmin.module";
 import {SystemAdminModule} from "./SystemAdmin/systemAdmin.module";
 import {CommunityAdminModule} from "./CommunityAdmin/communityAdmin.module";
+import {DemographicModule} from "./Demographic/demographic.module";
 
 @Module({
   modules:[
@@ -14,7 +15,8 @@ import {CommunityAdminModule} from "./CommunityAdmin/communityAdmin.module";
       BhcoModule,
       StateAdminModule,
       SystemAdminModule,
-      CommunityAdminModule
+      CommunityAdminModule,
+      DemographicModule
   ]
 })
 
