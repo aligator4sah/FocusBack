@@ -9,6 +9,7 @@ import {SystemAdminModule} from "./SystemAdmin/systemAdmin.module";
 import {CommunityAdminModule} from "./CommunityAdmin/communityAdmin.module";
 import {DemographicModule} from "./Demographic/demographic.module";
 import {QuestionnaireModule} from "./Questionnaire/questionnaire.module";
+import {AnswerModule} from "./Answer/answer.module";
 
 @Module({
   modules:[
@@ -18,7 +19,8 @@ import {QuestionnaireModule} from "./Questionnaire/questionnaire.module";
       SystemAdminModule,
       CommunityAdminModule,
       DemographicModule,
-      QuestionnaireModule
+      QuestionnaireModule,
+      AnswerModule
   ]
 })
 
