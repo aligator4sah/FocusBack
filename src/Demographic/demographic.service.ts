@@ -4,7 +4,7 @@ import { IDemographicService,IDemographic} from "./Interfaces";
 import { DemographicEntity} from "./demographic.entity";
 
 @Component()
-export class DemographicService{
+export class DemographicService implements IDemographicService{
     constructor(
         @Inject('DemographicRepository') private readonly demographicRepository: Repository<DemographicEntity>
     ){}

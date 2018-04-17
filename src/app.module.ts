@@ -8,6 +8,7 @@ import {StateAdminModule} from "./StateAdmin/stateAdmin.module";
 import {SystemAdminModule} from "./SystemAdmin/systemAdmin.module";
 import {CommunityAdminModule} from "./CommunityAdmin/communityAdmin.module";
 import {DemographicModule} from "./Demographic/demographic.module";
+import {QuestionnaireModule} from "./Questionnaire/questionnaire.module";
 
 @Module({
   modules:[
@@ -16,7 +17,8 @@ import {DemographicModule} from "./Demographic/demographic.module";
       StateAdminModule,
       SystemAdminModule,
       CommunityAdminModule,
-      DemographicModule
+      DemographicModule,
+      QuestionnaireModule
   ]
 })
 
