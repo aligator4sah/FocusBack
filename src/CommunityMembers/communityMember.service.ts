@@ -10,8 +10,8 @@ export class CommunityMemberService implements ICommunityMemberService{
         @Inject('CommunityMemberRepository') private readonly communityMemberRepository: Repository<CommunityMemberEntity>
     ){}
 
-    public async getAllCommunityMember(): Promise<[Array<CommunityMemberEntity>,number]>{
-        return await this.communityMemberRepository.findAndCount();
+    public async getAllCommunityMember(): Promise<Array<CommunityMemberEntity>>{
+        return await this.communityMemberRepository.find();
     }
 
     public async getCommunityMember(id:number): Promise<CommunityMemberEntity | null>{

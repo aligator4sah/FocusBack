@@ -29,4 +29,8 @@ export class CreateQuestionnaireDto{
     @ApiModelProperty()
     @IsJSON()
     options:any;
+
+    @ApiModelProperty()
+    @IsInt()
+    weight: number;
 }

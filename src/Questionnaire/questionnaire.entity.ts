@@ -22,4 +22,7 @@ export class QuestionnaireEntity {
 
     @Column()
     questiontype:string;
+
+    @Column()
+    weight: number;
 }

@@ -6,4 +6,5 @@ export interface IQuestionnaire {
     readonly domain:string;
     readonly subdomain:string;
     readonly questiontype:string;
+    readonly weight: number;
 }
