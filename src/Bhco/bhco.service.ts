@@ -2,7 +2,7 @@ import { Component ,Inject} from "@nestjs/common";
 import { Repository } from 'typeorm';
 import {BhcoEntity} from "./bhco.entity";
 import {IBcho,IBhcoService} from "./Interfaces";
-import {CreateBhcoDto} from "./DTO/create-Bhco.dto";
+// import {CreateBhcoDto} from "./DTO/create-Bhco.dto";
 
 @Component()
 export class BhcoService implements IBhcoService{
@@ -22,7 +22,7 @@ export class BhcoService implements IBhcoService{
         return await this.bhcoRepository.save(bhco);
     }
 
-    public async updateBhco(id:number,newBhco:CreateBhcoDto): Promise<BhcoEntity|null>{
+    public async updateBhco(id:number,newBhco:IBcho): Promise<BhcoEntity|null>{
         const bhco = await this.bhcoRepository.findOneById(id);
         if(!bhco.id){
             console.log("bhco does not exist");

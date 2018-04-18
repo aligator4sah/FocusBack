@@ -10,6 +10,7 @@ import {CommunityAdminModule} from "./CommunityAdmin/communityAdmin.module";
 import {DemographicModule} from "./Demographic/demographic.module";
 import {QuestionnaireModule} from "./Questionnaire/questionnaire.module";
 import {AnswerModule} from "./Answer/answer.module";
+import {CommunityModule} from "./Community/community.module";
 
 @Module({
   modules:[
@@ -20,7 +21,8 @@ import {AnswerModule} from "./Answer/answer.module";
       CommunityAdminModule,
       DemographicModule,
       QuestionnaireModule,
-      AnswerModule
+      AnswerModule,
+      CommunityModule
   ]
 })
 
