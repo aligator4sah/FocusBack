@@ -1,13 +1,10 @@
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
-export class CommunityEntity{
+export class StateEntity {
     @PrimaryGeneratedColumn()
     id:number;
 
     @Column()
     name:string;
-
-    @Column()
-    city:string;
 }
