@@ -1,20 +1,16 @@
 import { IsString, IsInt } from 'class-validator';
 import { ApiModelProperty } from '@nestjs/swagger';
 
-export class CreateBlockDto {
+export class  CreateFamilyDto{
     @ApiModelProperty()
     @IsInt()
     id:number;
 
     @ApiModelProperty()
     @IsString()
-    block:string;
+    family:string;
 
     @ApiModelProperty()
     @IsInt()
-    community:any;
-
-    @ApiModelProperty()
-    @IsInt()
-    family:any;
+    block:any;
 }
