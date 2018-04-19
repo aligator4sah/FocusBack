@@ -8,5 +8,9 @@ export class CreateCommunityDto{
 
     @ApiModelProperty()
     @IsString()
-    name:string;
+    community:string;
+
+    @ApiModelProperty()
+    @IsInt()
+    city:any;
 }

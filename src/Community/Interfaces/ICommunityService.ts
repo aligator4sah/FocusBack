@@ -7,4 +7,5 @@ export interface ICommunityService {
     addCommunity(community: ICommunity):Promise<CommunityEntity>;
     updateCommunity(id:number,newCommunity:ICommunity):Promise<CommunityEntity|null>;
     deleteCommunity(id:number):Promise<string>;
+    getCommunityByCity(id:number):Promise<Array<CommunityEntity>>;
 }

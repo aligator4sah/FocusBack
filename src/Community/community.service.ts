@@ -1,5 +1,5 @@
 import { Component ,Inject} from "@nestjs/common";
-import { Repository } from 'typeorm';
+import { Repository,getRepository } from 'typeorm';
 import {CommunityEntity} from "./community.entity";
 import { ICommunity,ICommunityService} from "./Interfaces";
 
@@ -34,5 +34,15 @@ export class CommunityService implements ICommunityService{
         }else{
             return 'delete success';
         }
+    }
+
+    public async getCommunityByCity(id:number):Promise<Array<CommunityEntity>>{
+        const selectedCommunity = await getRepository(CommunityEntity)
+            .createQueryBuilder("community")
+            .leftJoinAndSelect("community.city","city")
+            .where("city.id = :name",{name:id})
+            .getMany();
+
+        return selectedCommunity;
     }
 }

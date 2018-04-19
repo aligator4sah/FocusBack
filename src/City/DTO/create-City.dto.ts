@@ -13,4 +13,8 @@ export class CreateCityDto{
     @ApiModelProperty()
     @IsInt()
     county:any;
+
+    @ApiModelProperty()
+    @IsInt()
+    community:any;
 }

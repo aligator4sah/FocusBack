@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import {Entity, Column, PrimaryGeneratedColumn, ManyToOne} from 'typeorm';
+import {CityEntity} from "../City/city.entity";
 
 @Entity()
 export class CommunityEntity{
@@ -6,8 +7,8 @@ export class CommunityEntity{
     id:number;
 
     @Column()
-    name:string;
+    community:string;
 
-    @Column()
-    city:string;
+    @ManyToOne(type => CityEntity, city=> city.community)
+    city:CityEntity;
 }

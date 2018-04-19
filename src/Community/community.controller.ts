@@ -37,4 +37,10 @@ export class CommunityController {
         const msg = await this.communityService.deleteCommunity(params.id);
         return msg;
     }
+
+    @Get('/city/:id')
+    public async getCommunityByCity(@Param() params){
+        const msg = await this.communityService.getCommunityByCity(params.id);
+        return msg;
+    }
 }
