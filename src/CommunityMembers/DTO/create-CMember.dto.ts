@@ -93,5 +93,5 @@ export class CreateCMemberDto{
 
     @ApiModelProperty()
     @IsInt()
-    bhcoId: any;
+    bhco: any;
 }

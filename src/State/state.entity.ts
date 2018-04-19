@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn,OneToMany } from 'typeorm';
+import {CountyEntity} from "../County/county.entity";
 
 @Entity()
 export class StateEntity {
@@ -6,5 +7,8 @@ export class StateEntity {
     id:number;
 
     @Column()
-    name:string;
+    state:string;
+
+    @OneToMany(type => CountyEntity,county => county.state)
+    county:CountyEntity;
 }

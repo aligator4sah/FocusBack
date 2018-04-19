@@ -1,4 +1,5 @@
 export interface IState {
     readonly id:number;
-    readonly name:string;
+    readonly state:string;
+    readonly county:any;
 }

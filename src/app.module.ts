@@ -12,6 +12,7 @@ import {QuestionnaireModule} from "./Questionnaire/questionnaire.module";
 import {AnswerModule} from "./Answer/answer.module";
 import {CommunityModule} from "./Community/community.module";
 import {StateModule} from "./State/state.module";
+import {CountyModule} from "./County/county.module";
 
 @Module({
   modules:[
@@ -24,7 +25,8 @@ import {StateModule} from "./State/state.module";
       QuestionnaireModule,
       AnswerModule,
       CommunityModule,
-      StateModule
+      StateModule,
+      CountyModule
   ]
 })
 
