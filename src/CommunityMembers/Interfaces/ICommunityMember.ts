@@ -21,5 +21,5 @@ export interface ICommunityMember {
     readonly marry: string;
     readonly education: string;
     readonly employments: string;
-    readonly bhcoid: number;
+    readonly bhco: any;
 }

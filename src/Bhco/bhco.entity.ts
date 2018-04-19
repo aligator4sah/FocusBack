@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn,OneToMany} from 'typeorm';
+import { CommunityMemberEntity} from "../CommunityMembers/communityMember.entity";
 
 @Entity()
 export class BhcoEntity{
@@ -29,4 +30,21 @@ export class BhcoEntity{
 
     @Column()
     communityid:number;
+
+    @Column()
+    county:string;
+
+    @Column()
+    city:string;
+
+    @Column()
+    community:string;
+
+    @OneToMany(type => CommunityMemberEntity,communityMember=>communityMember.bhco,{
+        // cascadeInsert: true,
+        // cascadeUpdate: true,
+        // // cascadeRemove: true
+    })
+    communityMember: CommunityMemberEntity[];
+
 }

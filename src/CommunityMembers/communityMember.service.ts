@@ -1,6 +1,6 @@
 import { Component ,Inject} from "@nestjs/common";
 import { CommunityMemberEntity } from "./communityMember.entity";
-import { Repository } from 'typeorm';
+import { Repository,getConnection } from 'typeorm';
 import { ICommunityMemberService, ICommunityMember} from "./Interfaces/index";
 
 @Component()
@@ -11,7 +11,7 @@ export class CommunityMemberService implements ICommunityMemberService{
     ){}
 
     public async getAllCommunityMember(): Promise<Array<CommunityMemberEntity>>{
-        return await this.communityMemberRepository.find();
+        return await this.communityMemberRepository.createQueryBuilder("communityMember").innerJoinAndSelect("communityMember.bhco","bhco").getMany()
     }
 
     public async getCommunityMember(id:number): Promise<CommunityMemberEntity | null>{
@@ -19,7 +19,9 @@ export class CommunityMemberService implements ICommunityMemberService{
     }
 
     public async addCommunityMember(communityMember: ICommunityMember): Promise<CommunityMemberEntity>{
-        return await this.communityMemberRepository.save(communityMember);
+        await this.communityMemberRepository.save(communityMember);
+        await getConnection().createQueryBuilder().relation(CommunityMemberEntity,"bhco").of(communityMember.id).set(communityMember.bhco)
+        return await this.getCommunityMember(communityMember.id);
     }
 
     public async updateCommunityMember(id:number,newCommunityMember: ICommunityMember): Promise<CommunityMemberEntity | null>{

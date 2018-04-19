@@ -8,4 +8,8 @@ export interface IBcho {
     readonly phone: string;
     readonly email: string;
     readonly communityid: number;
+    readonly county:string;
+    readonly city:string;
+    readonly community:string;
+    readonly communityMember:any;
 }

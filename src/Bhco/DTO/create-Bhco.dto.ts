@@ -38,4 +38,20 @@ export class CreateBhcoDto{
     @ApiModelProperty()
     @IsInt()
     communityid:number;
+
+    @ApiModelProperty()
+    @IsString()
+    community:string;
+
+    @ApiModelProperty()
+    @IsString()
+    county: string;
+
+    @ApiModelProperty()
+    @IsString()
+    city: string;
+
+    @ApiModelProperty()
+    @IsString()
+    communityMember:any;
 }
