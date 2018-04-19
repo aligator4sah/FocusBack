@@ -2,7 +2,6 @@ import { Component ,Inject} from "@nestjs/common";
 import { Repository } from 'typeorm';
 import {BhcoEntity} from "./bhco.entity";
 import {IBcho,IBhcoService} from "./Interfaces";
-// import {CreateBhcoDto} from "./DTO/create-Bhco.dto";
 
 @Component()
 export class BhcoService implements IBhcoService{

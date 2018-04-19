@@ -1,5 +1,6 @@
-import {Entity,PrimaryGeneratedColumn,Column,ManyToOne} from "typeorm";
+import {Entity,PrimaryGeneratedColumn,Column,ManyToOne,OneToMany} from "typeorm";
 import {StateEntity} from "../State/state.entity";
+import {CityEntity} from "../City/city.entity";
 
 @Entity()
 export class CountyEntity {
@@ -11,4 +12,7 @@ export class CountyEntity {
 
     @ManyToOne(type => StateEntity,state => state.county)
     state:StateEntity;
+
+    @OneToMany(type => CityEntity,city => city.county)
+    city: CityEntity[];
 }
