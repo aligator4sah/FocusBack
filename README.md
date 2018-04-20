@@ -12,14 +12,8 @@
 3.npm start
 4.server will be on localhost:3000
 
-
-##
-community member to default fixed
-##
-bhco
-add community city county
-
-##
-unassign time
-bhco name join with bhco id
+## next step
+#visualization
+#auth
+#login
 
