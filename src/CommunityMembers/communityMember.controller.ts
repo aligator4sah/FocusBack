@@ -79,14 +79,14 @@ export class CommunityMemberController{
     }
 
     @Patch('assign/CommunityMember/:id')
-    public async assignCommunityMember(@Param() params,@Body() bhcoInfo:any){
-        const msg = await this.communityMemberService.assignCommunityMember(params.id,bhcoInfo);
+    public async assignCommunityMember(@Param() params,@Body() communityMemberIDs:any){
+        const msg = await this.communityMemberService.assignCommunityMember(params.id,communityMemberIDs);
         return msg;
     }
 
-    @Patch('unAssign/CommunityMember/:id')
-    public async unAssignCommunityMember(@Param() params){
-        const msg = await this.communityMemberService.unAssignCommunityMember(params.id);
+    @Patch('unAssign/CommunityMember/')
+    public async unAssignCommunityMember(@Body() communityMemberIDs:any){
+        const msg = await this.communityMemberService.unAssignCommunityMember(communityMemberIDs);
         return msg;
     }
 

@@ -9,6 +9,6 @@ export interface ICommunityMemberService {
     deleteCommunityMember(id:number): Promise<string>;
     getUnAssignedCommunityMember():Promise<Array<CommunityMemberEntity>>;
     getAssignedCommunityMember():Promise<Array<CommunityMemberEntity>>;
-    assignCommunityMember(communityMemberID:number,bhcoInfo:any):Promise<Array<CommunityMemberEntity>>;
+    assignCommunityMember(bhcoID:number,communityMemberIDs:any):Promise<Array<CommunityMemberEntity>>
     unAssignCommunityMember(communityMemberID:number):Promise<Array<CommunityMemberEntity>>;
 }
