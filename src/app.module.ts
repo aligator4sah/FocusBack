@@ -16,6 +16,7 @@ import {CountyModule} from "./County/county.module";
 import {CityModule} from "./City/city.module";
 import {BlockModule} from "./Block/block.module";
 import {FamilyModule} from "./Family/family.module";
+import {UserDemographicModule} from "./UserDemographic/userDemographic.module";
 
 @Module({
   modules:[
@@ -32,7 +33,8 @@ import {FamilyModule} from "./Family/family.module";
       CountyModule,
       CityModule,
       BlockModule,
-      FamilyModule
+      FamilyModule,
+      UserDemographicModule
   ]
 })
 

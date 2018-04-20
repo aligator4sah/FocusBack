@@ -40,9 +40,6 @@ export class CommunityMemberService implements ICommunityMemberService{
     public async addCommunityMember(communityMember: ICommunityMember): Promise<CommunityMemberEntity>{
         //below is save action
         return await this.communityMemberRepository.save(communityMember);
-        //
-        // await getConnection().createQueryBuilder().relation(CommunityMemberEntity,"bhco").of(communityMember.id).set(communityMember.bhco)
-        // return await this.getCommunityMember(communityMember.id);
     }
 
     public async assignCommunityMember(communityMemberID:number,bhcoInfo:any):Promise<Array<CommunityMemberEntity>>{

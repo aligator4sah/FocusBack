@@ -4,7 +4,7 @@ import { StateEntity} from "./state.entity";
 import { IState,IStateService} from "./Interfaces";
 
 @Component()
-export class StateService{
+export class StateService implements IStateService{
     constructor(
         @Inject('StateRepository') private readonly stateRepository:Repository<StateEntity>
     ){}
