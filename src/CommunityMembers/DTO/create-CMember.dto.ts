@@ -92,6 +92,9 @@ export class CreateCMemberDto{
     employments: string;
 
     @ApiModelProperty()
+    assigned:boolean;
+
+    @ApiModelProperty()
     @IsInt()
     bhco: any;
 }

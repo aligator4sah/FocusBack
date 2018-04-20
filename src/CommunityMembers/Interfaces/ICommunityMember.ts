@@ -21,5 +21,6 @@ export interface ICommunityMember {
     readonly marry: string;
     readonly education: string;
     readonly employments: string;
+    readonly assigned:boolean;
     readonly bhco: any;
 }

@@ -69,6 +69,9 @@ export class CommunityMemberEntity{
     @Column()
     employments: string;
 
+    @Column()
+    assigned:boolean;
+
     @ManyToOne(type => BhcoEntity,bhco=>bhco.communityMember)
     // @JoinColumn({ name: "id" })
     bhco: BhcoEntity;

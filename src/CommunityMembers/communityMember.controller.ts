@@ -23,7 +23,7 @@ import { ExceptionInterceptor } from '../shared/Interceptors/exception.intercept
 import { ApiUseTags } from '@nestjs/swagger'
 
 
-@Controller('communityMember')
+@Controller()
 // @UseFilters(new HttpExceptionFilter())
 // @UseGuards(RolesGuard)
 // @UseInterceptors()
@@ -33,7 +33,7 @@ export class CommunityMemberController{
         private communityMemberService: CommunityMemberService
     ){}
 
-    @Get()
+    @Get('communityMember')
     // @Roles('admin')
     public async getAllCommunityMember(){
         const msg = await this.communityMemberService.getAllCommunityMember();
@@ -41,28 +41,52 @@ export class CommunityMemberController{
     };
 
     // @HttpCode(201)
-    @Post()
+    @Post('communityMember')
     public async addCommunityMember(@Body() cMember : CreateCMemberDto){
         const msg = await this.communityMemberService.addCommunityMember(cMember);
         return msg;
     };
 
-    @Get(':id')
+    @Get('communityMember/:id')
     // @Roles('general')
     public async getCommunityMember(@Param() params){
         const msg = await this.communityMemberService.getCommunityMember(params.id);
         return msg;
     };
 
-    @Patch(':id')
+    @Patch('communityMember/:id')
     public async upadateCommunityMember(@Param() params,@Body() newCommunityMember:CreateCMemberDto){
-        const msg = this.communityMemberService.updateCommunityMember(params.id,newCommunityMember);
+        const msg = await this.communityMemberService.updateCommunityMember(params.id,newCommunityMember);
         return msg;
     }
 
-    @Delete(':id')
+    @Delete('communityMember/:id')
     public async deleteCommunityMember(@Param() params){
-        const msg = this.communityMemberService.deleteCommunityMember(params.id);
+        const msg = await this.communityMemberService.deleteCommunityMember(params.id);
+        return msg;
+    }
+
+    @Get('unAssignedCommunityMember')
+    public async getUnAssignedCommunityMember(){
+        const msg = await this.communityMemberService.getUnAssignedCommunityMember();
+        return msg;
+    }
+
+    @Get('AssignedCommunityMember')
+    public async getAssignedCommunityMember(){
+        const msg = await this.communityMemberService.getAssignedCommunityMember();
+        return msg;
+    }
+
+    @Patch('assign/CommunityMember/:id')
+    public async assignCommunityMember(@Param() params,@Body() bhcoInfo:any){
+        const msg = await this.communityMemberService.assignCommunityMember(params.id,bhcoInfo);
+        return msg;
+    }
+
+    @Patch('unAssign/CommunityMember/:id')
+    public async unAssignCommunityMember(@Param() params){
+        const msg = await this.communityMemberService.unAssignCommunityMember(params.id);
         return msg;
     }
 

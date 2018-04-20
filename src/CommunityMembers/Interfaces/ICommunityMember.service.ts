@@ -7,4 +7,6 @@ export interface ICommunityMemberService {
     addCommunityMember(communityMember: ICommunityMember): Promise<CommunityMemberEntity>;
     updateCommunityMember(id: number, newCommunityMember: ICommunityMember): Promise<CommunityMemberEntity | null>;
     deleteCommunityMember(id:number): Promise<string>;
+    getUnAssignedCommunityMember():Promise<Array<CommunityMemberEntity>>;
+
 }
