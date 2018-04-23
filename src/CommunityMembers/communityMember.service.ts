@@ -2,6 +2,7 @@ import { Component ,Inject} from "@nestjs/common";
 import { CommunityMemberEntity } from "./communityMember.entity";
 import { Repository,getConnection,getRepository } from 'typeorm';
 import { ICommunityMemberService, ICommunityMember} from "./Interfaces/index";
+import { StateEntity} from "../State/state.entity";
 
 @Component()
 export class CommunityMemberService implements ICommunityMemberService{
@@ -12,6 +13,14 @@ export class CommunityMemberService implements ICommunityMemberService{
 
     public async getAllCommunityMember(): Promise<Array<CommunityMemberEntity>>{
         return await this.communityMemberRepository.find();
+    }
+
+    public async getAllComunityMemberByState(stateId:number):Promise<Array<CommunityMemberEntity>>{
+        //stupid version but workable
+        const selectedState = await getRepository(StateEntity).findOne({id:stateId});
+        return await this.communityMemberRepository.find({state:selectedState.state});
+        //fancy version
+
     }
 
     public async getUnAssignedCommunityMember():Promise<Array<CommunityMemberEntity>>{
