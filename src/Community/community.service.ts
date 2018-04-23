@@ -1,5 +1,5 @@
 import { Component ,Inject} from "@nestjs/common";
-import { Repository,getRepository } from 'typeorm';
+import { Repository,getRepository,getConnection } from 'typeorm';
 import {CommunityEntity} from "./community.entity";
 import { ICommunity,ICommunityService} from "./Interfaces";
 
@@ -15,8 +15,11 @@ export class CommunityService implements ICommunityService{
     public async getCommunity(id:number):Promise<CommunityEntity|null>{
         return await this.communityRepository.findOneById(id);
     }
-    public async addCommunity(community: ICommunity):Promise<CommunityEntity>{
-        return await this.communityRepository.save(community);
+    public async addCommunity(InCommunity: ICommunity):Promise<CommunityEntity>{
+        await this.communityRepository.save(InCommunity);
+        const requestCommunity:ICommunity = await this.communityRepository.findOne({community:InCommunity.community});
+        await getConnection().createQueryBuilder().relation(CommunityEntity,"city").of(requestCommunity.id).set(InCommunity.city);
+        return await this.communityRepository.findOneById(requestCommunity)
     }
     public async updateCommunity(id:number,newCommunity:ICommunity):Promise<CommunityEntity|null>{
         const community = await this.communityRepository.findOneById(id);
