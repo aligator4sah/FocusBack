@@ -90,6 +90,18 @@ export class CommunityMemberController{
         return msg;
     }
 
+    @Get('communityMemberByState/:id')
+    public async getCommunityMemberByState(@Param() params){
+        const msg = await this.communityMemberService.getAllComunityMemberByState(params.id);
+        return msg;
+    }
+
+    @Get('communityMemberByCommunity/:id')
+    public async getCommunityMemberByCommunity(@Param() params){
+        const msg = await this.communityMemberService.getAllCommunityMemberByCommunity(params.id);
+        return msg;
+    }
+
     // @Get('testInterceptor')
     // @UseInterceptors(LoggingInterceptor)
     // async testInterceptor() {

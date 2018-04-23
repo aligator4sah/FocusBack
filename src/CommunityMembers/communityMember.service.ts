@@ -3,6 +3,7 @@ import { CommunityMemberEntity } from "./communityMember.entity";
 import { Repository,getConnection,getRepository } from 'typeorm';
 import { ICommunityMemberService, ICommunityMember} from "./Interfaces/index";
 import { StateEntity} from "../State/state.entity";
+import { CommunityEntity} from "../Community/community.entity";
 
 @Component()
 export class CommunityMemberService implements ICommunityMemberService{
@@ -21,6 +22,11 @@ export class CommunityMemberService implements ICommunityMemberService{
         return await this.communityMemberRepository.find({state:selectedState.state});
         //fancy version
 
+    }
+
+    public async getAllCommunityMemberByCommunity(communityId:number):Promise<Array<CommunityMemberEntity>>{
+        const selectedCommunity = await getRepository(CommunityEntity).findOne({id:communityId});
+        return await this.communityMemberRepository.find({community:selectedCommunity.community});
     }
 
     public async getUnAssignedCommunityMember():Promise<Array<CommunityMemberEntity>>{
