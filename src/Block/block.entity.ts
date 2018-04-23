@@ -10,6 +10,15 @@ export class BlockEntity {
     @Column()
     block: string;
 
+    @Column()
+    startstreet:string;
+
+    @Column()
+    endstreet:string;
+
+    @Column()
+    zipcode:string;
+
     @ManyToOne(type => CommunityEntity, community => community.block)
     community: CommunityEntity;
 

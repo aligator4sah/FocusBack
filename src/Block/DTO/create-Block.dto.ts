@@ -11,6 +11,18 @@ export class CreateBlockDto {
     block:string;
 
     @ApiModelProperty()
+    @IsString()
+    startstreet:string;
+
+    @ApiModelProperty()
+    @IsString()
+    endstreet:string;
+
+    @ApiModelProperty()
+    @IsString()
+    zipcode:string;
+
+    @ApiModelProperty()
     @IsInt()
     community:any;
 

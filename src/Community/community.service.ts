@@ -19,7 +19,7 @@ export class CommunityService implements ICommunityService{
         await this.communityRepository.save(InCommunity);
         const requestCommunity:ICommunity = await this.communityRepository.findOne({community:InCommunity.community});
         await getConnection().createQueryBuilder().relation(CommunityEntity,"city").of(requestCommunity.id).set(InCommunity.city);
-        return await this.communityRepository.findOneById(requestCommunity)
+        return await this.communityRepository.findOneById(requestCommunity.id)
     }
     public async updateCommunity(id:number,newCommunity:ICommunity):Promise<CommunityEntity|null>{
         const community = await this.communityRepository.findOneById(id);

@@ -1,5 +1,5 @@
 import { Component ,Inject} from "@nestjs/common";
-import { Repository,getRepository } from 'typeorm';
+import {Repository, getRepository, getConnection} from 'typeorm';
 import { BlockEntity} from "./block.entity";
 import { IBlock,IBlockService} from "./Interfaces";
 
@@ -17,8 +17,11 @@ export class BlockService implements IBlockService{
         return await this.blockRepository.findOneById(id);
     }
 
-    public async addBlock(block:IBlock):Promise<BlockEntity>{
-        return await this.blockRepository.save(block);
+    public async addBlock(InBlock:IBlock):Promise<BlockEntity>{
+        await this.blockRepository.save(InBlock);
+        const requestBlock:IBlock = await this.blockRepository.findOne({block:InBlock.block});
+        await getConnection().createQueryBuilder().relation(BlockEntity,"community").of(requestBlock.id).set(InBlock.community);
+        return await this.blockRepository.findOneById(requestBlock.id);
     }
 
     public async updateBlock(id:number,newBlock:IBlock):Promise<BlockEntity|null>{

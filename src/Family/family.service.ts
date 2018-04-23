@@ -1,5 +1,5 @@
 import { Component ,Inject} from "@nestjs/common";
-import { Repository,getRepository } from 'typeorm';
+import {Repository, getRepository, getConnection} from 'typeorm';
 import { FamilyEntity} from "./family.entity";
 import { IFamily,IFamilyService} from "./Interfaces";
 
@@ -17,8 +17,11 @@ export class FamilyService {
         return await this.familyRepository.findOneById(id);
     }
 
-    public async addFamily(family:IFamily):Promise<FamilyEntity>{
-        return await this.familyRepository.save(family);
+    public async addFamily(InFamily:IFamily):Promise<FamilyEntity>{
+        await this.familyRepository.save(InFamily)
+        const requestFamily = await this.familyRepository.findOne({family:InFamily.family});
+        await getConnection().createQueryBuilder().relation(FamilyEntity,"block").of(requestFamily.id).set(InFamily.block);
+        return await this.familyRepository.findOneById(requestFamily.id);
     }
 
     public async updateFamily(id:number,newFamily:IFamily):Promise<FamilyEntity|null>{
