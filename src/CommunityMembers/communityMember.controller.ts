@@ -92,7 +92,7 @@ export class CommunityMemberController{
 
     @Get('communityMemberByState/:id')
     public async getCommunityMemberByState(@Param() params){
-        const msg = await this.communityMemberService.getAllComunityMemberByState(params.id);
+        const msg = await this.communityMemberService.getAllCommunityMemberByState(params.id);
         return msg;
     }
 

@@ -37,4 +37,11 @@ export class CommunityAdminController{
         const msg = this.communityAdminService.deleteCommunityAdmin(params.id);
         return msg;
     }
+
+    @Get('communityRelatedInfo/:id')
+    public async getCommunityRelatedInfo(@Param() params){
+        const msg = await this.communityAdminService.getCommunityRelatedInfo(params.id);
+        return msg;
+    }
+
 }

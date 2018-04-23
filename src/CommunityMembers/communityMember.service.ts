@@ -1,9 +1,11 @@
 import { Component ,Inject} from "@nestjs/common";
 import { CommunityMemberEntity } from "./communityMember.entity";
 import { Repository,getConnection,getRepository } from 'typeorm';
-import { ICommunityMemberService, ICommunityMember} from "./Interfaces/index";
+import { ICommunityMemberService, ICommunityMember,CommunityRelatedInfo} from "./Interfaces/index";
 import { StateEntity} from "../State/state.entity";
 import { CommunityEntity} from "../Community/community.entity";
+import {CityEntity} from "../City/city.entity";
+import {CountyEntity} from "../County/county.entity";
 
 @Component()
 export class CommunityMemberService implements ICommunityMemberService{
@@ -16,7 +18,7 @@ export class CommunityMemberService implements ICommunityMemberService{
         return await this.communityMemberRepository.find();
     }
 
-    public async getAllComunityMemberByState(stateId:number):Promise<Array<CommunityMemberEntity>>{
+    public async getAllCommunityMemberByState(stateId:number):Promise<Array<CommunityMemberEntity>>{
         //stupid version but workable
         const selectedState = await getRepository(StateEntity).findOne({id:stateId});
         return await this.communityMemberRepository.find({state:selectedState.state});
@@ -99,4 +101,5 @@ export class CommunityMemberService implements ICommunityMemberService{
             return 'delete fail';
         }
     }
+
 }

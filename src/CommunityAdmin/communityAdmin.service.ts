@@ -1,7 +1,11 @@
 import { Component ,Inject} from "@nestjs/common";
-import { Repository } from 'typeorm';
+import {getRepository, Repository} from 'typeorm';
 import { ICommunityAdmin,ICommunityService} from "./Interfaces";
 import { CommunityAdminEntity} from "./communityAdmin.entity";
+import {CommunityEntity} from "../Community/community.entity";
+import {CityEntity} from "../City/city.entity";
+import {CountyEntity} from "../County/county.entity";
+import {StateEntity} from "../State/state.entity";
 
 @Component()
 export class CommunityAdminService implements ICommunityService{
@@ -39,5 +43,25 @@ export class CommunityAdminService implements ICommunityService{
         }else{
             return 'delete fail';
         }
+    }
+
+    public async getCommunityRelatedInfo(communityId:number):Promise<object>{
+        const selectedCommunity = await getRepository(CommunityEntity)
+            .createQueryBuilder("community").leftJoinAndSelect("community.city","city")
+            .where("community.id = :id",{id:communityId}).getOne();
+        const community = await selectedCommunity.community;
+        // return await selectedCommunity;
+        const selectedCity = await getRepository(CityEntity)
+            .createQueryBuilder("city").leftJoinAndSelect("city.county","county")
+            .where("city.id = :id",{id:selectedCommunity.city.id}).getOne();
+        const city = await selectedCity.city;
+        const selectedCounty = await getRepository(CountyEntity)
+            .createQueryBuilder("county").leftJoinAndSelect("county.state","state")
+            .where("county.id = :id",{id:selectedCity.county.id}).getOne();
+        const county = await selectedCounty.county;
+        const selectedState = await getRepository(StateEntity)
+            .createQueryBuilder("state").where("state.id = :id",{id:selectedCounty.state.id}).getOne();
+        const state = await selectedState.state;
+        return await {community,city,county,state};
     }
 }
