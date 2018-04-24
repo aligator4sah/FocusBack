@@ -1,5 +1,5 @@
 import {ExpressMiddleware, Middleware, NestMiddleware} from "@nestjs/common";
-
+//unused middleware, nestjs 4.6.1 fiexed cors feature in official package, this middleware does not need anymore
 @Middleware()
 export class CorsMiddleware implements NestMiddleware {
     resolve(): ExpressMiddleware {

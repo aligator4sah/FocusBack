@@ -55,8 +55,4 @@ import { HelmetMiddleware } from '@nest-middlewares/helmet';
 //             )
 //     }
 // }
-export class AppModule {
-    configure(consumer: MiddlewaresConsumer): MiddlewaresConsumer | void {
-        consumer.apply([CorsMiddleware]).forRoutes({path: '*', method: RequestMethod.ALL})
-    }
-}
+export class AppModule {}
