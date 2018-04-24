@@ -10,6 +10,9 @@ async function bootstrap() {
     // app.useGlobalPipes(new ValidationPipe());
     //swagger
     // app.use(cors());
+    app.enableCors({
+        origin: 'http://localhost:4200'
+        });
     const options = new DocumentBuilder()
         .setTitle('Focus Backend')
         .setDescription('The Focus API description')
