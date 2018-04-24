@@ -1,15 +1,15 @@
 import { NestFactory } from '@nestjs/core';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AppModule } from './app.module';
-import { ValidationPipe } from './shared/Pipes/validation.pipe'
+// import { ValidationPipe } from './shared/Pipes/validation.pipe'
 require("reflect-metadata")
-import * as cors from 'cors';
+// import * as cors from 'cors';
 
 async function bootstrap() {
     const app = await NestFactory.create(AppModule);
     // app.useGlobalPipes(new ValidationPipe());
     //swagger
-    app.use(cors());
+    // app.use(cors());
     const options = new DocumentBuilder()
         .setTitle('Focus Backend')
         .setDescription('The Focus API description')
