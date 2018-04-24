@@ -10,5 +10,5 @@ export class StateEntity {
     state:string;
 
     @OneToMany(type => CountyEntity,county => county.state)
-    county:CountyEntity;
+    county:CountyEntity[];
 }

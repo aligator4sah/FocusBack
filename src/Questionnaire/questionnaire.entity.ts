@@ -1,4 +1,6 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import {Entity, Column, PrimaryGeneratedColumn, ManyToOne} from 'typeorm';
+import {DomainEntity} from "../DomainForQuestionnaire/Domain/domain.entity";
+import {SubDomainEntity} from "../DomainForQuestionnaire/SubDomain/subDomain.entity";
 
 @Entity()
 export class QuestionnaireEntity {
@@ -14,11 +16,11 @@ export class QuestionnaireEntity {
     @Column()
     order:number;
 
-    @Column()
-    domain:string;
+    @ManyToOne(type => DomainEntity,domain=>domain.questionnaire)
+    domain:DomainEntity;
 
-    @Column()
-    subdomain:string;
+    @ManyToOne(type => SubDomainEntity,subdomain=>subdomain.questionnaire)
+    subdomain:SubDomainEntity;
 
     @Column()
     questiontype:string;

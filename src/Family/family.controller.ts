@@ -34,7 +34,7 @@ export class FamilyController {
 
     @Delete(':id')
     public async deleteFamily(@Param() params){
-        const msg = await this.familyService.deleteBlock(params.id);
+        const msg = await this.familyService.deleteFamily(params.id);
         return msg;
     }
 

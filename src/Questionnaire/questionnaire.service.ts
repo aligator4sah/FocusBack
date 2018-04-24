@@ -35,4 +35,8 @@ export class QuestionnaireService implements IQuestionnaireService{
             return 'delete success';
         }
     }
+
+    public async getQuestionnaireByDomain(){
+
+    }
 }

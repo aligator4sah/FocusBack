@@ -4,7 +4,7 @@ import { FamilyEntity} from "./family.entity";
 import { IFamily,IFamilyService} from "./Interfaces";
 
 @Component()
-export class FamilyService {
+export class FamilyService implements IFamilyService{
     constructor(
         @Inject('FamilyRepository') private readonly familyRepository: Repository<FamilyEntity>
     ){}
@@ -33,7 +33,7 @@ export class FamilyService {
         return this.familyRepository.findOneById(id);
     }
 
-    public async deleteBlock(id:number):Promise<string>{
+    public async deleteFamily(id:number):Promise<string>{
         await this.familyRepository.deleteById(id);
         const family = await this.familyRepository.findOneById(id);
         if(family){

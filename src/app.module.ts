@@ -17,6 +17,8 @@ import {CityModule} from "./City/city.module";
 import {BlockModule} from "./Block/block.module";
 import {FamilyModule} from "./Family/family.module";
 import {UserDemographicModule} from "./UserDemographic/userDemographic.module";
+import {DomainModule} from "./DomainForQuestionnaire/Domain/domain.module";
+import {SubDomainModule} from "./DomainForQuestionnaire/SubDomain/subDomain.module";
 
 @Module({
   modules:[
@@ -34,7 +36,9 @@ import {UserDemographicModule} from "./UserDemographic/userDemographic.module";
       CityModule,
       BlockModule,
       FamilyModule,
-      UserDemographicModule
+      UserDemographicModule,
+      DomainModule,
+      SubDomainModule
   ]
 })
 
