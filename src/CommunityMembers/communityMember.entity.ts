@@ -1,5 +1,6 @@
 import {Entity, Column, PrimaryGeneratedColumn, ManyToOne,JoinColumn} from 'typeorm';
 import { BhcoEntity} from "../Bhco/bhco.entity";
+import {CommunityEntity} from "../Community/community.entity";
 
 @Entity()
 export class CommunityMemberEntity{
@@ -45,8 +46,8 @@ export class CommunityMemberEntity{
     @Column()
     block: string;
 
-    @Column()
-    community: string;
+    @ManyToOne(type => CommunityEntity,community=>community.id)
+    community: CommunityEntity;
 
     @Column()
     city: string;

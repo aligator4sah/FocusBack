@@ -13,7 +13,7 @@ export interface ICommunityMember {
     readonly addresstwo: string;
     readonly family: string;
     readonly block: string;
-    readonly community: string;
+    readonly community: any;
     readonly city: string;
     readonly county: string;
     readonly state: string;

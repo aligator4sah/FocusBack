@@ -60,8 +60,7 @@ export class CreateCMemberDto{
     block: string;
 
     @ApiModelProperty()
-    @IsString()
-    community: string;
+    community: any;
 
     @ApiModelProperty()
     @IsString()

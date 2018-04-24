@@ -27,24 +27,24 @@ export class CommunityMemberService implements ICommunityMemberService{
     }
 
     public async getAllCommunityMemberByCommunity(communityId:number):Promise<Array<CommunityMemberEntity>>{
-        const selectedCommunity = await getRepository(CommunityEntity).findOne({id:communityId});
-        return await this.communityMemberRepository.find({community:selectedCommunity.community});
+        // const selectedCommunity = await getRepository(CommunityEntity).findOne({id:communityId});
+        return await this.communityMemberRepository.find({where:{community:communityId}});
     }
 
-    public async getUnAssignedCommunityMember():Promise<Array<CommunityMemberEntity>>{
+    public async getUnAssignedCommunityMember(communityId:number):Promise<Array<CommunityMemberEntity>>{
         const unAssignedCommunityMember = await getRepository(CommunityMemberEntity)
             .createQueryBuilder("communityMember")
-            .where("communityMember.assigned = :assigned",{assigned:false})
+            .where("communityMember.assigned = :assigned AND communityMember.community = :community",{assigned:false,community:communityId})
             .getMany();
 
         return unAssignedCommunityMember;
     }
 
-    public async getAssignedCommunityMember():Promise<Array<CommunityMemberEntity>>{
+    public async getAssignedCommunityMember(communityId:number):Promise<Array<CommunityMemberEntity>>{
         const AssignedCommunityMember = await getRepository(CommunityMemberEntity)
             .createQueryBuilder("communityMember")
             .innerJoinAndSelect("communityMember.bhco","bhco")
-            .where("communityMember.assigned = :assigned",{assigned:true})
+            .where("communityMember.assigned = :assigned AND communityMember.community = :community",{assigned:true,community:communityId})
             .getMany();
 
         return AssignedCommunityMember;
@@ -59,20 +59,20 @@ export class CommunityMemberService implements ICommunityMemberService{
         return await this.communityMemberRepository.save(communityMember);
     }
 
-    public async assignCommunityMember(bhcoID:number,communityMemberIDs:any):Promise<Array<CommunityMemberEntity>>{
+    public async assignCommunityMember(bhcoID:number,communityMemberIDs:any){
         for(let communityMemberID of communityMemberIDs){
             await getConnection().createQueryBuilder().relation(CommunityMemberEntity,"bhco").of(communityMemberID).set(bhcoID);
             await getConnection().createQueryBuilder().update(CommunityMemberEntity).set({assigned:true}).where("id = :id",{id:communityMemberID}).execute();
         }
-        return await this.getUnAssignedCommunityMember();
+        // return await this.getUnAssignedCommunityMember();
     }
 
-    public async unAssignCommunityMember(communityMemberIDs:any):Promise<Array<CommunityMemberEntity>>{
+    public async unAssignCommunityMember(communityMemberIDs:any){
         for(let communityMemberID of communityMemberIDs){
             await getConnection().createQueryBuilder().relation(CommunityMemberEntity,"bhco").of(communityMemberID).set(null);
             await getConnection().createQueryBuilder().update(CommunityMemberEntity).set({assigned:false}).where("id = :id",{id:communityMemberID}).execute();
         }
-        return await this.getAssignedCommunityMember();
+        // return await this.getAssignedCommunityMember();
     }
 
     public async updateCommunityMember(id:number,newCommunityMember: ICommunityMember): Promise<CommunityMemberEntity | null>{

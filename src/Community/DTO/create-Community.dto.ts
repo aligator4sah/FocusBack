@@ -17,4 +17,7 @@ export class CreateCommunityDto{
     @ApiModelProperty()
     @IsInt()
     block:any;
+
+    @ApiModelProperty()
+    communitymember:any;
 }

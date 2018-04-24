@@ -66,15 +66,15 @@ export class CommunityMemberController{
         return msg;
     }
 
-    @Get('unAssignedCommunityMember')
-    public async getUnAssignedCommunityMember(){
-        const msg = await this.communityMemberService.getUnAssignedCommunityMember();
+    @Get('unAssignedCommunityMember/:id')
+    public async getUnAssignedCommunityMember(@Param() params){
+        const msg = await this.communityMemberService.getUnAssignedCommunityMember(params.id);
         return msg;
     }
 
-    @Get('AssignedCommunityMember')
-    public async getAssignedCommunityMember(){
-        const msg = await this.communityMemberService.getAssignedCommunityMember();
+    @Get('AssignedCommunityMember/:id')
+    public async getAssignedCommunityMember(@Param() params){
+        const msg = await this.communityMemberService.getAssignedCommunityMember(params.id);
         return msg;
     }
 
