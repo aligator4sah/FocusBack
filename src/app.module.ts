@@ -19,9 +19,9 @@ import {FamilyModule} from "./Family/family.module";
 import {UserDemographicModule} from "./UserDemographic/userDemographic.module";
 import {DomainModule} from "./DomainForQuestionnaire/Domain/domain.module";
 import {SubDomainModule} from "./DomainForQuestionnaire/SubDomain/subDomain.module";
-// import { CorsMiddleware} from "./shared/middlewares/cors.middleware";
+import { CorsMiddleware} from "./shared/middlewares/cors.middleware";
 import { HelmetMiddleware } from '@nest-middlewares/helmet';
-import { CorsMiddleware } from '@nest-middlewares/cors';
+// import { CorsMiddleware } from '@nest-middlewares/cors';
 
 @Module({
   modules:[
@@ -56,14 +56,7 @@ import { CorsMiddleware } from '@nest-middlewares/cors';
 //     }
 // }
 export class AppModule {
-    // configure(consumer: MiddlewaresConsumer): MiddlewaresConsumer | void {
-    //     consumer.apply([CorsMiddleware]).forRoutes({path: '*', method: RequestMethod.ALL})
-    configure(consumer: MiddlewaresConsumer) {
-        // IMPORTANT! Call Middleware.configure BEFORE using it for routes
-        HelmetMiddleware.configure( /* options as per helmet docs */{hsts:true} );
-        CorsMiddleware.configure({});
-        consumer.apply([HelmetMiddleware,CorsMiddleware]).forRoutes(
-            /* your routes */{path: '*', method: RequestMethod.ALL}
-        );
+    configure(consumer: MiddlewaresConsumer): MiddlewaresConsumer | void {
+        consumer.apply([CorsMiddleware]).forRoutes({path: '*', method: RequestMethod.ALL})
     }
 }
