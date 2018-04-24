@@ -59,13 +59,6 @@ export class CommunityMemberService implements ICommunityMemberService{
         return await this.communityMemberRepository.save(communityMember);
     }
 
-    // public async assignCommunityMember(communityMemberID:number,bhcoInfo:any):Promise<Array<CommunityMemberEntity>>{
-    //     // for(let community of )
-    //     await getConnection().createQueryBuilder().relation(CommunityMemberEntity,"bhco").of(communityMemberID).set(bhcoInfo.bhcoID);
-    //     await getConnection().createQueryBuilder().update(CommunityMemberEntity).set({assigned:true}).where("id = :id",{id:communityMemberID}).execute();
-    //     return await this.getUnAssignedCommunityMember();
-    // }
-
     public async assignCommunityMember(bhcoID:number,communityMemberIDs:any):Promise<Array<CommunityMemberEntity>>{
         for(let communityMemberID of communityMemberIDs){
             await getConnection().createQueryBuilder().relation(CommunityMemberEntity,"bhco").of(communityMemberID).set(bhcoID);
