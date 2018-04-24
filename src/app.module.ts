@@ -19,6 +19,7 @@ import {FamilyModule} from "./Family/family.module";
 import {UserDemographicModule} from "./UserDemographic/userDemographic.module";
 import {DomainModule} from "./DomainForQuestionnaire/Domain/domain.module";
 import {SubDomainModule} from "./DomainForQuestionnaire/SubDomain/subDomain.module";
+import { CorsMiddleware} from "./shared/middlewares/cors.middleware";
 
 @Module({
   modules:[
@@ -52,4 +53,7 @@ import {SubDomainModule} from "./DomainForQuestionnaire/SubDomain/subDomain.modu
 //             )
 //     }
 // }
-export class AppModule { }
+export class AppModule {
+    // configure(consumer: MiddlewaresConsumer): MiddlewaresConsumer | void {
+    //     consumer.apply([CorsMiddleware]).forRoutes({path: '*', method: RequestMethod.ALL})
+}
