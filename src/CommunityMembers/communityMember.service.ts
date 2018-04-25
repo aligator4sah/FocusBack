@@ -54,10 +54,12 @@ export class CommunityMemberService implements ICommunityMemberService{
         return await this.communityMemberRepository.findOneById(id);
     }
 
-    public async addCommunityMember(communityMember: ICommunityMember): Promise<CommunityMemberEntity>{
+    public async addCommunityMember(communityMember: ICommunityMember){
         //below is save action
-        return await this.communityMemberRepository.save(communityMember);
+        const selectedCommunityMember = await this.communityMemberRepository.save(communityMember);
+        await getConnection().createQueryBuilder().relation(CommunityMemberEntity,"community").of(selectedCommunityMember.id).set(communityMember.community);
     }
+
 
     public async assignCommunityMember(bhcoID:number,communityMemberIDs:any){
         for(let communityMemberID of communityMemberIDs){
