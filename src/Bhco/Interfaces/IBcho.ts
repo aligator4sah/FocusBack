@@ -7,7 +7,7 @@ export interface IBcho {
     readonly lastname: string;
     readonly phone: string;
     readonly email: string;
-    readonly communityid: number;
+    readonly state: string;
     readonly county:string;
     readonly city:string;
     readonly community:string;

@@ -1,7 +1,9 @@
 import { Component ,Inject} from "@nestjs/common";
-import { Repository } from 'typeorm';
+import {getConnection, getRepository, Repository} from 'typeorm';
 import {BhcoEntity} from "./bhco.entity";
 import {IBcho,IBhcoService} from "./Interfaces";
+import {StateEntity} from "../State/state.entity";
+import {CommunityEntity} from "../Community/community.entity";
 
 @Component()
 export class BhcoService implements IBhcoService{
@@ -11,6 +13,16 @@ export class BhcoService implements IBhcoService{
 
     public async getAllBhco():Promise<Array<BhcoEntity>>{
         return await this.bhcoRepository.find();
+    }
+
+    public async getAllBhcoByCommunity(communityId:number):Promise<Array<BhcoEntity>>{
+        const selectedCommunity = await getRepository(CommunityEntity).findOne({id:communityId});
+        return await this.bhcoRepository.find({community:selectedCommunity.community});
+    }
+
+    public async getAllBhcoByState(stateId:number):Promise<Array<BhcoEntity>>{
+        const selectedState = await getRepository(StateEntity).findOne({id:stateId});
+        return await this.bhcoRepository.find({state:selectedState.state});
     }
 
     public async getBhco(id:number):Promise<BhcoEntity|null>{

@@ -21,14 +21,23 @@ export class CommunityMemberService implements ICommunityMemberService{
     public async getAllCommunityMemberByState(stateId:number):Promise<Array<CommunityMemberEntity>>{
         //stupid version but workable
         const selectedState = await getRepository(StateEntity).findOne({id:stateId});
-        return await this.communityMemberRepository.find({state:selectedState.state});
+        const communityMembers = await getRepository(CommunityMemberEntity).createQueryBuilder("communityMember")
+            .innerJoinAndSelect("communityMember.community","community")
+            .where("communityMember.state = :state",{state:selectedState.state})
+            .getMany();
+        return communityMembers;
+        // return await this.communityMemberRepository.find({state:selectedState.state});
         //fancy version
 
     }
 
     public async getAllCommunityMemberByCommunity(communityId:number):Promise<Array<CommunityMemberEntity>>{
         // const selectedCommunity = await getRepository(CommunityEntity).findOne({id:communityId});
-        return await this.communityMemberRepository.find({where:{community:communityId}});
+        const communityMembers = await getRepository(CommunityMemberEntity).createQueryBuilder("communityMember")
+            .innerJoinAndSelect("communityMember.community","community")
+            .where("communityMember.community = :community",{community:communityId}).getMany();
+        return communityMembers;
+        // return await this.communityMemberRepository.find({where:{community:communityId}});
     }
 
     public async getUnAssignedCommunityMember(communityId:number):Promise<Array<CommunityMemberEntity>>{

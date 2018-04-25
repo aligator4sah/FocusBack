@@ -37,7 +37,7 @@ export class CreateBhcoDto{
 
     @ApiModelProperty()
     @IsInt()
-    communityid:number;
+    state:string;
 
     @ApiModelProperty()
     @IsString()

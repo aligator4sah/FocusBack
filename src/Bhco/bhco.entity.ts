@@ -29,7 +29,7 @@ export class BhcoEntity{
     email: string;
 
     @Column()
-    communityid:number;
+    state:string;
 
     @Column()
     county:string;
