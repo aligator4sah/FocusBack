@@ -40,6 +40,12 @@ export class CommunityMemberController{
         return msg;
     };
 
+    @Get('communityMember/bhco/:id')
+    public async getAllCommunityMemberById(@Param() params){
+        const msg = await this.communityMemberService.getAllCommunityMemberByBhco(params.id);
+        return msg;
+    }
+
     // @HttpCode(201)
     @Post('communityMember')
     public async addCommunityMember(@Body() cMember : CreateCMemberDto){

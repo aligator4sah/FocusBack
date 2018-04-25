@@ -10,31 +10,37 @@ export class CommunityAdminController{
 
     @Get()
     public async getAllCommunityAdmin(){
-        const msg = this.communityAdminService.getAllCommunityAdmin();
+        const msg = await this.communityAdminService.getAllCommunityAdmin();
         return msg;
     }
 
     @Get(':id')
     public async getCommunityAdmin(@Param() params){
-        const msg = this.communityAdminService.getCommunityAdmin(params.id);
+        const msg = await this.communityAdminService.getCommunityAdmin(params.id);
+        return msg;
+    }
+
+    @Get('/state/:id')
+    public async getCommunityAdminByState(@Param() params){
+        const msg = await this.communityAdminService.getCommunityAdminByState(params.id);
         return msg;
     }
 
     @Post()
     public async addCommunityAdmin(@Body() communityAdmin:CreateCAdminDto){
-        const msg = this.communityAdminService.addCommunityAdmin(communityAdmin);
+        const msg = await this.communityAdminService.addCommunityAdmin(communityAdmin);
         return msg;
     }
 
     @Patch(':id')
     public async updateCommunityAdmin(@Param() params,@Body() newCommunityAdmin:CreateCAdminDto){
-        const msg = this.communityAdminService.updateCommunityAdmin(params.id,newCommunityAdmin);
+        const msg = await this.communityAdminService.updateCommunityAdmin(params.id,newCommunityAdmin);
         return msg;
     }
 
     @Delete(':id')
     public async deleteCommunityAdmin(@Param() params){
-        const msg = this.communityAdminService.deleteCommunityAdmin(params.id);
+        const msg = await this.communityAdminService.deleteCommunityAdmin(params.id);
         return msg;
     }
 

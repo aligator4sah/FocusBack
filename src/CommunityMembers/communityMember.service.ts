@@ -6,6 +6,7 @@ import { StateEntity} from "../State/state.entity";
 import { CommunityEntity} from "../Community/community.entity";
 import {CityEntity} from "../City/city.entity";
 import {CountyEntity} from "../County/county.entity";
+import {BhcoEntity} from "../Bhco/bhco.entity";
 
 @Component()
 export class CommunityMemberService implements ICommunityMemberService{
@@ -38,6 +39,14 @@ export class CommunityMemberService implements ICommunityMemberService{
             .where("communityMember.community = :community",{community:communityId}).getMany();
         return communityMembers;
         // return await this.communityMemberRepository.find({where:{community:communityId}});
+    }
+
+    public async getAllCommunityMemberByBhco(bhcoId:number):Promise<Array<CommunityMemberEntity>>{
+        const selectedBhco = await getRepository(BhcoEntity).createQueryBuilder("bhco")
+            .leftJoinAndSelect("bhco.communityMember","communityMember")
+            .where("bhco.id = :id",{id:bhcoId})
+            .getOne();
+        return await selectedBhco.communityMember;
     }
 
     public async getUnAssignedCommunityMember(communityId:number):Promise<Array<CommunityMemberEntity>>{
