@@ -16,7 +16,9 @@ export class CommunityMemberService implements ICommunityMemberService{
     ){}
 
     public async getAllCommunityMember(): Promise<Array<CommunityMemberEntity>>{
-        return await this.communityMemberRepository.find();
+        return await getRepository(CommunityMemberEntity).createQueryBuilder("communityMember")
+            .innerJoinAndSelect("communityMember.community","community")
+            .getMany();
     }
 
     public async getAllCommunityMemberByState(stateId:number):Promise<Array<CommunityMemberEntity>>{
