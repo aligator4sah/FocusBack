@@ -13,8 +13,7 @@ export class SubDomainService implements ISubDomainService{
     public async getAllSubDomainByDomain(domainId:number):Promise<Array<SubDomainEntity>>{
         const selectedDomain = await getRepository(DomainEntity).createQueryBuilder('domain')
             .leftJoinAndSelect("domain.subdomain","subdomain")
-            .where("id = :id",{id:domainId})
-            .where("isolate = :isolated",{isolated:false})
+            .where("domain.id = :id",{id:domainId})
             .getOne();
         return await selectedDomain.subdomain;
     }
