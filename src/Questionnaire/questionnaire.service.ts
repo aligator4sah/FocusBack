@@ -1,8 +1,9 @@
 import { Component ,Inject} from "@nestjs/common";
-import {getConnection, Repository} from 'typeorm';
+import {getConnection, getRepository, Repository} from 'typeorm';
 import { QuestionnaireEntity} from "./questionnaire.entity";
 import { IQuestionnaire,IQuestionnaireService} from "./Interfaces";
 import {SubDomainEntity} from "../DomainForQuestionnaire/SubDomain/subDomain.entity";
+import {DomainEntity} from "../DomainForQuestionnaire/Domain/domain.entity";
 
 @Component()
 export class QuestionnaireService implements IQuestionnaireService{
@@ -53,7 +54,22 @@ export class QuestionnaireService implements IQuestionnaireService{
         }
     }
 
-    public async getQuestionnaireByDomain(){
-
+    public async getQuestionnaireByDomain(domainId:number):Promise<Object>{
+        let resultSubDomains = [];
+        const selectedDomain = await getConnection().getRepository(DomainEntity)
+            .createQueryBuilder("domain").leftJoinAndSelect("domain.subdomain","subdomain")
+            .where("domain.id = :id",{id:domainId})
+            .getOne();
+        for(let subDomain of await selectedDomain.subdomain){
+            const subDomainWithQ = await getConnection()
+                .getRepository(SubDomainEntity)
+                .createQueryBuilder("subDomain")
+                .leftJoinAndSelect("subDomain.questionnaire","questionnaire")
+                .orderBy("questionnaire.id","ASC")
+                .where("subDomain.id = :id",{id:subDomain.id})
+                .getOne();
+            await resultSubDomains.push(subDomainWithQ);
+        }
+        return await {selectedDomain,resultSubDomains};
     }
 }

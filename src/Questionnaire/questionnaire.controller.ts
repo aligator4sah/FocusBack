@@ -43,4 +43,10 @@ export class QuestionnaireController {
         const msg = await this.questionnaireService.deleteQuestionnaire(params.id);
         return msg;
     }
+
+    @Get('/domain/:id')
+    public async getAllQuestionnaireByDomain(@Param() params){
+        const msg = await this.questionnaireService.getQuestionnaireByDomain(params.id);
+        return msg;
+    }
 }
