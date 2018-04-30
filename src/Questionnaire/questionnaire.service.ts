@@ -33,7 +33,7 @@ export class QuestionnaireService implements IQuestionnaireService{
          await getConnection().createQueryBuilder().relation(QuestionnaireEntity,"domain").of(selectedQuestionnaire.id).set(questionnaire.domain);
          await getConnection().createQueryBuilder().relation(QuestionnaireEntity,"subdomain")
              .of(selectedQuestionnaire.id).set(questionnaire.subdomain);
-         return await this.questionnaireRepository.findOne(selectedQuestionnaire);
+         return await this.questionnaireRepository.findOneById(selectedQuestionnaire.id);
 
     }
     public async updateQuestionnaire(id:number,newQuestionnaire:IQuestionnaire):Promise<QuestionnaireEntity|null>{
