@@ -20,6 +20,12 @@ export class QuestionnaireController {
         return msg;
     }
 
+    @Get("/subDomain/:id")
+    public async getQuestionnairesBySubDomain(@Param() params){
+        const msg = await this.questionnaireService.getQuestionsBySubdomain(params.id);
+        return msg;
+    }
+
     @Post()
     public async addQuestionnaire(@Body() questionnaire:CreateQuestionnaireDto){
         const msg = await this.questionnaireService.addQuestionnaire(questionnaire);

@@ -15,12 +15,10 @@ export class CreateQuestionnaireDto{
     order:number;
 
     @ApiModelProperty()
-    @IsString()
-    domain:string;
+    domain:any;
 
     @ApiModelProperty()
-    @IsString()
-    subdomain:string;
+    subdomain:any;
 
     @ApiModelProperty()
     @IsString()

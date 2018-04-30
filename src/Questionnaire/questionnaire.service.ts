@@ -1,7 +1,8 @@
 import { Component ,Inject} from "@nestjs/common";
-import { Repository } from 'typeorm';
+import {getConnection, Repository} from 'typeorm';
 import { QuestionnaireEntity} from "./questionnaire.entity";
 import { IQuestionnaire,IQuestionnaireService} from "./Interfaces";
+import {SubDomainEntity} from "../DomainForQuestionnaire/SubDomain/subDomain.entity";
 
 @Component()
 export class QuestionnaireService implements IQuestionnaireService{
@@ -12,11 +13,27 @@ export class QuestionnaireService implements IQuestionnaireService{
     public async getAllQuestionnaire():Promise<Array<QuestionnaireEntity>>{
         return await this.questionnaireRepository.find()
     }
+
+    public async getQuestionsBySubdomain(subDomainId:number):Promise<Array<QuestionnaireEntity>>{
+        const selectedSubDomain = await getConnection()
+            .getRepository(SubDomainEntity)
+            .createQueryBuilder("subDomain")
+            .leftJoinAndSelect("subDomain.questionnaire","questionnaire")
+            .where("subDomain.id = :id",{id:subDomainId})
+            .getOne();
+        return selectedSubDomain.questionnaire;
+    }
+
     public async getQuestionnaire(id:number):Promise<QuestionnaireEntity|null>{
         return await this.questionnaireRepository.findOneById(id);
     }
     public async addQuestionnaire(questionnaire:IQuestionnaire):Promise<QuestionnaireEntity>{
-        return await this.questionnaireRepository.save(questionnaire);
+         const selectedQuestionnaire =  await this.questionnaireRepository.save(questionnaire);
+         await getConnection().createQueryBuilder().relation(QuestionnaireEntity,"domain").of(selectedQuestionnaire.id).set(questionnaire.domain);
+         await getConnection().createQueryBuilder().relation(QuestionnaireEntity,"subdomain")
+             .of(selectedQuestionnaire.id).set(questionnaire.subdomain);
+         return await this.questionnaireRepository.findOne(selectedQuestionnaire);
+
     }
     public async updateQuestionnaire(id:number,newQuestionnaire:IQuestionnaire):Promise<QuestionnaireEntity|null>{
         const questionnaire = await this.questionnaireRepository.findOneById(id);

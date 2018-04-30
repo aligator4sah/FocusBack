@@ -3,8 +3,8 @@ export interface IQuestionnaire {
     readonly label:string;
     readonly options:any;
     readonly order:number;
-    readonly domain:string;
-    readonly subdomain:string;
+    readonly domain:any;
+    readonly subdomain:any;
     readonly questiontype:string;
     readonly weight: number;
 }
