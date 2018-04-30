@@ -9,7 +9,6 @@ import {SystemAdminModule} from "./SystemAdmin/systemAdmin.module";
 import {CommunityAdminModule} from "./CommunityAdmin/communityAdmin.module";
 import {DemographicModule} from "./Demographic/demographic.module";
 import {QuestionnaireModule} from "./Questionnaire/questionnaire.module";
-import {AnswerModule} from "./Answer/answer.module";
 import {CommunityModule} from "./Community/community.module";
 import {StateModule} from "./State/state.module";
 import {CountyModule} from "./County/county.module";
@@ -32,7 +31,6 @@ import { HelmetMiddleware } from '@nest-middlewares/helmet';
       CommunityAdminModule,
       DemographicModule,
       QuestionnaireModule,
-      AnswerModule,
       CommunityModule,
       StateModule,
       CountyModule,
