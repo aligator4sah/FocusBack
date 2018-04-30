@@ -18,9 +18,8 @@ import {FamilyModule} from "./Family/family.module";
 import {UserDemographicModule} from "./UserDemographic/userDemographic.module";
 import {DomainModule} from "./DomainForQuestionnaire/Domain/domain.module";
 import {SubDomainModule} from "./DomainForQuestionnaire/SubDomain/subDomain.module";
-import { CorsMiddleware} from "./shared/middlewares/cors.middleware";
-import { HelmetMiddleware } from '@nest-middlewares/helmet';
-// import { CorsMiddleware } from '@nest-middlewares/cors';
+import {SessionModule} from "./Session/session.module";
+import {AnswerModule} from "./Answer/answer.module";
 
 @Module({
   modules:[
@@ -39,7 +38,9 @@ import { HelmetMiddleware } from '@nest-middlewares/helmet';
       FamilyModule,
       UserDemographicModule,
       DomainModule,
-      SubDomainModule
+      SubDomainModule,
+      SessionModule,
+      AnswerModule
   ]
 })
 

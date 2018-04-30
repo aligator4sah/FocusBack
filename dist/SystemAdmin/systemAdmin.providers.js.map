@@ -1,0 +1,1 @@
+{"version":3,"file":"systemAdmin.providers.js","sourceRoot":"","sources":["../../src/SystemAdmin/systemAdmin.providers.ts"],"names":[],"mappings":";;AACA,6DAAwD;AAE3C,QAAA,mBAAmB,GAAG;IAC/B,OAAO,EAAC,uBAAuB;IAC/B,UAAU,EAAC,CAAC,UAAsB,EAAC,EAAE,CAAA,UAAU,CAAC,aAAa,CAAC,sCAAiB,CAAC;IAChF,MAAM,EAAC,CAAC,iBAAiB,CAAC;CAC7B,CAAA"}

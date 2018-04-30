@@ -1,0 +1,1 @@
+{"version":3,"file":"communityAdmin.providers.js","sourceRoot":"","sources":["../../src/CommunityAdmin/communityAdmin.providers.ts"],"names":[],"mappings":";;AACA,mEAA8D;AAEjD,QAAA,sBAAsB,GAAG;IAClC,OAAO,EAAC,0BAA0B;IAClC,UAAU,EAAC,CAAC,UAAsB,EAAC,EAAE,CAAA,UAAU,CAAC,aAAa,CAAC,4CAAoB,CAAC;IACnF,MAAM,EAAC,CAAC,iBAAiB,CAAC;CAC7B,CAAA"}
