@@ -12,7 +12,12 @@ export class QuestionnaireService implements IQuestionnaireService{
     ){}
 
     public async getAllQuestionnaire():Promise<Array<QuestionnaireEntity>>{
-        return await this.questionnaireRepository.find()
+        return await getConnection().getRepository(QuestionnaireEntity).createQueryBuilder("questionnaire")
+            // .leftJoinAndSelect(DomainEntity,"domain","domain.id = questionnaire.domain")
+            // .leftJoinAndSelect(SubDomainEntity,"subDomain","subDomain.id = questionnaire.subdomain")
+            .leftJoinAndSelect("questionnaire.domain","domain")
+            .leftJoinAndSelect("questionnaire.subdomain","subdomain")
+            .getMany();
     }
 
     public async getQuestionsBySubdomain(subDomainId:number):Promise<Array<QuestionnaireEntity>>{

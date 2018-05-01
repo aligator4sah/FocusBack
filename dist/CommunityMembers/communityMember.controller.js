@@ -23,6 +23,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const common_1 = require("@nestjs/common");
 const create_CMember_dto_1 = require("./DTO/create-CMember.dto");
 const communityMember_service_1 = require("./communityMember.service");
+const common_2 = require("@nestjs/common");
+const roles_guard_1 = require("../Shared/Guards/roles.guard");
+const roles_decorator_1 = require("../shared/Decorators/roles.decorator");
 let CommunityMemberController = class CommunityMemberController {
     constructor(communityMemberService) {
         this.communityMemberService = communityMemberService;
@@ -105,12 +108,14 @@ let CommunityMemberController = class CommunityMemberController {
 };
 __decorate([
     common_1.Get('communityMember'),
+    roles_decorator_1.Roles('systemAdmin', 'stateAdmin', 'communityAdmin', 'bhco'),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], CommunityMemberController.prototype, "getAllCommunityMember", null);
 __decorate([
     common_1.Get('communityMember/bhco/:id'),
+    roles_decorator_1.Roles('systemAdmin', 'stateAdmin', 'communityAdmin', 'bhco'),
     __param(0, common_1.Param()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
@@ -118,6 +123,7 @@ __decorate([
 ], CommunityMemberController.prototype, "getAllCommunityMemberById", null);
 __decorate([
     common_1.Post('communityMember'),
+    roles_decorator_1.Roles('systemAdmin', 'stateAdmin', 'communityAdmin'),
     __param(0, common_1.Body()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [create_CMember_dto_1.CreateCMemberDto]),
@@ -125,6 +131,7 @@ __decorate([
 ], CommunityMemberController.prototype, "addCommunityMember", null);
 __decorate([
     common_1.Get('communityMember/:id'),
+    roles_decorator_1.Roles('systemAdmin', 'stateAdmin', 'communityAdmin', 'bhco'),
     __param(0, common_1.Param()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
@@ -132,6 +139,7 @@ __decorate([
 ], CommunityMemberController.prototype, "getCommunityMember", null);
 __decorate([
     common_1.Patch('communityMember/:id'),
+    roles_decorator_1.Roles('systemAdmin', 'stateAdmin', 'communityAdmin'),
     __param(0, common_1.Param()), __param(1, common_1.Body()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object, create_CMember_dto_1.CreateCMemberDto]),
@@ -139,6 +147,7 @@ __decorate([
 ], CommunityMemberController.prototype, "upadateCommunityMember", null);
 __decorate([
     common_1.Delete('communityMember/:id'),
+    roles_decorator_1.Roles('systemAdmin', 'stateAdmin', 'communityAdmin'),
     __param(0, common_1.Param()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
@@ -146,6 +155,7 @@ __decorate([
 ], CommunityMemberController.prototype, "deleteCommunityMember", null);
 __decorate([
     common_1.Get('unAssignedCommunityMember/:id'),
+    roles_decorator_1.Roles('systemAdmin', 'stateAdmin', 'communityAdmin'),
     __param(0, common_1.Param()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
@@ -153,6 +163,7 @@ __decorate([
 ], CommunityMemberController.prototype, "getUnAssignedCommunityMember", null);
 __decorate([
     common_1.Get('AssignedCommunityMember/:id'),
+    roles_decorator_1.Roles('systemAdmin', 'stateAdmin', 'communityAdmin'),
     __param(0, common_1.Param()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
@@ -160,6 +171,7 @@ __decorate([
 ], CommunityMemberController.prototype, "getAssignedCommunityMember", null);
 __decorate([
     common_1.Patch('assign/CommunityMember/:id'),
+    roles_decorator_1.Roles('systemAdmin', 'stateAdmin', 'communityAdmin'),
     __param(0, common_1.Param()), __param(1, common_1.Body()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object, Object]),
@@ -167,6 +179,7 @@ __decorate([
 ], CommunityMemberController.prototype, "assignCommunityMember", null);
 __decorate([
     common_1.Patch('unAssign/CommunityMember/'),
+    roles_decorator_1.Roles('systemAdmin', 'stateAdmin', 'communityAdmin'),
     __param(0, common_1.Body()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
@@ -174,6 +187,7 @@ __decorate([
 ], CommunityMemberController.prototype, "unAssignCommunityMember", null);
 __decorate([
     common_1.Get('communityMemberByState/:id'),
+    roles_decorator_1.Roles('systemAdmin', 'stateAdmin'),
     __param(0, common_1.Param()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
@@ -181,6 +195,7 @@ __decorate([
 ], CommunityMemberController.prototype, "getCommunityMemberByState", null);
 __decorate([
     common_1.Get('communityMemberByCommunity/:id'),
+    roles_decorator_1.Roles('systemAdmin', 'stateAdmin', 'communityAdmin'),
     __param(0, common_1.Param()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
@@ -188,6 +203,7 @@ __decorate([
 ], CommunityMemberController.prototype, "getCommunityMemberByCommunity", null);
 CommunityMemberController = __decorate([
     common_1.Controller(),
+    common_2.UseGuards(roles_guard_1.RolesGuard),
     __metadata("design:paramtypes", [communityMember_service_1.CommunityMemberService])
 ], CommunityMemberController);
 exports.CommunityMemberController = CommunityMemberController;

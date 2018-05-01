@@ -31,7 +31,10 @@ let QuestionnaireService = class QuestionnaireService {
     }
     getAllQuestionnaire() {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield this.questionnaireRepository.find();
+            return yield typeorm_1.getConnection().getRepository(questionnaire_entity_1.QuestionnaireEntity).createQueryBuilder("questionnaire")
+                .leftJoinAndSelect("questionnaire.domain", "domain")
+                .leftJoinAndSelect("questionnaire.subdomain", "subdomain")
+                .getMany();
         });
     }
     getQuestionsBySubdomain(subDomainId) {

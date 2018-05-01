@@ -23,6 +23,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const common_1 = require("@nestjs/common");
 const create_County_dto_1 = require("./DTO/create-County.dto");
 const county_service_1 = require("./county.service");
+const roles_decorator_1 = require("../shared/Guards/roles.decorator");
+const common_2 = require("@nestjs/common");
+const roles_guard_1 = require("../shared/Guards/roles.guard");
 let CountyController = class CountyController {
     constructor(countyService) {
         this.countyService = countyService;
@@ -66,12 +69,14 @@ let CountyController = class CountyController {
 };
 __decorate([
     common_1.Get(),
+    roles_decorator_1.Roles('systemAdmin', 'stateAdmin', 'communityAdmin'),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], CountyController.prototype, "getAllCounty", null);
 __decorate([
     common_1.Get(':id'),
+    roles_decorator_1.Roles('systemAdmin', 'stateAdmin', 'communityAdmin'),
     __param(0, common_1.Param()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
@@ -79,6 +84,7 @@ __decorate([
 ], CountyController.prototype, "getCounty", null);
 __decorate([
     common_1.Post(),
+    roles_decorator_1.Roles('systemAdmin', 'stateAdmin', 'communityAdmin'),
     __param(0, common_1.Body()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [create_County_dto_1.CreateCountyDto]),
@@ -86,6 +92,7 @@ __decorate([
 ], CountyController.prototype, "addCounty", null);
 __decorate([
     common_1.Patch(':id'),
+    roles_decorator_1.Roles('systemAdmin', 'stateAdmin', 'communityAdmin'),
     __param(0, common_1.Param()), __param(1, common_1.Body()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object, create_County_dto_1.CreateCountyDto]),
@@ -93,6 +100,7 @@ __decorate([
 ], CountyController.prototype, "updateCounty", null);
 __decorate([
     common_1.Delete(':id'),
+    roles_decorator_1.Roles('systemAdmin', 'stateAdmin', 'communityAdmin'),
     __param(0, common_1.Param()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
@@ -100,6 +108,7 @@ __decorate([
 ], CountyController.prototype, "deleteCounty", null);
 __decorate([
     common_1.Get('/state/:id'),
+    roles_decorator_1.Roles('systemAdmin', 'stateAdmin', 'communityAdmin'),
     __param(0, common_1.Param()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
@@ -107,6 +116,7 @@ __decorate([
 ], CountyController.prototype, "getCountyByState", null);
 CountyController = __decorate([
     common_1.Controller('county'),
+    common_2.UseGuards(roles_guard_1.RolesGuard),
     __metadata("design:paramtypes", [county_service_1.CountyService])
 ], CountyController);
 exports.CountyController = CountyController;
