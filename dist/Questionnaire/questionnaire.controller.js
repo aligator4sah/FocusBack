@@ -23,9 +23,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const common_1 = require("@nestjs/common");
 const create_Questionnaire_dto_1 = require("./DTO/create-Questionnaire.dto");
 const questionnaire_service_1 = require("./questionnaire.service");
-const roles_decorator_1 = require("../shared/Guards/roles.decorator");
-const common_2 = require("@nestjs/common");
-const roles_guard_1 = require("../Shared/Guards/roles.guard");
 let QuestionnaireController = class QuestionnaireController {
     constructor(questionnaireService) {
         this.questionnaireService = questionnaireService;
@@ -72,17 +69,20 @@ let QuestionnaireController = class QuestionnaireController {
             return msg;
         });
     }
+    calculateDomain(prams) {
+        return __awaiter(this, void 0, void 0, function* () {
+            yield this.questionnaireService.calculateDomainMaxAndMin();
+        });
+    }
 };
 __decorate([
     common_1.Get(),
-    roles_decorator_1.Roles('systemAdmin', 'stateAdmin', 'communityAdmin', 'bhco'),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], QuestionnaireController.prototype, "getAllQuestionnaire", null);
 __decorate([
     common_1.Get(':id'),
-    roles_decorator_1.Roles('systemAdmin', 'stateAdmin', 'communityAdmin', 'bhco'),
     __param(0, common_1.Param()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
@@ -90,7 +90,6 @@ __decorate([
 ], QuestionnaireController.prototype, "getQuestionnaire", null);
 __decorate([
     common_1.Get("/subDomain/:id"),
-    roles_decorator_1.Roles('systemAdmin', 'stateAdmin', 'communityAdmin', 'bhco'),
     __param(0, common_1.Param()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
@@ -98,7 +97,6 @@ __decorate([
 ], QuestionnaireController.prototype, "getQuestionnairesBySubDomain", null);
 __decorate([
     common_1.Post(),
-    roles_decorator_1.Roles('systemAdmin', 'stateAdmin', 'communityAdmin', 'bhco'),
     __param(0, common_1.Body()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [create_Questionnaire_dto_1.CreateQuestionnaireDto]),
@@ -106,7 +104,6 @@ __decorate([
 ], QuestionnaireController.prototype, "addQuestionnaire", null);
 __decorate([
     common_1.Patch(':id'),
-    roles_decorator_1.Roles('systemAdmin', 'stateAdmin', 'communityAdmin', 'bhco'),
     __param(0, common_1.Param()), __param(1, common_1.Body()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object, create_Questionnaire_dto_1.CreateQuestionnaireDto]),
@@ -114,7 +111,6 @@ __decorate([
 ], QuestionnaireController.prototype, "updateQuestionnaire", null);
 __decorate([
     common_1.Delete(':id'),
-    roles_decorator_1.Roles('systemAdmin', 'stateAdmin', 'communityAdmin', 'bhco'),
     __param(0, common_1.Param()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
@@ -122,15 +118,20 @@ __decorate([
 ], QuestionnaireController.prototype, "deleteQuestionnaire", null);
 __decorate([
     common_1.Get('/domain/:id'),
-    roles_decorator_1.Roles('systemAdmin', 'stateAdmin', 'communityAdmin', 'bhco'),
     __param(0, common_1.Param()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], QuestionnaireController.prototype, "getAllQuestionnaireByDomain", null);
+__decorate([
+    common_1.Get('/calculate/:id'),
+    __param(0, common_1.Param()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], QuestionnaireController.prototype, "calculateDomain", null);
 QuestionnaireController = __decorate([
     common_1.Controller('questionnaire'),
-    common_2.UseGuards(roles_guard_1.RolesGuard),
     __metadata("design:paramtypes", [questionnaire_service_1.QuestionnaireService])
 ], QuestionnaireController);
 exports.QuestionnaireController = QuestionnaireController;

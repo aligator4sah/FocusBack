@@ -104,6 +104,40 @@ let QuestionnaireService = class QuestionnaireService {
             return yield { selectedDomain, resultSubDomains };
         });
     }
+    calculateDomainMaxAndMin() {
+        return __awaiter(this, void 0, void 0, function* () {
+            const selectedDomains = yield typeorm_1.getConnection()
+                .getRepository(domain_entity_1.DomainEntity).createQueryBuilder().getMany();
+            console.log(selectedDomains);
+            const questionnaires = yield typeorm_1.getRepository(questionnaire_entity_1.QuestionnaireEntity).createQueryBuilder("questionnaire")
+                .leftJoinAndSelect("questionnaire.domain", "domain")
+                .getMany();
+            console.log(questionnaires);
+            yield selectedDomains.forEach((domainItem) => __awaiter(this, void 0, void 0, function* () {
+                let maxScore = 0;
+                let minScore = 0;
+                let questionnairesGroupByDomain = yield questionnaires.filter((q) => q.domain.domain === domainItem.domain);
+                yield questionnairesGroupByDomain.forEach((questionnaire) => __awaiter(this, void 0, void 0, function* () {
+                    let maxPoint;
+                    let minPoint;
+                    let array = [];
+                    questionnaire.options.forEach((option) => {
+                        array.push(option.point);
+                    });
+                    maxPoint = Math.max(...array);
+                    maxScore += maxPoint * questionnaire.weight;
+                    console.log("maxScore: " + maxScore);
+                    console.log("maxPoint: " + maxPoint);
+                    minPoint = Math.min(...array);
+                    minScore += minPoint * questionnaire.weight;
+                }));
+                yield typeorm_1.getConnection().createQueryBuilder().update(domain_entity_1.DomainEntity)
+                    .set({ maxScore: maxScore }).where("domain = :domain", { domain: domainItem.domain }).execute();
+                yield typeorm_1.getConnection().createQueryBuilder().update(domain_entity_1.DomainEntity)
+                    .set({ minScore: minScore }).where("domain = :domain", { domain: domainItem.domain }).execute();
+            }));
+        });
+    }
 };
 QuestionnaireService = __decorate([
     common_1.Component(),

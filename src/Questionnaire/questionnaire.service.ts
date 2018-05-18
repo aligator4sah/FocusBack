@@ -77,4 +77,42 @@ export class QuestionnaireService implements IQuestionnaireService{
         }
         return await {selectedDomain,resultSubDomains};
     }
+
+    public async calculateDomainMaxAndMin(){
+        // const selectedDomains = await getConnection().createQueryBuilder().select().from(DomainEntity,"domain").getMany();
+        const selectedDomains = await getConnection()
+            .getRepository(DomainEntity).createQueryBuilder().getMany();
+        console.log(selectedDomains);
+        const questionnaires = await getRepository(QuestionnaireEntity).createQueryBuilder("questionnaire")
+            .leftJoinAndSelect("questionnaire.domain","domain")
+            .getMany();
+
+        console.log(questionnaires);
+        await selectedDomains.forEach(async(domainItem)=>{
+            let maxScore:number = 0;
+            let minScore:number = 0;
+            let questionnairesGroupByDomain = await questionnaires.filter((q)=>q.domain.domain === domainItem.domain);
+            await questionnairesGroupByDomain.forEach(async(questionnaire)=>{
+                let maxPoint:number;
+                let minPoint:number;
+                let array:number[] = [];
+                questionnaire.options.forEach((option)=>{
+                    array.push(option.point);
+                })
+                maxPoint = Math.max(...array);
+                maxScore += maxPoint * questionnaire.weight;
+                console.log("maxScore: " + maxScore);
+                console.log("maxPoint: " + maxPoint);
+                // maxScore = Math.max(maxPoint * questionnaire.weight, maxScore);
+                minPoint = Math.min(...array);
+                minScore += minPoint * questionnaire.weight;
+                //minScore = Math.max(minPoint * questionnaire.weight, minScore);
+            });
+            await getConnection().createQueryBuilder().update(DomainEntity)
+                .set({maxScore:maxScore}).where("domain = :domain",{domain:domainItem.domain}).execute();
+
+            await getConnection().createQueryBuilder().update(DomainEntity)
+                .set({minScore:minScore}).where("domain = :domain",{domain:domainItem.domain}).execute();
+        });
+    }
 }

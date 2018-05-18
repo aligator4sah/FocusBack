@@ -17,8 +17,11 @@ export class UserDemographicService{
         return await this.userDemographicRepository.findOneById(id);
     }
 
-    public async addUserDemographic(userDemographic:IUserDemographic):Promise<UserDemographicEntity>{
-        return await this.userDemographicRepository.save(userDemographic);
+    public async addUserDemographic(userDemographics:Array<IUserDemographic>):Promise<boolean>{
+        await userDemographics.forEach(async(userDemographic)=>{
+            await this.userDemographicRepository.save(userDemographic);
+        });
+        return true;
     }
 
     public async updateUserDemographic(id:number,newUserDemographic:IUserDemographic):Promise<UserDemographicEntity|null>{

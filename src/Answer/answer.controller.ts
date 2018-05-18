@@ -44,4 +44,11 @@ export class AnswerController {
         return msg;
     }
 
+    @Post()
+    // @Roles('systemAdmin','stateAdmin','communityAdmin','bhco')
+    public async getAnswerByDomainAndSession(@Body() params){
+        const msg = await this.answerService.getAnswerByDomainAndSession(params);
+        return msg;
+    }
+
 }
