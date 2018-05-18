@@ -17,7 +17,7 @@ function bootstrap() {
     return __awaiter(this, void 0, void 0, function* () {
         const app = yield core_1.NestFactory.create(app_module_1.AppModule);
         app.enableCors({
-            origin: 'http://localhost:4200'
+            origin: 'https://ancient-brushlands-34778.herokuapp.com'
         });
         const options = new swagger_1.DocumentBuilder()
             .setTitle('Focus Backend')
