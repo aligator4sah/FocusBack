@@ -9,7 +9,7 @@ async function bootstrap() {
     // app.useGlobalPipes(new ValidationPipe());
     //swagger
     app.enableCors({
-        origin: 'https://ancient-brushlands-34778.herokuapp.com/'
+        origin: 'http://localhost:4200'
         });
     const options = new DocumentBuilder()
         .setTitle('Focus Backend')
