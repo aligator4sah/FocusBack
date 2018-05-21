@@ -1,96 +1,54 @@
-import { Component ,Inject} from "@nestjs/common";
-import { Repository } from 'typeorm';
-import { UserDemographicEntity} from "./userDemographic.entity";
-import { IUserDemographicService,IUserDemographic} from "./Interfaces";
+import {Controller, Get, Patch, Post, Param, Body,Delete,UseFilters} from '@nestjs/common';
+import {CreateUserDemographicDto} from "./DTO/create-UserDemographic.dto";
+import {UserDemographicService} from "./userDemographic.service";
+// import { Roles} from '../shared/Guards/roles.decorator';
+// import{ UseGuards } from '@nestjs/common';
+// import { RolesGuard } from '../Shared/Guards/roles.guard';
 
-@Component()
-export class UserDemographicService{
+@Controller('userDemographic')
+// @UseGuards(RolesGuard)
+export class UserDemographicController{
     constructor(
-        @Inject('UserDemographicRepository') private readonly userDemographicRepository: Repository<UserDemographicEntity>
+        private userDemographicService: UserDemographicService
     ){}
 
-    public async getAllUserDemographic():Promise<Array<UserDemographicEntity>>{
-        return await this.userDemographicRepository.find();
+    @Get()
+    // @Roles('systemAdmin','stateAdmin','communityAdmin','bhco')
+    public async getAllUserDemographic(){
+        const msg = await this.userDemographicService.getAllUserDemographic();
+        return msg;
     }
 
-    public async getUserDemographic(id:number):Promise<UserDemographicEntity|null>{
-        return await this.userDemographicRepository.findOneById(id);
+    @Get(':id')
+    // @Roles('systemAdmin','stateAdmin','communityAdmin','bhco')
+    public async getUserDemographic(@Param() params){
+        const msg = await this.userDemographicService.getUserDemographic(params.id);
+        return msg;
     }
 
-    public async addUserDemographic(userDemographics:Array<IUserDemographic>):Promise<boolean>{
-        await userDemographics.forEach(async(userDemographic)=>{
-            await this.userDemographicRepository.save(userDemographic);
-        });
-        return true;
+    @Post()
+    // @Roles('systemAdmin','stateAdmin','communityAdmin','bhco')
+    public async addUserDemographic(@Body() demographic:CreateUserDemographicDto){
+        const msg = await this.userDemographicService.addUserDemographic(demographic);
+        return msg;
     }
 
-    public async updateUserDemographic(id:number,newUserDemographic:IUserDemographic):Promise<UserDemographicEntity|null>{
-        const userDemographic = await this.userDemographicRepository.findOneById(id);
-        if(!userDemographic){
-            console.log('user demographic does not exist');
-        }
-        await this.userDemographicRepository.updateById(id,newUserDemographic);
-        return await this.userDemographicRepository.findOneById(id);
+    @Patch(':id')
+    // @Roles('systemAdmin','stateAdmin','communityAdmin','bhco')
+    public async updateUserDemographic(@Param() params,@Body() newDemographic:CreateUserDemographicDto){
+        const msg = await this.userDemographicService.updateUserDemographic(params.id,newDemographic);
+        return msg;
     }
 
-    public async deleteUserDemographic(id:number):Promise<string>{
-        await this.userDemographicRepository.deleteById(id);
-        const userDemographic = await this.userDemographicRepository.findOneById(id);
-        if(userDemographic){
-            return 'delete fail';
-        }else {
-            return 'delete success';
-        }
+    @Delete(':id')
+    // @Roles('systemAdmin','stateAdmin','communityAdmin','bhco')
+    public async deleteUserDemographic(@Param() params){
+        const msg = await this.userDemographicService.deleteUserDemographic(params.id);
+        return msg;
     }
-    
-    import { Component ,Inject} from "@nestjs/common";
-import {getConnection, Repository} from 'typeorm';
-import { UserDemographicEntity} from "./userDemographic.entity";
-import { IUserDemographicService,IUserDemographic} from "./Interfaces";
-import {DemographicEntity} from "../Demographic/demographic.entity";
-
-@Component()
-export class UserDemographicService{
-    constructor(
-        @Inject('UserDemographicRepository') private readonly userDemographicRepository: Repository<UserDemographicEntity>
-    ){}
-
-    public async getAllUserDemographic():Promise<Array<UserDemographicEntity>>{
-        return await this.userDemographicRepository.find();
+    @Get('user/:id')
+    public async getUserDemographicByUserId(@Param() params){
+        const msg = await this.userDemographicService.getDemographicAnswerByUserId(params.id);
+        return msg;
     }
-
-    public async getUserDemographic(id:number):Promise<UserDemographicEntity|null>{
-        return await this.userDemographicRepository.findOneById(id);
-    }
-
-    public async addUserDemographic(userDemographic:IUserDemographic):Promise<UserDemographicEntity>{
-        return await this.userDemographicRepository.save(userDemographic);
-    }
-
-    public async updateUserDemographic(id:number,newUserDemographic:IUserDemographic):Promise<UserDemographicEntity|null>{
-        const userDemographic = await this.userDemographicRepository.findOneById(id);
-        if(!userDemographic){
-            console.log('user demographic does not exist');
-        }
-        await this.userDemographicRepository.updateById(id,newUserDemographic);
-        return await this.userDemographicRepository.findOneById(id);
-    }
-
-    public async deleteUserDemographic(id:number):Promise<string>{
-        await this.userDemographicRepository.deleteById(id);
-        const userDemographic = await this.userDemographicRepository.findOneById(id);
-        if(userDemographic){
-            return 'delete fail';
-        }else {
-            return 'delete success';
-        }
-    }
-
-    public async getDemographicAnswerByUserId(userId:number):Promise<Array<UserDemographicEntity>>{
-        return await getConnection().getRepository(UserDemographicEntity).createQueryBuilder("userDemographic")
-            .leftJoinAndSelect(DemographicEntity,"demographic","demographic.id = userDemographic.questionid")
-            .where("userDemographic.userid = :id",{id:userId})
-            .getMany();
-    }
-}
 }
