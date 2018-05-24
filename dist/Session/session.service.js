@@ -123,9 +123,9 @@ let SessionService = class SessionService {
                 result.push({ domain: domainItem.domain, score: domainScore });
             });
             let overallScore = 0;
-            yield result.forEach((item) => {
-                overallScore += item.score;
-            });
+            for (let counter = 0; counter < Math.min(result.length, selectedDomains.length); counter++) {
+                overallScore = result[counter].score * selectedDomains[counter].weight;
+            }
             yield result.push({ domain: "WellnessScore", score: overallScore });
             return yield result;
         });

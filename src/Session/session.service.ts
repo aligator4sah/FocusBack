@@ -115,9 +115,18 @@ export class SessionService implements ISessionService {
             result.push({domain: domainItem.domain, score: domainScore});
         });
         let overallScore: number = 0;
-        await result.forEach((item) => {
-            overallScore += item.score;
-        })
+        // await result.forEach((item) => {
+        //     overallScore += item.score;
+        // })
+        // overallScore = Array.zip(result, selectedDomains, (result, selectedDomains) => {
+        //     return result.score * selectedDomains.domain;
+        // }).reduce((acc, cur) => {
+        //     return acc + cur;
+        // });
+
+        for (let counter = 0; counter < Math.min(result.length, selectedDomains.length); counter++){
+            overallScore = result[counter].score * selectedDomains[counter].weight;
+        }
         await result.push({domain: "WellnessScore", score: overallScore});
         return await result;
     }
