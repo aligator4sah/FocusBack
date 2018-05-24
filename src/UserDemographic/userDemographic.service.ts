@@ -1,7 +1,8 @@
 import { Component ,Inject} from "@nestjs/common";
-import { Repository } from 'typeorm';
+import {getConnection, Repository} from 'typeorm';
 import { UserDemographicEntity} from "./userDemographic.entity";
 import { IUserDemographicService,IUserDemographic} from "./Interfaces";
+import {DemographicEntity} from "../Demographic/demographic.entity";
 
 @Component()
 export class UserDemographicService{
@@ -17,11 +18,8 @@ export class UserDemographicService{
         return await this.userDemographicRepository.findOneById(id);
     }
 
-    public async addUserDemographic(userDemographics:Array<IUserDemographic>):Promise<boolean>{
-        await userDemographics.forEach(async(userDemographic)=>{
-            await this.userDemographicRepository.save(userDemographic);
-        });
-        return true;
+    public async addUserDemographic(userDemographic:IUserDemographic):Promise<UserDemographicEntity>{
+        return await this.userDemographicRepository.save(userDemographic);
     }
 
     public async updateUserDemographic(id:number,newUserDemographic:IUserDemographic):Promise<UserDemographicEntity|null>{
@@ -41,5 +39,12 @@ export class UserDemographicService{
         }else {
             return 'delete success';
         }
+    }
+
+    public async getDemographicAnswerByUserId(userId:number):Promise<Array<UserDemographicEntity>>{
+        return await getConnection().getRepository(UserDemographicEntity).createQueryBuilder("userDemographic")
+            .leftJoinAndSelect(DemographicEntity,"demographic","demographic.id = userDemographic.questionid")
+            .where("userDemographic.userid = :id",{id:userId})
+            .getMany();
     }
 }

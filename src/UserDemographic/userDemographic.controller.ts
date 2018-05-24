@@ -28,7 +28,7 @@ export class UserDemographicController{
 
     @Post()
     // @Roles('systemAdmin','stateAdmin','communityAdmin','bhco')
-    public async addUserDemographic(@Body() demographic:CreateUserDemographicDto[]){
+    public async addUserDemographic(@Body() demographic:CreateUserDemographicDto){
         const msg = await this.userDemographicService.addUserDemographic(demographic);
         return msg;
     }
@@ -44,6 +44,11 @@ export class UserDemographicController{
     // @Roles('systemAdmin','stateAdmin','communityAdmin','bhco')
     public async deleteUserDemographic(@Param() params){
         const msg = await this.userDemographicService.deleteUserDemographic(params.id);
+        return msg;
+    }
+    @Get('user/:id')
+    public async getUserDemographicByUserId(@Param() params){
+        const msg = await this.userDemographicService.getDemographicAnswerByUserId(params.id);
         return msg;
     }
 }
