@@ -49,6 +49,11 @@ let SocialNetworkService = class SocialNetworkService {
             return yield this.socialNetworkRepository.find();
         });
     }
+    findSocialNetworkByUser(userID) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield this.socialNetworkRepository.find({ where: { userId: userID } });
+        });
+    }
 };
 SocialNetworkService = __decorate([
     common_1.Component(),

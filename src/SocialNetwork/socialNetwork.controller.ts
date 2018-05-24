@@ -1,4 +1,4 @@
-import { Controller,Post,Body,Get} from '@nestjs/common';
+import { Controller,Post,Body,Get,Param} from '@nestjs/common';
 import { CreateSocialNetworkDto} from './DTO/createSocialNetwork.dto';
 import { SocialNetworkService} from './socialNetwork.service';
 
@@ -18,6 +18,12 @@ export class SocialNetworkController {
   @Get()
   public async findAllSocialNetwork(){
     const msg = await this.socialNetworkService.findAllSocialNetwork();
+    return msg;
+  }
+
+  @Get(':id')
+  public async findSocialNetworkByUserId(@Param() params){
+    const msg = await this.socialNetworkService.findSocialNetworkByUser(params.id);
     return msg;
   }
 

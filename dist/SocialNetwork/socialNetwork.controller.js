@@ -38,6 +38,12 @@ let SocialNetworkController = class SocialNetworkController {
             return msg;
         });
     }
+    findSocialNetworkByUserId(params) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const msg = yield this.socialNetworkService.findSocialNetworkByUser(params.id);
+            return msg;
+        });
+    }
 };
 __decorate([
     common_1.Post(),
@@ -52,6 +58,13 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], SocialNetworkController.prototype, "findAllSocialNetwork", null);
+__decorate([
+    common_1.Get(':id'),
+    __param(0, common_1.Param()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], SocialNetworkController.prototype, "findSocialNetworkByUserId", null);
 SocialNetworkController = __decorate([
     common_1.Controller('socialNetwork'),
     __metadata("design:paramtypes", [socialNetwork_service_1.SocialNetworkService])

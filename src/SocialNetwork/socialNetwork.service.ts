@@ -29,4 +29,8 @@ export class SocialNetworkService implements ISocialNetworkServicce{
   public async findAllSocialNetwork():Promise<Array<SocialNetworkEntity>>{
     return await this.socialNetworkRepository.find();
   }
+
+  public async findSocialNetworkByUser(userID:number):Promise<Array<SocialNetworkEntity>>{
+    return await this.socialNetworkRepository.find({where:{userId:userID}});
+  }
 }
