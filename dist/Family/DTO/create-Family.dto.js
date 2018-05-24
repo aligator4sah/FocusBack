@@ -28,5 +28,15 @@ __decorate([
     class_validator_1.IsInt(),
     __metadata("design:type", Object)
 ], CreateFamilyDto.prototype, "block", void 0);
+__decorate([
+    swagger_1.ApiModelProperty(),
+    class_validator_1.IsString(),
+    __metadata("design:type", String)
+], CreateFamilyDto.prototype, "street", void 0);
+__decorate([
+    swagger_1.ApiModelProperty(),
+    class_validator_1.IsString(),
+    __metadata("design:type", String)
+], CreateFamilyDto.prototype, "apartment", void 0);
 exports.CreateFamilyDto = CreateFamilyDto;
 //# sourceMappingURL=create-Family.dto.js.map

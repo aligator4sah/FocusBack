@@ -11,4 +11,10 @@ export class FamilyEntity {
 
     @ManyToOne(type => BlockEntity,block=>block.family)
     block:BlockEntity;
+
+    @Column()
+    street:string;
+
+    @Column()
+    apartment:string;
 }

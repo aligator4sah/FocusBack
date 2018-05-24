@@ -25,6 +25,14 @@ __decorate([
     typeorm_1.ManyToOne(type => block_entity_1.BlockEntity, block => block.family),
     __metadata("design:type", block_entity_1.BlockEntity)
 ], FamilyEntity.prototype, "block", void 0);
+__decorate([
+    typeorm_1.Column(),
+    __metadata("design:type", String)
+], FamilyEntity.prototype, "street", void 0);
+__decorate([
+    typeorm_1.Column(),
+    __metadata("design:type", String)
+], FamilyEntity.prototype, "apartment", void 0);
 FamilyEntity = __decorate([
     typeorm_1.Entity()
 ], FamilyEntity);

@@ -13,4 +13,12 @@ export class  CreateFamilyDto{
     @ApiModelProperty()
     @IsInt()
     block:any;
+
+    @ApiModelProperty()
+    @IsString()
+    street:string;
+
+    @ApiModelProperty()
+    @IsString()
+    apartment:string;
 }
