@@ -30,6 +30,7 @@ let SocialNetworkService = class SocialNetworkService {
     }
     addSocialNetwork(socialNetworks) {
         return __awaiter(this, void 0, void 0, function* () {
+            const currentSocialNetwork = yield this.socialNetworkRepository.find();
             yield Promise.all(socialNetworks.map((item) => __awaiter(this, void 0, void 0, function* () {
                 const selectedRelationship = yield typeorm_1.getConnection().getRepository(relationship_entity_1.RelationshipEntity).createQueryBuilder("relationship")
                     .where("relationship.relationship = :re", { re: item.relationship }).getOne();
@@ -40,8 +41,12 @@ let SocialNetworkService = class SocialNetworkService {
                     .of(selectedSocialNetwork.id)
                     .set(selectedRelationship.id);
                 return { socialNetwork: selectedSocialNetwork };
-            })));
-            return yield this.socialNetworkRepository.find();
+            }))).then((items) => {
+                items.forEach(item => {
+                    currentSocialNetwork.push(item.socialNetwork);
+                });
+            });
+            return currentSocialNetwork;
         });
     }
     findAllSocialNetwork() {

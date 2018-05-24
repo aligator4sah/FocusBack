@@ -11,6 +11,7 @@ export class SocialNetworkService implements ISocialNetworkServicce{
   ){}
 
   public async addSocialNetwork(socialNetworks:Array<ISocialNetwork>):Promise<Array<SocialNetworkEntity>>{
+    const currentSocialNetwork = await this.socialNetworkRepository.find();
     await Promise.all(socialNetworks.map(async(item)=>{
       const selectedRelationship = await getConnection().getRepository(RelationshipEntity).createQueryBuilder("relationship")
         .where("relationship.relationship = :re",{re:item.relationship}).getOne();
@@ -22,8 +23,13 @@ export class SocialNetworkService implements ISocialNetworkServicce{
         .of(selectedSocialNetwork.id)
         .set(selectedRelationship.id);
       return {socialNetwork:selectedSocialNetwork};
-    }));
-    return await this.socialNetworkRepository.find();
+    })).then((items) => {
+      items.forEach(item =>{
+        currentSocialNetwork.push(item.socialNetwork);
+      })
+    });
+    // console.log(currentSocialNetwork);
+    return currentSocialNetwork;
   }
 
   public async findAllSocialNetwork():Promise<Array<SocialNetworkEntity>>{
