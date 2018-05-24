@@ -1,0 +1,1 @@
+{"version":3,"file":"socialNetwork.providers.js","sourceRoot":"","sources":["../../src/SocialNetwork/socialNetwork.providers.ts"],"names":[],"mappings":";;AACA,iEAA4D;AAE/C,QAAA,qBAAqB,GAAG;IACnC,OAAO,EAAE,yBAAyB;IAClC,UAAU,EAAE,CAAC,UAAsB,EAAE,EAAE,CAAC,UAAU,CAAC,aAAa,CAAC,0CAAmB,CAAC;IACrF,MAAM,EAAE,CAAC,iBAAiB,CAAC;CAC5B,CAAA"}

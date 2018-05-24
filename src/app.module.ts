@@ -20,6 +20,8 @@ import {DomainModule} from "./DomainForQuestionnaire/Domain/domain.module";
 import {SubDomainModule} from "./DomainForQuestionnaire/SubDomain/subDomain.module";
 import {SessionModule} from "./Session/session.module";
 import {AnswerModule} from "./Answer/answer.module";
+import { SocialNetworkModule } from './SocialNetwork/socialNetwork.module';
+import { RelationshipModule } from './Relationship/relationship.module';
 
 @Module({
   modules:[
@@ -40,7 +42,9 @@ import {AnswerModule} from "./Answer/answer.module";
       DomainModule,
       SubDomainModule,
       SessionModule,
-      AnswerModule
+      AnswerModule,
+      SocialNetworkModule,
+      RelationshipModule
   ]
 })
 

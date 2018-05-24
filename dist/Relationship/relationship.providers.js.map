@@ -1,0 +1,1 @@
+{"version":3,"file":"relationship.providers.js","sourceRoot":"","sources":["../../src/Relationship/relationship.providers.ts"],"names":[],"mappings":";;AAAA,+DAA0D;AAG7C,QAAA,oBAAoB,GAAG;IAClC,OAAO,EAAC,wBAAwB;IAChC,UAAU,EAAC,CAAC,UAAqB,EAAE,EAAE,CAAC,UAAU,CAAC,aAAa,CAAC,wCAAkB,CAAC;IAClF,MAAM,EAAE,CAAC,iBAAiB,CAAC;CAC5B,CAAA"}
