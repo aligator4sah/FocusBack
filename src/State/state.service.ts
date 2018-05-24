@@ -15,6 +15,13 @@ export class StateService implements IStateService{
     public async getState(id:number):Promise<StateEntity | null>{
         return await this.stateRepository.findOneById(id);
     }
+
+    public async addAllState(state:IState[]){
+        await state.forEach(async(state)=> {
+            await this.stateRepository.save(state);
+        })
+    }
+
     public async addState(state:IState):Promise<StateEntity>{
         return await this.stateRepository.save(state);
     }

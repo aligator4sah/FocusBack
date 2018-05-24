@@ -60,7 +60,6 @@ let SubDomainController = class SubDomainController {
     isolateSubDomain(params) {
         return __awaiter(this, void 0, void 0, function* () {
             const msg = yield this.subDomainService.isolateSubDomain(params.id);
-            return msg;
         });
     }
     getAllSubDomainIsolated() {

@@ -31,11 +31,11 @@ __decorate([
     __metadata("design:type", Array)
 ], DomainEntity.prototype, "questionnaire", void 0);
 __decorate([
-    typeorm_1.Column(),
+    typeorm_1.Column('double precision'),
     __metadata("design:type", Number)
 ], DomainEntity.prototype, "maxScore", void 0);
 __decorate([
-    typeorm_1.Column(),
+    typeorm_1.Column('double precision'),
     __metadata("design:type", Number)
 ], DomainEntity.prototype, "minScore", void 0);
 DomainEntity = __decorate([

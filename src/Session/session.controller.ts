@@ -67,4 +67,10 @@ export class SessionController {
         const msg = await this.sessionService.createSession(session);
         return msg;
     }
+
+    @Get('/QA/:id')
+    public async getAllAnswerAndRelatedQuestionnaireBySession(@Param() params){
+        const msg = await this.sessionService.getQuestionAndAnswerBySessionId(params.id);
+        return msg;
+    }
 }

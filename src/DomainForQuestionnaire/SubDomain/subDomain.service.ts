@@ -57,9 +57,8 @@ export class SubDomainService implements ISubDomainService{
         }
     }
     //hide sub domain
-    public async isolateSubDomain(subDomainId:number):Promise<string>{
+    public async isolateSubDomain(subDomainId:number) {
         await getConnection().createQueryBuilder().relation(SubDomainEntity,"domain").of(subDomainId).set(null);
         await getConnection().createQueryBuilder().update(SubDomainEntity).set({isolate:true}).where("id = :id",{id:subDomainId}).execute();
-        return 'isolate success';
     }
 }

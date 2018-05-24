@@ -85,7 +85,6 @@ let SubDomainService = class SubDomainService {
         return __awaiter(this, void 0, void 0, function* () {
             yield typeorm_1.getConnection().createQueryBuilder().relation(subDomain_entity_1.SubDomainEntity, "domain").of(subDomainId).set(null);
             yield typeorm_1.getConnection().createQueryBuilder().update(subDomain_entity_1.SubDomainEntity).set({ isolate: true }).where("id = :id", { id: subDomainId }).execute();
-            return 'isolate success';
         });
     }
 };

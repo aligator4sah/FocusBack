@@ -9,5 +9,5 @@ export interface ISubDomainService {
     deleteSubDomain(id:number):Promise<string>;
     getAllSubDomainByDomain(domainId:number):Promise<Array<SubDomainEntity>>;
     getAllSubDomainIsolated():Promise<Array<SubDomainEntity>>;
-    isolateSubDomain(subDomainId:number):Promise<string>
+    isolateSubDomain(subDomainId:number);
 }

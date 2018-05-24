@@ -25,6 +25,7 @@ const typeorm_1 = require("typeorm");
 const session_entity_1 = require("./session.entity");
 const answer_entity_1 = require("../Answer/answer.entity");
 const domain_entity_1 = require("../DomainForQuestionnaire/Domain/domain.entity");
+const questionnaire_entity_1 = require("../Questionnaire/questionnaire.entity");
 let SessionService = class SessionService {
     constructor(sessionRepository, answerRepository) {
         this.sessionRepository = sessionRepository;
@@ -127,6 +128,22 @@ let SessionService = class SessionService {
             });
             yield result.push({ domain: "WellnessScore", score: overallScore });
             return yield result;
+        });
+    }
+    getQuestionAndAnswerBySessionId(sessionId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const selectedAnswers = yield typeorm_1.getConnection().getRepository(answer_entity_1.AnswerEntity).createQueryBuilder("answer")
+                .leftJoinAndSelect("answer.session", "session")
+                .where("session.id = :id", { id: sessionId })
+                .getMany();
+            return yield Promise.all(selectedAnswers.map((answer) => __awaiter(this, void 0, void 0, function* () {
+                const selectedQuestionnaire = yield typeorm_1.getConnection().getRepository(questionnaire_entity_1.QuestionnaireEntity).createQueryBuilder("questionnaire")
+                    .leftJoinAndSelect("questionnaire.domain", "domain")
+                    .leftJoinAndSelect("questionnaire.subdomain", "subdomain")
+                    .where("questionnaire.id = :id", { id: answer.questionid })
+                    .getOne();
+                return { answer: answer, questionnaire: selectedQuestionnaire };
+            })));
         });
     }
 };

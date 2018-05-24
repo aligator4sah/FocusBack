@@ -50,7 +50,7 @@ export class SubDomainController {
     // @Roles('systemAdmin','stateAdmin','communityAdmin')
     public async isolateSubDomain(@Param() params){
         const msg = await this.subDomainService.isolateSubDomain(params.id);
-        return msg;
+        // return msg;
     }
 
     @Get('isolatedSubDomain')
