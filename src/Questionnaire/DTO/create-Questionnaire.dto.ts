@@ -29,6 +29,5 @@ export class CreateQuestionnaireDto{
     options:any;
 
     @ApiModelProperty()
-    @IsInt()
     weight: number;
 }

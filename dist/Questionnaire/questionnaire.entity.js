@@ -43,7 +43,7 @@ __decorate([
     __metadata("design:type", String)
 ], QuestionnaireEntity.prototype, "questiontype", void 0);
 __decorate([
-    typeorm_1.Column(),
+    typeorm_1.Column('double precision'),
     __metadata("design:type", Number)
 ], QuestionnaireEntity.prototype, "weight", void 0);
 QuestionnaireEntity = __decorate([

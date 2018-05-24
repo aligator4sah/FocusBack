@@ -25,6 +25,6 @@ export class QuestionnaireEntity {
     @Column()
     questiontype:string;
 
-    @Column()
+    @Column('double precision')
     weight: number;
 }

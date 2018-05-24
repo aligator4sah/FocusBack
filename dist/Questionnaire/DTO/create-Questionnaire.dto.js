@@ -48,7 +48,6 @@ __decorate([
 ], CreateQuestionnaireDto.prototype, "options", void 0);
 __decorate([
     swagger_1.ApiModelProperty(),
-    class_validator_1.IsInt(),
     __metadata("design:type", Number)
 ], CreateQuestionnaireDto.prototype, "weight", void 0);
 exports.CreateQuestionnaireDto = CreateQuestionnaireDto;
