@@ -21,4 +21,7 @@ export class DomainEntity {
 
     @Column('double precision')
     minScore:number;
+
+    @Column('double precision')
+    weight:number;
 }

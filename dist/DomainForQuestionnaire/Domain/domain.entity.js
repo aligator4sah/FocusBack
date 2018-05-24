@@ -38,6 +38,10 @@ __decorate([
     typeorm_1.Column('double precision'),
     __metadata("design:type", Number)
 ], DomainEntity.prototype, "minScore", void 0);
+__decorate([
+    typeorm_1.Column('double precision'),
+    __metadata("design:type", Number)
+], DomainEntity.prototype, "weight", void 0);
 DomainEntity = __decorate([
     typeorm_1.Entity()
 ], DomainEntity);

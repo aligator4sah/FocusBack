@@ -4,23 +4,24 @@ import { ApiModelProperty } from '@nestjs/swagger';
 export class CreateDomainDto {
     @ApiModelProperty()
     @IsInt()
-    id:number;
+    id: number;
 
     @ApiModelProperty()
     @IsString()
-    domain:string;
+    domain: string;
 
     @ApiModelProperty()
-    subdomain:any;
+    subdomain: any;
 
     @ApiModelProperty()
-    questionnaire:any;
+    questionnaire: any;
 
     @ApiModelProperty()
-    @IsInt()
-    maxScore:number;
+    maxScore: number;
 
     @ApiModelProperty()
-    @IsInt()
-    minScore:number;
+    minScore: number;
+
+    @ApiModelProperty()
+    weight: number;
 }

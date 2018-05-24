@@ -5,4 +5,5 @@ export interface IDomain {
     readonly questionnaire:any;
     readonly maxScore:number;
     readonly minScore:number;
+    readonly weight:number;
 }
