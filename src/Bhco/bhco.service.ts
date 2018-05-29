@@ -26,7 +26,9 @@ export class BhcoService implements IBhcoService{
     }
 
     public async getBhco(id:number):Promise<BhcoEntity|null>{
-        return await this.bhcoRepository.findOneById(id);
+        const selectedBhco = await this.bhcoRepository.findOneById(id);
+        selectedBhco["role"] = "bhco";
+        return selectedBhco;
     }
 
     public async addBhco(bhco: IBcho): Promise<BhcoEntity>{

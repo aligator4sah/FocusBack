@@ -84,7 +84,9 @@ let CommunityMemberService = class CommunityMemberService {
     }
     getCommunityMember(id) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield this.communityMemberRepository.findOneById(id);
+            const selectedCommunityMember = yield this.communityMemberRepository.findOneById(id);
+            selectedCommunityMember["role"] = "communityMember";
+            return selectedCommunityMember;
         });
     }
     addCommunityMember(communityMember) {

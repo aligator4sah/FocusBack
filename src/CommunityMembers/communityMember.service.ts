@@ -71,7 +71,10 @@ export class CommunityMemberService implements ICommunityMemberService{
     }
 
     public async getCommunityMember(id:number): Promise<CommunityMemberEntity | null>{
-        return await this.communityMemberRepository.findOneById(id);
+        const selectedCommunityMember =  await this.communityMemberRepository.findOneById(id);
+        selectedCommunityMember["role"] = "communityMember";
+        return selectedCommunityMember;
+
     }
 
     public async addCommunityMember(communityMember: ICommunityMember){

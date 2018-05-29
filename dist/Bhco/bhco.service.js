@@ -47,7 +47,9 @@ let BhcoService = class BhcoService {
     }
     getBhco(id) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield this.bhcoRepository.findOneById(id);
+            const selectedBhco = yield this.bhcoRepository.findOneById(id);
+            selectedBhco["role"] = "bhco";
+            return selectedBhco;
         });
     }
     addBhco(bhco) {
