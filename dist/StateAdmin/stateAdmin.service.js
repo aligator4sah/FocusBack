@@ -33,7 +33,9 @@ let StateAdminService = class StateAdminService {
     }
     getStateAdmin(id) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield this.stateAdminRepository.findOneById(id);
+            const selectedStateAdmin = yield this.stateAdminRepository.findOneById(id);
+            selectedStateAdmin["role"] = "stateAdmin";
+            return selectedStateAdmin;
         });
     }
     addStateAdmin(stateAdmin) {
