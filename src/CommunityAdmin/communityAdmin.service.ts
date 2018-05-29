@@ -18,7 +18,9 @@ export class CommunityAdminService implements ICommunityService{
     }
 
     public async getCommunityAdmin(id:number):Promise<CommunityAdminEntity | null>{
-        return await this.communityAdminRepository.findOneById(id);
+        const selectedCommunityAdmin = await this.communityAdminRepository.findOneById(id);
+        selectedCommunityAdmin["role"] = "communityAdmin";
+        return selectedCommunityAdmin;
     }
 
     public async getCommunityAdminByState(stateId:number):Promise<Array<CommunityAdminEntity>>{

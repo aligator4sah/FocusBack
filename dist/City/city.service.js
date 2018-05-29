@@ -39,7 +39,9 @@ let CityService = class CityService {
     }
     addCity(city) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield this.cityRepository.save(city);
+            const selectedCity = yield this.cityRepository.save(city);
+            yield typeorm_1.getConnection().createQueryBuilder().relation(city_entity_1.CityEntity, "county").of(selectedCity.id).set(city.county);
+            return selectedCity;
         });
     }
     updateCity(id, newCity) {

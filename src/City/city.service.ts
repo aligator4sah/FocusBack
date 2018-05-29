@@ -1,5 +1,5 @@
 import { Component ,Inject} from "@nestjs/common";
-import { Repository,getRepository } from 'typeorm';
+import { Repository, getRepository, getConnection } from 'typeorm';
 import { CityEntity} from "./city.entity";
 import { ICity,ICityService} from "./Interfaces";
 
@@ -18,7 +18,9 @@ export class CityService implements ICityService{
     }
 
     public async addCity(city: ICity):Promise<CityEntity>{
-        return await this.cityRepository.save(city);
+        const selectedCity =  await this.cityRepository.save(city);
+        await getConnection().createQueryBuilder().relation(CityEntity,"county").of(selectedCity.id).set(city.county);
+        return selectedCity;
     }
 
     public async updateCity(id:number,newCity: ICity):Promise<CityEntity|null>{

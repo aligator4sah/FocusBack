@@ -37,7 +37,9 @@ let CommunityAdminService = class CommunityAdminService {
     }
     getCommunityAdmin(id) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield this.communityAdminRepository.findOneById(id);
+            const selectedCommunityAdmin = yield this.communityAdminRepository.findOneById(id);
+            selectedCommunityAdmin["role"] = "communityAdmin";
+            return selectedCommunityAdmin;
         });
     }
     getCommunityAdminByState(stateId) {
