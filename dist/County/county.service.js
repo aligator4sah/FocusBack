@@ -39,7 +39,9 @@ let CountyService = class CountyService {
     }
     addCounty(county) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield this.countyRepository.save(county);
+            const selectedCounty = yield this.countyRepository.save(county);
+            yield typeorm_1.getConnection().createQueryBuilder().relation(county_entity_1.CountyEntity, "state").of(selectedCounty.id).set(county.state);
+            return selectedCounty;
         });
     }
     updateCounty(id, newCounty) {

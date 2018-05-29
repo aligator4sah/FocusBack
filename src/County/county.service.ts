@@ -1,5 +1,5 @@
 import { Component ,Inject} from "@nestjs/common";
-import { Repository,getRepository } from 'typeorm';
+import { Repository, getRepository, getConnection } from 'typeorm';
 import { CountyEntity} from "./county.entity";
 import {ICounty,ICountyService} from "./Interfaces";
 
@@ -18,7 +18,9 @@ export class CountyService implements ICountyService{
     }
 
     public async addCounty(county: ICounty):Promise<CountyEntity>{
-        return await this.countyRepository.save(county);
+        const selectedCounty =  await this.countyRepository.save(county);
+        await getConnection().createQueryBuilder().relation(CountyEntity,"state").of(selectedCounty.id).set(county.state);
+        return selectedCounty;
     }
 
     public async updateCounty(id:number,newCounty:ICounty):Promise<CountyEntity|null>{
