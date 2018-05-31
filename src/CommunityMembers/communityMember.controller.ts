@@ -136,4 +136,9 @@ export class CommunityMemberController{
     // async testExceptionInterceptor() {
     //     throw new Error('test ExceptionInterceptor');
     // }
+    @Get('communityMemberBlock/:id')
+    public async getBlockIdByCommunityMember(@Param() params){
+        const msg = await this.communityMemberService.getCommunityMemberBlockId(params.id);
+        return msg;
+    }
 }

@@ -102,6 +102,12 @@ let CommunityMemberController = class CommunityMemberController {
             return msg;
         });
     }
+    getBlockIdByCommunityMember(params) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const msg = yield this.communityMemberService.getCommunityMemberBlockId(params.id);
+            return msg;
+        });
+    }
 };
 __decorate([
     common_1.Get('communityMember'),
@@ -186,6 +192,13 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], CommunityMemberController.prototype, "getCommunityMemberByCommunity", null);
+__decorate([
+    common_1.Get('communityMemberBlock/:id'),
+    __param(0, common_1.Param()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], CommunityMemberController.prototype, "getBlockIdByCommunityMember", null);
 CommunityMemberController = __decorate([
     common_1.Controller(),
     __metadata("design:paramtypes", [communityMember_service_1.CommunityMemberService])

@@ -25,6 +25,7 @@ const communityMember_entity_1 = require("./communityMember.entity");
 const typeorm_1 = require("typeorm");
 const state_entity_1 = require("../State/state.entity");
 const bhco_entity_1 = require("../Bhco/bhco.entity");
+const block_entity_1 = require("../Block/block.entity");
 let CommunityMemberService = class CommunityMemberService {
     constructor(communityMemberRepository) {
         this.communityMemberRepository = communityMemberRepository;
@@ -131,6 +132,14 @@ let CommunityMemberService = class CommunityMemberService {
             else {
                 return 'delete fail';
             }
+        });
+    }
+    getCommunityMemberBlockId(memberId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const communityMember = yield this.communityMemberRepository.findOneById(memberId);
+            const selectedBlock = yield typeorm_1.getConnection().getRepository(block_entity_1.BlockEntity).createQueryBuilder("block")
+                .where("block.block = :block", { block: communityMember.block }).getOne();
+            return selectedBlock.id;
         });
     }
 };

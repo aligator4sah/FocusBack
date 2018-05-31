@@ -7,6 +7,7 @@ import { CommunityEntity} from "../Community/community.entity";
 import {CityEntity} from "../City/city.entity";
 import {CountyEntity} from "../County/county.entity";
 import {BhcoEntity} from "../Bhco/bhco.entity";
+import { BlockEntity } from '../Block/block.entity';
 
 @Component()
 export class CommunityMemberService implements ICommunityMemberService{
@@ -118,6 +119,13 @@ export class CommunityMemberService implements ICommunityMemberService{
         else{
             return 'delete fail';
         }
+    }
+
+    public async getCommunityMemberBlockId(memberId:number):Promise<number>{
+        const communityMember = await this.communityMemberRepository.findOneById(memberId);
+        const selectedBlock = await getConnection().getRepository(BlockEntity).createQueryBuilder("block")
+          .where("block.block = :block",{block:communityMember.block}).getOne();
+        return selectedBlock.id;
     }
 
 }
