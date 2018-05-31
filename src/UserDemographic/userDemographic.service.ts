@@ -41,10 +41,18 @@ export class UserDemographicService{
         }
     }
 
-    public async getDemographicAnswerByUserId(userId:number):Promise<Array<UserDemographicEntity>>{
-        return await getConnection().getRepository(UserDemographicEntity).createQueryBuilder("userDemographic")
+    public async getDemographicAnswerByUserId(userId:number):Promise<Array<object>>{
+        const selectedUserDemographic = await getConnection().getRepository(UserDemographicEntity).createQueryBuilder("userDemographic")
             .leftJoinAndSelect(DemographicEntity,"demographic","demographic.id = userDemographic.questionid")
             .where("userDemographic.userid = :id",{id:userId})
             .getMany();
+        const allDemographics = await getConnection().getRepository(DemographicEntity).createQueryBuilder().getMany();
+        return selectedUserDemographic.map((item) => {
+            let question = allDemographics.filter((demographic) => {
+                return (demographic.id === item.questionid);
+            })
+            item["demographicQuestionnaire"] = question;
+            return item;
+        });
     }
 }

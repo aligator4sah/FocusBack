@@ -67,10 +67,18 @@ let UserDemographicService = class UserDemographicService {
     }
     getDemographicAnswerByUserId(userId) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield typeorm_1.getConnection().getRepository(userDemographic_entity_1.UserDemographicEntity).createQueryBuilder("userDemographic")
+            const selectedUserDemographic = yield typeorm_1.getConnection().getRepository(userDemographic_entity_1.UserDemographicEntity).createQueryBuilder("userDemographic")
                 .leftJoinAndSelect(demographic_entity_1.DemographicEntity, "demographic", "demographic.id = userDemographic.questionid")
                 .where("userDemographic.userid = :id", { id: userId })
                 .getMany();
+            const allDemographics = yield typeorm_1.getConnection().getRepository(demographic_entity_1.DemographicEntity).createQueryBuilder().getMany();
+            return selectedUserDemographic.map((item) => {
+                let question = allDemographics.filter((demographic) => {
+                    return (demographic.id === item.questionid);
+                });
+                item["demographicQuestionnaire"] = question;
+                return item;
+            });
         });
     }
 };

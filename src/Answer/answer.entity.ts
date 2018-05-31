@@ -15,7 +15,7 @@ export class AnswerEntity {
     @Column()
     domain:string;
 
-    @Column()
+    @Column('double precision')
     weight:number;
 
     @ManyToOne(type => SessionEntity,session=>session.answer)
