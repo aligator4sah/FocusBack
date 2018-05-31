@@ -132,9 +132,9 @@ let QuestionnaireService = class QuestionnaireService {
                     minScore += minPoint * questionnaire.weight;
                 }));
                 yield typeorm_1.getConnection().createQueryBuilder().update(domain_entity_1.DomainEntity)
-                    .set({ maxScore: maxScore }).where("domain = :domain", { domain: domainItem.domain }).execute();
+                    .set({ maxScore: maxScore.toFixed(2) }).where("domain = :domain", { domain: domainItem.domain }).execute();
                 yield typeorm_1.getConnection().createQueryBuilder().update(domain_entity_1.DomainEntity)
-                    .set({ minScore: minScore }).where("domain = :domain", { domain: domainItem.domain }).execute();
+                    .set({ minScore: minScore.toFixed(2) }).where("domain = :domain", { domain: domainItem.domain }).execute();
             }));
         });
     }
