@@ -104,53 +104,49 @@ export class CommunityAdminService implements ICommunityService{
       return familyNumber.length;
     }
 
-    public async countCommunityMemberByGenderInCurrentCommunity(communityId:number):Promise<number>{
-      const communityMemberNumberByGender =  await getRepository(CommunityMemberEntity).createQueryBuilder("communityMember")
+    public async countCommunityMemberByGenderInCurrentCommunity(communityId:number):Promise<object>{
+      return await getRepository(CommunityMemberEntity).createQueryBuilder("communityMember")
         .innerJoinAndSelect("communityMember.community","community")
         .where("communityMember.community = :community",{community:communityId})
         .select("communityMember.gender AS gender")
         .addSelect("COUNT(*) AS count")
         .groupBy("communityMember.gender")
         .getRawMany();
-      return communityMemberNumberByGender.length;
     }
 
-    public async countCommunityMemberByRaceInCurrentCommunity(communityId:number):Promise<number>{
-      const communityMemberNumberByRace = await getRepository(CommunityMemberEntity).createQueryBuilder("communityMember")
+    public async countCommunityMemberByRaceInCurrentCommunity(communityId:number):Promise<object>{
+     return await getRepository(CommunityMemberEntity).createQueryBuilder("communityMember")
         .innerJoinAndSelect("communityMember.community","community")
         .where("communityMember.community = :community",{community:communityId})
         .select("communityMember.race AS race")
         .addSelect("COUNT(*) AS count")
         .groupBy("communityMember.race")
         .getRawMany();
-      return communityMemberNumberByRace.length;
     }
 
-    public async countCommunityMemberByMarryInCurrentCommunity(communityId:number):Promise<number>{
-        const communityMemberNumberByMarry = await getRepository(CommunityMemberEntity).createQueryBuilder("communityMember")
+    public async countCommunityMemberByMarryInCurrentCommunity(communityId:number):Promise<object>{
+        return await getRepository(CommunityMemberEntity).createQueryBuilder("communityMember")
          .innerJoinAndSelect("communityMember.community","community")
          .where("communityMember.community = :community",{community:communityId})
           .select("communityMember.marry AS marry")
           .addSelect("COUNT(*) AS count")
           .groupBy("communityMember.marry")
           .getRawMany();
-        return communityMemberNumberByMarry.length;
-
     }
 
-    public async countCommunityMemberByEducationInCurrentCommunity(communityId:number):Promise<number>{
-        const communityMemberNumberByEducation = await getRepository(CommunityMemberEntity).createQueryBuilder("communityMember")
+    public async countCommunityMemberByEducationInCurrentCommunity(communityId:number):Promise<object>{
+        return await getRepository(CommunityMemberEntity).createQueryBuilder("communityMember")
          .innerJoinAndSelect("communityMember.community","community")
          .where("communityMember.community = :community",{community:communityId})
           .select("communityMember.education AS education")
           .addSelect("COUNT(*) AS count")
           .groupBy("communityMember.education")
           .getRawMany();
-        return communityMemberNumberByEducation.length;
+
     }
 
-  public async countCommunityMemberByEmploymentsInCurrentCommunity(communityId:number):Promise<number>{
-    const communityMemberNumberByEmployment = await getRepository(CommunityMemberEntity).createQueryBuilder("communityMember")
+  public async countCommunityMemberByEmploymentsInCurrentCommunity(communityId:number):Promise<object>{
+    return await getRepository(CommunityMemberEntity).createQueryBuilder("communityMember")
       .innerJoinAndSelect("communityMember.community","community")
       .where("communityMember.community = :community",{community:communityId})
       .where("communityMember.community = :community",{community:communityId})
@@ -158,7 +154,6 @@ export class CommunityAdminService implements ICommunityService{
       .addSelect("COUNT(*) AS count")
       .groupBy("communityMember.employments")
       .getRawMany();
-    return communityMemberNumberByEmployment.length;
   }
 
 }

@@ -129,55 +129,51 @@ let CommunityAdminService = class CommunityAdminService {
     }
     countCommunityMemberByGenderInCurrentCommunity(communityId) {
         return __awaiter(this, void 0, void 0, function* () {
-            const communityMemberNumberByGender = yield typeorm_1.getRepository(communityMember_entity_1.CommunityMemberEntity).createQueryBuilder("communityMember")
+            return yield typeorm_1.getRepository(communityMember_entity_1.CommunityMemberEntity).createQueryBuilder("communityMember")
                 .innerJoinAndSelect("communityMember.community", "community")
                 .where("communityMember.community = :community", { community: communityId })
                 .select("communityMember.gender AS gender")
                 .addSelect("COUNT(*) AS count")
                 .groupBy("communityMember.gender")
                 .getRawMany();
-            return communityMemberNumberByGender.length;
         });
     }
     countCommunityMemberByRaceInCurrentCommunity(communityId) {
         return __awaiter(this, void 0, void 0, function* () {
-            const communityMemberNumberByRace = yield typeorm_1.getRepository(communityMember_entity_1.CommunityMemberEntity).createQueryBuilder("communityMember")
+            return yield typeorm_1.getRepository(communityMember_entity_1.CommunityMemberEntity).createQueryBuilder("communityMember")
                 .innerJoinAndSelect("communityMember.community", "community")
                 .where("communityMember.community = :community", { community: communityId })
                 .select("communityMember.race AS race")
                 .addSelect("COUNT(*) AS count")
                 .groupBy("communityMember.race")
                 .getRawMany();
-            return communityMemberNumberByRace.length;
         });
     }
     countCommunityMemberByMarryInCurrentCommunity(communityId) {
         return __awaiter(this, void 0, void 0, function* () {
-            const communityMemberNumberByMarry = yield typeorm_1.getRepository(communityMember_entity_1.CommunityMemberEntity).createQueryBuilder("communityMember")
+            return yield typeorm_1.getRepository(communityMember_entity_1.CommunityMemberEntity).createQueryBuilder("communityMember")
                 .innerJoinAndSelect("communityMember.community", "community")
                 .where("communityMember.community = :community", { community: communityId })
                 .select("communityMember.marry AS marry")
                 .addSelect("COUNT(*) AS count")
                 .groupBy("communityMember.marry")
                 .getRawMany();
-            return communityMemberNumberByMarry.length;
         });
     }
     countCommunityMemberByEducationInCurrentCommunity(communityId) {
         return __awaiter(this, void 0, void 0, function* () {
-            const communityMemberNumberByEducation = yield typeorm_1.getRepository(communityMember_entity_1.CommunityMemberEntity).createQueryBuilder("communityMember")
+            return yield typeorm_1.getRepository(communityMember_entity_1.CommunityMemberEntity).createQueryBuilder("communityMember")
                 .innerJoinAndSelect("communityMember.community", "community")
                 .where("communityMember.community = :community", { community: communityId })
                 .select("communityMember.education AS education")
                 .addSelect("COUNT(*) AS count")
                 .groupBy("communityMember.education")
                 .getRawMany();
-            return communityMemberNumberByEducation.length;
         });
     }
     countCommunityMemberByEmploymentsInCurrentCommunity(communityId) {
         return __awaiter(this, void 0, void 0, function* () {
-            const communityMemberNumberByEmployment = yield typeorm_1.getRepository(communityMember_entity_1.CommunityMemberEntity).createQueryBuilder("communityMember")
+            return yield typeorm_1.getRepository(communityMember_entity_1.CommunityMemberEntity).createQueryBuilder("communityMember")
                 .innerJoinAndSelect("communityMember.community", "community")
                 .where("communityMember.community = :community", { community: communityId })
                 .where("communityMember.community = :community", { community: communityId })
@@ -185,7 +181,6 @@ let CommunityAdminService = class CommunityAdminService {
                 .addSelect("COUNT(*) AS count")
                 .groupBy("communityMember.employments")
                 .getRawMany();
-            return communityMemberNumberByEmployment.length;
         });
     }
 };
