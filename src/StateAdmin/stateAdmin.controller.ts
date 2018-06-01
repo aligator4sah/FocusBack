@@ -46,4 +46,58 @@ export class StateAdminController {
         const msg = await this.stateAdminService.deleteStateAdmin(params.id);
         return msg;
     }
+
+    @Get('communityMemberInState/:id')
+    public async countCommunityMemberInState(@Param() params){
+        const msg = await this.stateAdminService.countCommunityMemberInCurrentState(params.id);
+        return msg;
+    }
+
+    @Get('communityMemberByCityInState/:id')
+    public async countCommunityByCityInState(@Param() params){
+        const msg = await this.stateAdminService.countCommunityMemberGroupByCityInCurrentState(params.id);
+        return msg;
+    }
+
+    @Get('communityMemberByCountyInState/:id')
+    public async countCommunityByCountyInState(@Param() params){
+        const msg = await this.stateAdminService.countCommunityMemberGroupByCountyInCurrentState(params.id);
+        return msg;
+    }
+
+  @Get('communityMemberByGenderInState/:id')
+  public async countCommunityByGenderInState(@Param() params){
+    const msg = await this.stateAdminService.countCommunityMemberByGenderInCurrentState(params.id);
+    return msg;
+  }
+
+  @Get('communityMemberByRaceInState/:id')
+  public async countCommunityByRaceInState(@Param() params){
+    const msg = await this.stateAdminService.countCommunityMemberByRaceInCurrentState(params.id);
+    return msg;
+  }
+
+  @Get('communityMemberByMarryInState/:id')
+  public async countCommunityByMarryInState(@Param() params){
+    const msg = await this.stateAdminService.countCommunityMemberByMarryInCurrentState(params.id);
+    return msg;
+  }
+
+  @Get('communityMemberByEducationInState/:id')
+  public async countCommunityByEducationInState(@Param() params){
+    const msg = await this.stateAdminService.countCommunityMemberByEducationInCurrentState(params.id);
+    return msg;
+  }
+
+  @Get('communityMemberByEmploymentsInState/:id')
+  public async countCommunityByEmploymentsInState(@Param() params){
+    const msg = await this.stateAdminService.countCommunityMemberByEmploymentsInCurrentState(params.id);
+    return msg;
+  }
+
+  @Get('communityMemberByAgeDistributionInState/:id')
+  public async countCommunityByAgeDistributionInState(@Param() params){
+    const msg = await this.stateAdminService.countCommunityMemberByAgeInCurrentState(params.id);
+    return msg;
+  }
 }

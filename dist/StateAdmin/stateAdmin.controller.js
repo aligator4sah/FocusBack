@@ -56,6 +56,60 @@ let StateAdminController = class StateAdminController {
             return msg;
         });
     }
+    countCommunityMemberInState(params) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const msg = yield this.stateAdminService.countCommunityMemberInCurrentState(params.id);
+            return msg;
+        });
+    }
+    countCommunityByCityInState(params) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const msg = yield this.stateAdminService.countCommunityMemberGroupByCityInCurrentState(params.id);
+            return msg;
+        });
+    }
+    countCommunityByCountyInState(params) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const msg = yield this.stateAdminService.countCommunityMemberGroupByCountyInCurrentState(params.id);
+            return msg;
+        });
+    }
+    countCommunityByGenderInState(params) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const msg = yield this.stateAdminService.countCommunityMemberByGenderInCurrentState(params.id);
+            return msg;
+        });
+    }
+    countCommunityByRaceInState(params) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const msg = yield this.stateAdminService.countCommunityMemberByRaceInCurrentState(params.id);
+            return msg;
+        });
+    }
+    countCommunityByMarryInState(params) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const msg = yield this.stateAdminService.countCommunityMemberByMarryInCurrentState(params.id);
+            return msg;
+        });
+    }
+    countCommunityByEducationInState(params) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const msg = yield this.stateAdminService.countCommunityMemberByEducationInCurrentState(params.id);
+            return msg;
+        });
+    }
+    countCommunityByEmploymentsInState(params) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const msg = yield this.stateAdminService.countCommunityMemberByEmploymentsInCurrentState(params.id);
+            return msg;
+        });
+    }
+    countCommunityByAgeDistributionInState(params) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const msg = yield this.stateAdminService.countCommunityMemberByAgeInCurrentState(params.id);
+            return msg;
+        });
+    }
 };
 __decorate([
     common_1.Get(),
@@ -91,6 +145,69 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], StateAdminController.prototype, "deleteStateAdmin", null);
+__decorate([
+    common_1.Get('communityMemberInState/:id'),
+    __param(0, common_1.Param()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], StateAdminController.prototype, "countCommunityMemberInState", null);
+__decorate([
+    common_1.Get('communityMemberByCityInState/:id'),
+    __param(0, common_1.Param()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], StateAdminController.prototype, "countCommunityByCityInState", null);
+__decorate([
+    common_1.Get('communityMemberByCountyInState/:id'),
+    __param(0, common_1.Param()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], StateAdminController.prototype, "countCommunityByCountyInState", null);
+__decorate([
+    common_1.Get('communityMemberByGenderInState/:id'),
+    __param(0, common_1.Param()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], StateAdminController.prototype, "countCommunityByGenderInState", null);
+__decorate([
+    common_1.Get('communityMemberByRaceInState/:id'),
+    __param(0, common_1.Param()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], StateAdminController.prototype, "countCommunityByRaceInState", null);
+__decorate([
+    common_1.Get('communityMemberByMarryInState/:id'),
+    __param(0, common_1.Param()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], StateAdminController.prototype, "countCommunityByMarryInState", null);
+__decorate([
+    common_1.Get('communityMemberByEducationInState/:id'),
+    __param(0, common_1.Param()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], StateAdminController.prototype, "countCommunityByEducationInState", null);
+__decorate([
+    common_1.Get('communityMemberByEmploymentsInState/:id'),
+    __param(0, common_1.Param()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], StateAdminController.prototype, "countCommunityByEmploymentsInState", null);
+__decorate([
+    common_1.Get('communityMemberByAgeDistributionInState/:id'),
+    __param(0, common_1.Param()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], StateAdminController.prototype, "countCommunityByAgeDistributionInState", null);
 StateAdminController = __decorate([
     common_1.Controller('stateAdmin'),
     __metadata("design:paramtypes", [stateAdmin_service_1.StateAdminService])

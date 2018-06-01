@@ -22,6 +22,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const typeorm_1 = require("typeorm");
 const common_1 = require("@nestjs/common");
+const state_entity_1 = require("../State/state.entity");
+const communityMember_entity_1 = require("../CommunityMembers/communityMember.entity");
 let StateAdminService = class StateAdminService {
     constructor(stateAdminRepository) {
         this.stateAdminRepository = stateAdminRepository;
@@ -65,6 +67,136 @@ let StateAdminService = class StateAdminService {
             else {
                 return 'delete fail';
             }
+        });
+    }
+    countCommunityMemberInCurrentState(stateId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const selectedState = yield typeorm_1.getConnection().getRepository(state_entity_1.StateEntity).createQueryBuilder("state")
+                .where("state:id = :id", { id: stateId }).getOne();
+            const state = selectedState.state;
+            return yield typeorm_1.getConnection().getRepository(communityMember_entity_1.CommunityMemberEntity).createQueryBuilder("communityMember")
+                .where("community.state = :state", { state: state }).getCount();
+        });
+    }
+    countCommunityMemberGroupByCountyInCurrentState(stateId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const selectedState = yield typeorm_1.getConnection().getRepository(state_entity_1.StateEntity).createQueryBuilder("state")
+                .where("state:id = :id", { id: stateId }).getOne();
+            const state = selectedState.state;
+            const result = yield typeorm_1.getConnection().getRepository(communityMember_entity_1.CommunityMemberEntity).createQueryBuilder("communityMember")
+                .where("community.state = :state", { state: state })
+                .select("communityMember.county AS county")
+                .addSelect("COUNT(*) AS count")
+                .groupBy("communityMember.county")
+                .getRawMany();
+            return result.length;
+        });
+    }
+    countCommunityMemberGroupByCityInCurrentState(stateId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const selectedState = yield typeorm_1.getConnection().getRepository(state_entity_1.StateEntity).createQueryBuilder("state")
+                .where("state:id = :id", { id: stateId }).getOne();
+            const state = selectedState.state;
+            const result = yield typeorm_1.getConnection().getRepository(communityMember_entity_1.CommunityMemberEntity).createQueryBuilder("communityMember")
+                .where("community.state = :state", { state: state })
+                .select("communityMember.city AS city")
+                .addSelect("COUNT(*) AS count")
+                .groupBy("communityMember.city")
+                .getRawMany();
+            return result.length;
+        });
+    }
+    countCommunityMemberByGenderInCurrentState(stateId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const selectedState = yield typeorm_1.getConnection().getRepository(state_entity_1.StateEntity).createQueryBuilder("state")
+                .where("state:id = :id", { id: stateId }).getOne();
+            const state = selectedState.state;
+            return yield typeorm_1.getConnection().getRepository(communityMember_entity_1.CommunityMemberEntity).createQueryBuilder("communityMember")
+                .where("community.state = :state", { state: state })
+                .select("communityMember.gender AS gender")
+                .addSelect("COUNT(*) AS count")
+                .groupBy("communityMember.gender")
+                .getRawMany();
+        });
+    }
+    countCommunityMemberByRaceInCurrentState(stateId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const selectedState = yield typeorm_1.getConnection().getRepository(state_entity_1.StateEntity).createQueryBuilder("state")
+                .where("state:id = :id", { id: stateId }).getOne();
+            const state = selectedState.state;
+            return yield typeorm_1.getConnection().getRepository(communityMember_entity_1.CommunityMemberEntity).createQueryBuilder("communityMember")
+                .where("community.state = :state", { state: state })
+                .select("communityMember.race AS race")
+                .addSelect("COUNT(*) AS count")
+                .groupBy("communityMember.race")
+                .getRawMany();
+        });
+    }
+    countCommunityMemberByMarryInCurrentState(stateId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const selectedState = yield typeorm_1.getConnection().getRepository(state_entity_1.StateEntity).createQueryBuilder("state")
+                .where("state:id = :id", { id: stateId }).getOne();
+            const state = selectedState.state;
+            return yield typeorm_1.getConnection().getRepository(communityMember_entity_1.CommunityMemberEntity).createQueryBuilder("communityMember")
+                .where("community.state = :state", { state: state })
+                .select("communityMember.marry AS marry")
+                .addSelect("COUNT(*) AS count")
+                .groupBy("communityMember.marry")
+                .getRawMany();
+        });
+    }
+    countCommunityMemberByEducationInCurrentState(stateId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const selectedState = yield typeorm_1.getConnection().getRepository(state_entity_1.StateEntity).createQueryBuilder("state")
+                .where("state:id = :id", { id: stateId }).getOne();
+            const state = selectedState.state;
+            return yield typeorm_1.getConnection().getRepository(communityMember_entity_1.CommunityMemberEntity).createQueryBuilder("communityMember")
+                .where("community.state = :state", { state: state })
+                .select("communityMember.education AS education")
+                .addSelect("COUNT(*) AS count")
+                .groupBy("communityMember.education")
+                .getRawMany();
+        });
+    }
+    countCommunityMemberByEmploymentsInCurrentState(stateId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const selectedState = yield typeorm_1.getConnection().getRepository(state_entity_1.StateEntity).createQueryBuilder("state")
+                .where("state:id = :id", { id: stateId }).getOne();
+            const state = selectedState.state;
+            return yield typeorm_1.getConnection().getRepository(communityMember_entity_1.CommunityMemberEntity).createQueryBuilder("communityMember")
+                .where("community.state = :state", { state: state })
+                .select("communityMember.employments AS employments")
+                .addSelect("COUNT(*) AS count")
+                .groupBy("communityMember.employments")
+                .getRawMany();
+        });
+    }
+    countCommunityMemberByAgeInCurrentState(stateId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const selectedState = yield typeorm_1.getConnection().getRepository(state_entity_1.StateEntity).createQueryBuilder("state")
+                .where("state:id = :id", { id: stateId }).getOne();
+            const state = selectedState.state;
+            const selectedCommunityMember = yield typeorm_1.getConnection().getRepository(communityMember_entity_1.CommunityMemberEntity).createQueryBuilder("communityMember")
+                .where("community.state = :state", { state: state })
+                .getMany();
+            let year = new Date().getFullYear();
+            console.log(year);
+            let teenager = 0;
+            let adult = 0;
+            let senior = 0;
+            selectedCommunityMember.forEach((item) => {
+                let gap = year - Number(item.date.substring(0, 4));
+                if (gap > 50) {
+                    senior++;
+                }
+                else if (gap > 20) {
+                    adult++;
+                }
+                else {
+                    teenager++;
+                }
+            });
+            return [{ type: "teenager", count: teenager }, { type: "adult", count: adult }, { type: "senior", count: senior }];
         });
     }
 };

@@ -1,7 +1,9 @@
-import { Repository } from 'typeorm';
+import { getConnection, Repository } from 'typeorm';
 import { Component ,Inject} from "@nestjs/common";
 import { StateAdminEntity} from "./stateAdmin.entity";
 import {IStateAdmin,IStateAdminService} from "./Interfaces";
+import { StateEntity } from '../State/state.entity';
+import { CommunityMemberEntity } from '../CommunityMembers/communityMember.entity';
 
 @Component()
 export class StateAdminService implements IStateAdminService{
@@ -44,5 +46,144 @@ export class StateAdminService implements IStateAdminService{
             return 'delete fail';
         }
     }
+
+    public async countCommunityMemberInCurrentState(stateId:number):Promise<number>{
+        const selectedState = await getConnection().getRepository(StateEntity).createQueryBuilder("state")
+          .where("state:id = :id",{id:stateId}).getOne();
+
+        const state:string = selectedState.state;
+
+        return await getConnection().getRepository(CommunityMemberEntity).createQueryBuilder("communityMember")
+          .where("community.state = :state",{state:state}).getCount();
+    }
+
+    public async countCommunityMemberGroupByCountyInCurrentState(stateId:number):Promise<number>{
+      const selectedState = await getConnection().getRepository(StateEntity).createQueryBuilder("state")
+        .where("state:id = :id",{id:stateId}).getOne();
+
+      const state:string = selectedState.state;
+
+      const result = await getConnection().getRepository(CommunityMemberEntity).createQueryBuilder("communityMember")
+        .where("community.state = :state",{state:state})
+        .select("communityMember.county AS county")
+        .addSelect("COUNT(*) AS count")
+        .groupBy("communityMember.county")
+        .getRawMany();
+      return result.length;
+    }
+
+  public async countCommunityMemberGroupByCityInCurrentState(stateId:number):Promise<number>{
+    const selectedState = await getConnection().getRepository(StateEntity).createQueryBuilder("state")
+      .where("state:id = :id",{id:stateId}).getOne();
+
+    const state:string = selectedState.state;
+
+    const result = await getConnection().getRepository(CommunityMemberEntity).createQueryBuilder("communityMember")
+      .where("community.state = :state",{state:state})
+      .select("communityMember.city AS city")
+      .addSelect("COUNT(*) AS count")
+      .groupBy("communityMember.city")
+      .getRawMany();
+    return result.length;
+  }
+
+  public async countCommunityMemberByGenderInCurrentState(stateId:number):Promise<object>{
+    const selectedState = await getConnection().getRepository(StateEntity).createQueryBuilder("state")
+      .where("state:id = :id",{id:stateId}).getOne();
+
+    const state:string = selectedState.state;
+
+    return await getConnection().getRepository(CommunityMemberEntity).createQueryBuilder("communityMember")
+      .where("community.state = :state",{state:state})
+      .select("communityMember.gender AS gender")
+      .addSelect("COUNT(*) AS count")
+      .groupBy("communityMember.gender")
+      .getRawMany();
+  }
+
+  public async countCommunityMemberByRaceInCurrentState(stateId:number):Promise<object>{
+    const selectedState = await getConnection().getRepository(StateEntity).createQueryBuilder("state")
+      .where("state:id = :id",{id:stateId}).getOne();
+
+    const state:string = selectedState.state;
+
+    return await getConnection().getRepository(CommunityMemberEntity).createQueryBuilder("communityMember")
+      .where("community.state = :state",{state:state})
+      .select("communityMember.race AS race")
+      .addSelect("COUNT(*) AS count")
+      .groupBy("communityMember.race")
+      .getRawMany();
+  }
+
+  public async countCommunityMemberByMarryInCurrentState(stateId:number):Promise<object>{
+    const selectedState = await getConnection().getRepository(StateEntity).createQueryBuilder("state")
+      .where("state:id = :id",{id:stateId}).getOne();
+
+    const state:string = selectedState.state;
+
+    return await getConnection().getRepository(CommunityMemberEntity).createQueryBuilder("communityMember")
+      .where("community.state = :state",{state:state})
+      .select("communityMember.marry AS marry")
+      .addSelect("COUNT(*) AS count")
+      .groupBy("communityMember.marry")
+      .getRawMany();
+  }
+
+  public async countCommunityMemberByEducationInCurrentState(stateId:number):Promise<object>{
+    const selectedState = await getConnection().getRepository(StateEntity).createQueryBuilder("state")
+      .where("state:id = :id",{id:stateId}).getOne();
+
+    const state:string = selectedState.state;
+
+    return await getConnection().getRepository(CommunityMemberEntity).createQueryBuilder("communityMember")
+      .where("community.state = :state",{state:state})
+      .select("communityMember.education AS education")
+      .addSelect("COUNT(*) AS count")
+      .groupBy("communityMember.education")
+      .getRawMany();
+  }
+
+
+  public async countCommunityMemberByEmploymentsInCurrentState(stateId:number):Promise<object>{
+    const selectedState = await getConnection().getRepository(StateEntity).createQueryBuilder("state")
+      .where("state:id = :id",{id:stateId}).getOne();
+
+    const state:string = selectedState.state;
+
+    return await getConnection().getRepository(CommunityMemberEntity).createQueryBuilder("communityMember")
+      .where("community.state = :state",{state:state})
+      .select("communityMember.employments AS employments")
+      .addSelect("COUNT(*) AS count")
+      .groupBy("communityMember.employments")
+      .getRawMany();
+  }
+
+  public async countCommunityMemberByAgeInCurrentState(stateId:number):Promise<object[]>{
+    const selectedState = await getConnection().getRepository(StateEntity).createQueryBuilder("state")
+      .where("state:id = :id",{id:stateId}).getOne();
+
+    const state:string = selectedState.state;
+
+    const selectedCommunityMember = await getConnection().getRepository(CommunityMemberEntity).createQueryBuilder("communityMember")
+      .where("community.state = :state",{state:state})
+      .getMany();
+
+    let year = new Date().getFullYear();
+    console.log(year);
+    let teenager:number = 0;
+    let adult:number = 0;
+    let senior:number = 0;
+    selectedCommunityMember.forEach((item) => {
+      let gap = year - Number(item.date.substring(0,4));
+      if(gap > 50){
+        senior++;
+      }else if(gap > 20){
+        adult++;
+      }else{
+        teenager++;
+      }
+    })
+    return [{type:"teenager",count:teenager},{type:"adult",count:adult},{type:"senior",count:senior}];
+  }
 
 }
