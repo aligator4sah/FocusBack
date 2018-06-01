@@ -6,6 +6,9 @@ import {CommunityEntity} from "../Community/community.entity";
 import {CityEntity} from "../City/city.entity";
 import {CountyEntity} from "../County/county.entity";
 import {StateEntity} from "../State/state.entity";
+import { CommunityMemberEntity } from '../CommunityMembers/communityMember.entity';
+import { BlockEntity } from '../Block/block.entity';
+import { async } from 'rxjs/scheduler/async';
 
 @Component()
 export class CommunityAdminService implements ICommunityService{
@@ -71,4 +74,65 @@ export class CommunityAdminService implements ICommunityService{
         const state = await selectedState.state;
         return await {community,city,county,state};
     }
+
+    public async countCommunityMemberInCurrentCommunity(communityId:number):Promise<number>{
+        return await getRepository(CommunityMemberEntity).createQueryBuilder("communityMember")
+        .innerJoinAndSelect("communityMember.community","community")
+        .where("communityMember.community = :community",{community:communityId}).getCount();
+    }
+
+    public async countBlockInCurrentCommunity(communityId:number):Promise<number>{
+      return await getRepository(CommunityMemberEntity).createQueryBuilder("communityMember")
+        .innerJoinAndSelect("communityMember.community","community")
+        .where("communityMember.community = :community",{community:communityId})
+        .groupBy("communityMember.block").getCount();
+    }
+
+    public async countFamilyInCurrentCommunity(communityId:number):Promise<number>{
+      return await getRepository(CommunityMemberEntity).createQueryBuilder("communityMember")
+        .innerJoinAndSelect("communityMember.community","community")
+        .where("communityMember.community = :community",{community:communityId})
+        .groupBy("communityMember.family").getCount();
+    }
+
+    public async countCommunityMemberByGenderInCurrentCommunity(communityId:number):Promise<number>{
+      return await getRepository(CommunityMemberEntity).createQueryBuilder("communityMember")
+        .innerJoinAndSelect("communityMember.community","community")
+        .where("communityMember.community = :community",{community:communityId})
+        .orderBy("communityMember.gender")
+        .getCount();
+    }
+
+    public async countCommunityMemberByRaceInCurrentCommunity(communityId:number):Promise<number>{
+      return await getRepository(CommunityMemberEntity).createQueryBuilder("communityMember")
+        .innerJoinAndSelect("communityMember.community","community")
+        .where("communityMember.community = :community",{community:communityId})
+        .orderBy("communityMember.race")
+        .getCount();
+    }
+
+    public async countCommunityMemberByMarryInCurrentCommunity(communityId:number):Promise<number>{
+        return await getRepository(CommunityMemberEntity).createQueryBuilder("communityMember")
+         .innerJoinAndSelect("communityMember.community","community")
+         .where("communityMember.community = :community",{community:communityId})
+         .orderBy("communityMember.marry")
+         .getCount();
+    }
+
+    public async countCommunityMemberByEducationInCurrentCommunity(communityId:number):Promise<number>{
+        return await getRepository(CommunityMemberEntity).createQueryBuilder("communityMember")
+         .innerJoinAndSelect("communityMember.community","community")
+         .where("communityMember.community = :community",{community:communityId})
+         .orderBy("communityMember.education")
+         .getCount();
+    }
+
+  public async countCommunityMemberByEmploymentsInCurrentCommunity(communityId:number):Promise<number>{
+    return await getRepository(CommunityMemberEntity).createQueryBuilder("communityMember")
+      .innerJoinAndSelect("communityMember.community","community")
+      .where("communityMember.community = :community",{community:communityId})
+      .orderBy("communityMember.employments")
+      .getCount();
+  }
+
 }

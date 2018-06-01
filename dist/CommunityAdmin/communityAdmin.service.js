@@ -26,6 +26,7 @@ const community_entity_1 = require("../Community/community.entity");
 const city_entity_1 = require("../City/city.entity");
 const county_entity_1 = require("../County/county.entity");
 const state_entity_1 = require("../State/state.entity");
+const communityMember_entity_1 = require("../CommunityMembers/communityMember.entity");
 let CommunityAdminService = class CommunityAdminService {
     constructor(communityAdminRepository) {
         this.communityAdminRepository = communityAdminRepository;
@@ -93,6 +94,74 @@ let CommunityAdminService = class CommunityAdminService {
                 .createQueryBuilder("state").where("state.id = :id", { id: selectedCounty.state.id }).getOne();
             const state = yield selectedState.state;
             return yield { community, city, county, state };
+        });
+    }
+    countCommunityMemberInCurrentCommunity(communityId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield typeorm_1.getRepository(communityMember_entity_1.CommunityMemberEntity).createQueryBuilder("communityMember")
+                .innerJoinAndSelect("communityMember.community", "community")
+                .where("communityMember.community = :community", { community: communityId }).getCount();
+        });
+    }
+    countBlockInCurrentCommunity(communityId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield typeorm_1.getRepository(communityMember_entity_1.CommunityMemberEntity).createQueryBuilder("communityMember")
+                .innerJoinAndSelect("communityMember.community", "community")
+                .where("communityMember.community = :community", { community: communityId })
+                .groupBy("communityMember.block").getCount();
+        });
+    }
+    countFamilyInCurrentCommunity(communityId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield typeorm_1.getRepository(communityMember_entity_1.CommunityMemberEntity).createQueryBuilder("communityMember")
+                .innerJoinAndSelect("communityMember.community", "community")
+                .where("communityMember.community = :community", { community: communityId })
+                .groupBy("communityMember.family").getCount();
+        });
+    }
+    countCommunityMemberByGenderInCurrentCommunity(communityId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield typeorm_1.getRepository(communityMember_entity_1.CommunityMemberEntity).createQueryBuilder("communityMember")
+                .innerJoinAndSelect("communityMember.community", "community")
+                .where("communityMember.community = :community", { community: communityId })
+                .orderBy("communityMember.gender")
+                .getCount();
+        });
+    }
+    countCommunityMemberByRaceInCurrentCommunity(communityId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield typeorm_1.getRepository(communityMember_entity_1.CommunityMemberEntity).createQueryBuilder("communityMember")
+                .innerJoinAndSelect("communityMember.community", "community")
+                .where("communityMember.community = :community", { community: communityId })
+                .orderBy("communityMember.race")
+                .getCount();
+        });
+    }
+    countCommunityMemberByMarryInCurrentCommunity(communityId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield typeorm_1.getRepository(communityMember_entity_1.CommunityMemberEntity).createQueryBuilder("communityMember")
+                .innerJoinAndSelect("communityMember.community", "community")
+                .where("communityMember.community = :community", { community: communityId })
+                .orderBy("communityMember.marry")
+                .getCount();
+        });
+    }
+    countCommunityMemberByEducationInCurrentCommunity(communityId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield typeorm_1.getRepository(communityMember_entity_1.CommunityMemberEntity).createQueryBuilder("communityMember")
+                .innerJoinAndSelect("communityMember.community", "community")
+                .where("communityMember.community = :community", { community: communityId })
+                .orderBy("communityMember.education")
+                .getCount();
+        });
+    }
+    countCommunityMemberByEmploymentsInCurrentCommunity(communityId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield typeorm_1.getRepository(communityMember_entity_1.CommunityMemberEntity).createQueryBuilder("communityMember")
+                .innerJoinAndSelect("communityMember.community", "community")
+                .where("communityMember.community = :community", { community: communityId })
+                .orderBy("communityMember.employments")
+                .getCount();
         });
     }
 };

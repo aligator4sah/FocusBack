@@ -69,7 +69,7 @@ let BlockService = class BlockService {
     }
     getBlockByCommunity(id) {
         return __awaiter(this, void 0, void 0, function* () {
-            const selectedBlock = typeorm_1.getRepository(block_entity_1.BlockEntity)
+            const selectedBlock = yield typeorm_1.getRepository(block_entity_1.BlockEntity)
                 .createQueryBuilder("block")
                 .leftJoinAndSelect("block.community", "community")
                 .where("community.id = :name", { name: id })

@@ -44,7 +44,7 @@ export class BlockService implements IBlockService{
     }
 
     public async getBlockByCommunity(id:number):Promise<Array<BlockEntity>>{
-        const selectedBlock = getRepository(BlockEntity)
+        const selectedBlock = await getRepository(BlockEntity)
             .createQueryBuilder("block")
             .leftJoinAndSelect("block.community","community")
             .where("community.id = :name",{name:id})
