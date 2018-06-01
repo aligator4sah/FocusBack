@@ -69,6 +69,18 @@ let CommunityAdminController = class CommunityAdminController {
             return msg;
         });
     }
+    countCommunityMemberInCurrentCommunity(params) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const msg = yield this.communityAdminService.countCommunityMemberInCurrentCommunity(params.id);
+            return msg;
+        });
+    }
+    countBlockInCurrentCommunity(params) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const msg = yield this.communityAdminService.countBlockInCurrentCommunity(params.id);
+            return msg;
+        });
+    }
 };
 __decorate([
     common_1.Get(),
@@ -118,6 +130,20 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], CommunityAdminController.prototype, "getCommunityRelatedInfo", null);
+__decorate([
+    common_1.Get('communityMemberInCommunity/:id'),
+    __param(0, common_1.Param()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], CommunityAdminController.prototype, "countCommunityMemberInCurrentCommunity", null);
+__decorate([
+    common_1.Get('blocksInCurrentCommunity/:id'),
+    __param(0, common_1.Param()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], CommunityAdminController.prototype, "countBlockInCurrentCommunity", null);
 CommunityAdminController = __decorate([
     common_1.Controller('communityAdmin'),
     __metadata("design:paramtypes", [communityAdmin_service_1.CommunityAdminService])

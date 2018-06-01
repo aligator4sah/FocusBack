@@ -50,4 +50,16 @@ export class CommunityAdminController{
         return msg;
     }
 
+    @Get('communityMemberInCommunity/:id')
+    public async countCommunityMemberInCurrentCommunity(@Param() params){
+        const msg = await this.communityAdminService.countCommunityMemberInCurrentCommunity(params.id);
+        return msg;
+    }
+
+    @Get('blocksInCurrentCommunity/:id')
+    public async countBlockInCurrentCommunity(@Param() params){
+        const msg = await this.communityAdminService.countBlockInCurrentCommunity(params.id);
+        return msg;
+    }
+
 }
