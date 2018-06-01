@@ -85,7 +85,7 @@ export class CommunityAdminService implements ICommunityService{
       return await getRepository(CommunityMemberEntity).createQueryBuilder("communityMember")
         .innerJoinAndSelect("communityMember.community","community")
         .where("communityMember.community = :community",{community:communityId})
-        .select("communityMember.block as block")
+        .select("communityMember.block AS block")
         .addSelect("COUNT(*) AS count")
         .groupBy("communityMember.block")
         .getRawMany();
