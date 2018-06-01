@@ -4,6 +4,7 @@ import {BhcoEntity} from "./bhco.entity";
 import {IBcho,IBhcoService} from "./Interfaces";
 import {StateEntity} from "../State/state.entity";
 import {CommunityEntity} from "../Community/community.entity";
+import { CommunityMemberEntity } from '../CommunityMembers/communityMember.entity';
 
 @Component()
 export class BhcoService implements IBhcoService{
@@ -53,4 +54,84 @@ export class BhcoService implements IBhcoService{
             return 'delete fail';
         }
     }
+
+    public async countCommunityMemberInCurrentBhco(bhcoId:number):Promise<number>{
+      return await getRepository(CommunityMemberEntity).createQueryBuilder("communityMember")
+        .innerJoinAndSelect("communityMember.bhco","bhco")
+        .where("communityMember.bhco = :bhco",{bhco:bhcoId}).getCount();
+    }
+
+  public async countCommunityMemberByGenderInCurrentBhco(bhcoId:number):Promise<object>{
+    return await getRepository(CommunityMemberEntity).createQueryBuilder("communityMember")
+      .innerJoinAndSelect("communityMember.bhco","bhco")
+      .where("communityMember.bhco = :bhco",{bhco:bhcoId})
+      .select("communityMember.gender AS gender")
+      .addSelect("COUNT(*) AS count")
+      .groupBy("communityMember.gender")
+      .getRawMany();
+  }
+
+  public async countCommunityMemberByRaceInCurrentBhco(bhcoId:number):Promise<object>{
+    return await getRepository(CommunityMemberEntity).createQueryBuilder("communityMember")
+      .innerJoinAndSelect("communityMember.bhco","bhco")
+      .where("communityMember.bhco = :bhco",{bhco:bhcoId})
+      .select("communityMember.race AS race")
+      .addSelect("COUNT(*) AS count")
+      .groupBy("communityMember.race")
+      .getRawMany();
+  }
+
+  public async countCommunityMemberByMarryInCurrentBhco(bhcoId:number):Promise<object>{
+    return await getRepository(CommunityMemberEntity).createQueryBuilder("communityMember")
+      .innerJoinAndSelect("communityMember.bhco","bhco")
+      .where("communityMember.bhco = :bhco",{bhco:bhcoId})
+      .select("communityMember.marry AS marry")
+      .addSelect("COUNT(*) AS count")
+      .groupBy("communityMember.marry")
+      .getRawMany();
+  }
+
+  public async countCommunityMemberByEducationInCurrentBhco(bhcoId:number):Promise<object>{
+    return await getRepository(CommunityMemberEntity).createQueryBuilder("communityMember")
+      .innerJoinAndSelect("communityMember.bhco","bhco")
+      .where("communityMember.bhco = :bhco",{bhco:bhcoId})
+      .select("communityMember.education AS education")
+      .addSelect("COUNT(*) AS count")
+      .groupBy("communityMember.education")
+      .getRawMany();
+
+  }
+
+  public async countCommunityMemberByEmploymentsInCurrentBhco(bhcoId:number):Promise<object>{
+    return await getRepository(CommunityMemberEntity).createQueryBuilder("communityMember")
+      .innerJoinAndSelect("communityMember.bhco","bhco")
+      .where("communityMember.bhco = :bhco",{bhco:bhcoId})
+      .select("communityMember.employments AS employments")
+      .addSelect("COUNT(*) AS count")
+      .groupBy("communityMember.employments")
+      .getRawMany();
+  }
+
+  public async countCommunityMemberByAgeInCurrentBhco(bhcoId:number):Promise<object[]>{
+    const selectedCommunityMember = await getRepository(CommunityMemberEntity).createQueryBuilder("communityMember")
+      .innerJoinAndSelect("communityMember.bhco","bhco")
+      .where("communityMember.bhco = :bhco",{bhco:bhcoId})
+      .getMany();
+    let year = new Date().getFullYear();
+    console.log(year);
+    let teenager:number = 0;
+    let adult:number = 0;
+    let senior:number = 0;
+    selectedCommunityMember.forEach((item) => {
+      let gap = year - Number(item.date.substring(0,4));
+      if(gap > 50){
+        senior++;
+      }else if(gap > 20){
+        adult++;
+      }else{
+        teenager++;
+      }
+    })
+    return [{type:"teenager",count:teenager},{type:"adult",count:adult},{type:"senior",count:senior}];
+  }
 }

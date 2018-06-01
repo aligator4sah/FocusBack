@@ -50,5 +50,45 @@ export class BhcoController{
         return msg;
     }
 
+    @Get('communityMemberInBhco/:id')
+    public async countCommunityMemberInBhco(@Param() params){
+        const msg = await this.bhcoService.countCommunityMemberInCurrentBhco(params.id);
+        return msg;
+    }
 
+  @Get('communityMemberByGenderInBhco/:id')
+  public async countCommunityMemberByGenderInBhco(@Param() params){
+    const msg = await this.bhcoService.countCommunityMemberByGenderInCurrentBhco(params.id);
+    return msg;
+  }
+
+  @Get('communityMemberByRaceInBhco/:id')
+  public async countCommunityMemberByRaceInBhco(@Param() params){
+    const msg = await this.bhcoService.countCommunityMemberByRaceInCurrentBhco(params.id);
+    return msg;
+  }
+
+  @Get('communityMemberByMarryInBhco/:id')
+  public async countCommunityMemberByMarryInBhco(@Param() params){
+    const msg = await this.bhcoService.countCommunityMemberByMarryInCurrentBhco(params.id);
+    return msg;
+  }
+
+  @Get('communityMemberByEducationInBhco/:id')
+  public async countCommunityMemberByEducationInBhco(@Param() params){
+    const msg = await this.bhcoService.countCommunityMemberByEducationInCurrentBhco(params.id);
+    return msg;
+  }
+
+  @Get('communityMemberByEmploymentsInBhco/:id')
+  public async countCommunityMemberByEmploymentsInBhco(@Param() params){
+    const msg = await this.bhcoService.countCommunityMemberByEmploymentsInCurrentBhco(params.id);
+    return msg;
+  }
+
+  @Get('communityMemberByAgeDistributionInBhco/:id')
+  public async countCommunityMemberByAgeDistributionInBhco(@Param() params){
+    const msg = await this.bhcoService.countCommunityMemberByAgeInCurrentBhco(params.id);
+    return msg;
+  }
 }

@@ -69,6 +69,48 @@ let BhcoController = class BhcoController {
             return msg;
         });
     }
+    countCommunityMemberInBhco(params) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const msg = yield this.bhcoService.countCommunityMemberInCurrentBhco(params.id);
+            return msg;
+        });
+    }
+    countCommunityMemberByGenderInBhco(params) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const msg = yield this.bhcoService.countCommunityMemberByGenderInCurrentBhco(params.id);
+            return msg;
+        });
+    }
+    countCommunityMemberByRaceInBhco(params) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const msg = yield this.bhcoService.countCommunityMemberByRaceInCurrentBhco(params.id);
+            return msg;
+        });
+    }
+    countCommunityMemberByMarryInBhco(params) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const msg = yield this.bhcoService.countCommunityMemberByMarryInCurrentBhco(params.id);
+            return msg;
+        });
+    }
+    countCommunityMemberByEducationInBhco(params) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const msg = yield this.bhcoService.countCommunityMemberByEducationInCurrentBhco(params.id);
+            return msg;
+        });
+    }
+    countCommunityMemberByEmploymentsInBhco(params) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const msg = yield this.bhcoService.countCommunityMemberByEmploymentsInCurrentBhco(params.id);
+            return msg;
+        });
+    }
+    countCommunityMemberByAgeDistributionInBhco(params) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const msg = yield this.bhcoService.countCommunityMemberByAgeInCurrentBhco(params.id);
+            return msg;
+        });
+    }
 };
 __decorate([
     common_1.Get('bhco'),
@@ -118,6 +160,55 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], BhcoController.prototype, "deleteBhco", null);
+__decorate([
+    common_1.Get('communityMemberInBhco/:id'),
+    __param(0, common_1.Param()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], BhcoController.prototype, "countCommunityMemberInBhco", null);
+__decorate([
+    common_1.Get('communityMemberByGenderInBhco/:id'),
+    __param(0, common_1.Param()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], BhcoController.prototype, "countCommunityMemberByGenderInBhco", null);
+__decorate([
+    common_1.Get('communityMemberByRaceInBhco/:id'),
+    __param(0, common_1.Param()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], BhcoController.prototype, "countCommunityMemberByRaceInBhco", null);
+__decorate([
+    common_1.Get('communityMemberByMarryInBhco/:id'),
+    __param(0, common_1.Param()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], BhcoController.prototype, "countCommunityMemberByMarryInBhco", null);
+__decorate([
+    common_1.Get('communityMemberByEducationInBhco/:id'),
+    __param(0, common_1.Param()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], BhcoController.prototype, "countCommunityMemberByEducationInBhco", null);
+__decorate([
+    common_1.Get('communityMemberByEmploymentsInBhco/:id'),
+    __param(0, common_1.Param()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], BhcoController.prototype, "countCommunityMemberByEmploymentsInBhco", null);
+__decorate([
+    common_1.Get('communityMemberByAgeDistributionInBhco/:id'),
+    __param(0, common_1.Param()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], BhcoController.prototype, "countCommunityMemberByAgeDistributionInBhco", null);
 BhcoController = __decorate([
     common_1.Controller(),
     __metadata("design:paramtypes", [bhco_service_1.BhcoService])

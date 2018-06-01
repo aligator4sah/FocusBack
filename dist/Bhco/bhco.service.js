@@ -24,6 +24,7 @@ const common_1 = require("@nestjs/common");
 const typeorm_1 = require("typeorm");
 const state_entity_1 = require("../State/state.entity");
 const community_entity_1 = require("../Community/community.entity");
+const communityMember_entity_1 = require("../CommunityMembers/communityMember.entity");
 let BhcoService = class BhcoService {
     constructor(bhcoRepository) {
         this.bhcoRepository = bhcoRepository;
@@ -77,6 +78,94 @@ let BhcoService = class BhcoService {
             else {
                 return 'delete fail';
             }
+        });
+    }
+    countCommunityMemberInCurrentBhco(bhcoId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield typeorm_1.getRepository(communityMember_entity_1.CommunityMemberEntity).createQueryBuilder("communityMember")
+                .innerJoinAndSelect("communityMember.bhco", "bhco")
+                .where("communityMember.bhco = :bhco", { bhco: bhcoId }).getCount();
+        });
+    }
+    countCommunityMemberByGenderInCurrentBhco(bhcoId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield typeorm_1.getRepository(communityMember_entity_1.CommunityMemberEntity).createQueryBuilder("communityMember")
+                .innerJoinAndSelect("communityMember.bhco", "bhco")
+                .where("communityMember.bhco = :bhco", { bhco: bhcoId })
+                .select("communityMember.gender AS gender")
+                .addSelect("COUNT(*) AS count")
+                .groupBy("communityMember.gender")
+                .getRawMany();
+        });
+    }
+    countCommunityMemberByRaceInCurrentBhco(bhcoId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield typeorm_1.getRepository(communityMember_entity_1.CommunityMemberEntity).createQueryBuilder("communityMember")
+                .innerJoinAndSelect("communityMember.bhco", "bhco")
+                .where("communityMember.bhco = :bhco", { bhco: bhcoId })
+                .select("communityMember.race AS race")
+                .addSelect("COUNT(*) AS count")
+                .groupBy("communityMember.race")
+                .getRawMany();
+        });
+    }
+    countCommunityMemberByMarryInCurrentBhco(bhcoId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield typeorm_1.getRepository(communityMember_entity_1.CommunityMemberEntity).createQueryBuilder("communityMember")
+                .innerJoinAndSelect("communityMember.bhco", "bhco")
+                .where("communityMember.bhco = :bhco", { bhco: bhcoId })
+                .select("communityMember.marry AS marry")
+                .addSelect("COUNT(*) AS count")
+                .groupBy("communityMember.marry")
+                .getRawMany();
+        });
+    }
+    countCommunityMemberByEducationInCurrentBhco(bhcoId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield typeorm_1.getRepository(communityMember_entity_1.CommunityMemberEntity).createQueryBuilder("communityMember")
+                .innerJoinAndSelect("communityMember.bhco", "bhco")
+                .where("communityMember.bhco = :bhco", { bhco: bhcoId })
+                .select("communityMember.education AS education")
+                .addSelect("COUNT(*) AS count")
+                .groupBy("communityMember.education")
+                .getRawMany();
+        });
+    }
+    countCommunityMemberByEmploymentsInCurrentBhco(bhcoId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield typeorm_1.getRepository(communityMember_entity_1.CommunityMemberEntity).createQueryBuilder("communityMember")
+                .innerJoinAndSelect("communityMember.bhco", "bhco")
+                .where("communityMember.bhco = :bhco", { bhco: bhcoId })
+                .select("communityMember.employments AS employments")
+                .addSelect("COUNT(*) AS count")
+                .groupBy("communityMember.employments")
+                .getRawMany();
+        });
+    }
+    countCommunityMemberByAgeInCurrentBhco(bhcoId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const selectedCommunityMember = yield typeorm_1.getRepository(communityMember_entity_1.CommunityMemberEntity).createQueryBuilder("communityMember")
+                .innerJoinAndSelect("communityMember.bhco", "bhco")
+                .where("communityMember.bhco = :bhco", { bhco: bhcoId })
+                .getMany();
+            let year = new Date().getFullYear();
+            console.log(year);
+            let teenager = 0;
+            let adult = 0;
+            let senior = 0;
+            selectedCommunityMember.forEach((item) => {
+                let gap = year - Number(item.date.substring(0, 4));
+                if (gap > 50) {
+                    senior++;
+                }
+                else if (gap > 20) {
+                    adult++;
+                }
+                else {
+                    teenager++;
+                }
+            });
+            return [{ type: "teenager", count: teenager }, { type: "adult", count: adult }, { type: "senior", count: senior }];
         });
     }
 };
