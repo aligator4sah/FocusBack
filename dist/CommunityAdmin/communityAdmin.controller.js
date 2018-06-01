@@ -117,6 +117,12 @@ let CommunityAdminController = class CommunityAdminController {
             return msg;
         });
     }
+    countCommunityMemberByAgeDistribution(params) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const msg = yield this.communityAdminService.countCommunityMemberByAgeInCurrentCommunity(params.id);
+            return msg;
+        });
+    }
 };
 __decorate([
     common_1.Get(),
@@ -222,6 +228,13 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], CommunityAdminController.prototype, "countCommunityMemberByEmployment", null);
+__decorate([
+    common_1.Get('communityMemberByAgeDistributionInCommunity/:id'),
+    __param(0, common_1.Param()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], CommunityAdminController.prototype, "countCommunityMemberByAgeDistribution", null);
 CommunityAdminController = __decorate([
     common_1.Controller('communityAdmin'),
     __metadata("design:paramtypes", [communityAdmin_service_1.CommunityAdminService])

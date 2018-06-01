@@ -176,11 +176,36 @@ let CommunityAdminService = class CommunityAdminService {
             return yield typeorm_1.getRepository(communityMember_entity_1.CommunityMemberEntity).createQueryBuilder("communityMember")
                 .innerJoinAndSelect("communityMember.community", "community")
                 .where("communityMember.community = :community", { community: communityId })
-                .where("communityMember.community = :community", { community: communityId })
                 .select("communityMember.employments AS employments")
                 .addSelect("COUNT(*) AS count")
                 .groupBy("communityMember.employments")
                 .getRawMany();
+        });
+    }
+    countCommunityMemberByAgeInCurrentCommunity(communityId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const selectedCommunityMember = yield typeorm_1.getRepository(communityMember_entity_1.CommunityMemberEntity).createQueryBuilder("communityMember")
+                .innerJoinAndSelect("communityMember.community", "community")
+                .where("communityMember.community = :community", { community: communityId })
+                .getMany();
+            let year = new Date().getFullYear();
+            console.log(year);
+            let teenager = 0;
+            let adult = 0;
+            let senior = 0;
+            selectedCommunityMember.forEach((item) => {
+                let gap = year - Number(item.date.substring(0, 4));
+                if (gap > 50) {
+                    senior++;
+                }
+                else if (gap > 20) {
+                    adult++;
+                }
+                else {
+                    teenager++;
+                }
+            });
+            return [{ type: "teenager", count: teenager }, { type: "adult", count: adult }, { type: "senior", count: senior }];
         });
     }
 };

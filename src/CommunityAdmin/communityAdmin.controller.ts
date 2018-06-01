@@ -97,4 +97,10 @@ export class CommunityAdminController{
         const msg = await this.communityAdminService.countCommunityMemberByEmploymentsInCurrentCommunity(params.id);
         return msg;
     }
+
+    @Get('communityMemberByAgeDistributionInCommunity/:id')
+    public async countCommunityMemberByAgeDistribution(@Param() params){
+        const msg = await this.communityAdminService.countCommunityMemberByAgeInCurrentCommunity(params.id);
+        return msg;
+    }
 }

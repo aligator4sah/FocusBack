@@ -149,11 +149,33 @@ export class CommunityAdminService implements ICommunityService{
     return await getRepository(CommunityMemberEntity).createQueryBuilder("communityMember")
       .innerJoinAndSelect("communityMember.community","community")
       .where("communityMember.community = :community",{community:communityId})
-      .where("communityMember.community = :community",{community:communityId})
       .select("communityMember.employments AS employments")
       .addSelect("COUNT(*) AS count")
       .groupBy("communityMember.employments")
       .getRawMany();
+  }
+
+  public async countCommunityMemberByAgeInCurrentCommunity(communityId:number):Promise<object[]>{
+        const selectedCommunityMember = await getRepository(CommunityMemberEntity).createQueryBuilder("communityMember")
+          .innerJoinAndSelect("communityMember.community","community")
+          .where("communityMember.community = :community",{community:communityId})
+          .getMany();
+        let year = new Date().getFullYear();
+        console.log(year);
+        let teenager:number = 0;
+        let adult:number = 0;
+        let senior:number = 0;
+        selectedCommunityMember.forEach((item) => {
+            let gap = year - Number(item.date.substring(0,4));
+            if(gap > 50){
+              senior++;
+            }else if(gap > 20){
+                adult++;
+            }else{
+              teenager++;
+            }
+        })
+        return [{type:"teenager",count:teenager},{type:"adult",count:adult},{type:"senior",count:senior}];
   }
 
 }
