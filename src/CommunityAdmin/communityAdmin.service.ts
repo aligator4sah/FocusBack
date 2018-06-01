@@ -81,11 +81,11 @@ export class CommunityAdminService implements ICommunityService{
         .where("communityMember.community = :community",{community:communityId}).getCount();
     }
 
-    public async countBlockInCurrentCommunity(communityId:number):Promise<number>{
+    public async countBlockInCurrentCommunity(communityId:number):Promise<any>{
       return await getRepository(CommunityMemberEntity).createQueryBuilder("communityMember")
         .innerJoinAndSelect("communityMember.community","community")
         .where("communityMember.community = :community",{community:communityId})
-        .groupBy("communityMember.block").getCount();
+        .groupBy("communityMember.block").getMany();
     }
 
     public async countFamilyInCurrentCommunity(communityId:number):Promise<number>{

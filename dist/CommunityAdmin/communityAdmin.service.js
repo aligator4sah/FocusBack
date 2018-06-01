@@ -108,7 +108,7 @@ let CommunityAdminService = class CommunityAdminService {
             return yield typeorm_1.getRepository(communityMember_entity_1.CommunityMemberEntity).createQueryBuilder("communityMember")
                 .innerJoinAndSelect("communityMember.community", "community")
                 .where("communityMember.community = :community", { community: communityId })
-                .groupBy("communityMember.block").getCount();
+                .groupBy("communityMember.block").getMany();
         });
     }
     countFamilyInCurrentCommunity(communityId) {
