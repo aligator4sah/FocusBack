@@ -81,6 +81,42 @@ let CommunityAdminController = class CommunityAdminController {
             return msg;
         });
     }
+    countFamilyInCurrentCommunity(params) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const msg = yield this.communityAdminService.countFamilyInCurrentCommunity(params.id);
+            return msg;
+        });
+    }
+    countCommunityMemberByGender(params) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const msg = yield this.communityAdminService.countCommunityMemberByGenderInCurrentCommunity(params.id);
+            return msg;
+        });
+    }
+    countCommunityMemberByRace(params) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const msg = yield this.communityAdminService.countCommunityMemberByRaceInCurrentCommunity(params.id);
+            return msg;
+        });
+    }
+    countCommunityMemberByMarry(params) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const msg = yield this.communityAdminService.countCommunityMemberByMarryInCurrentCommunity(params.id);
+            return msg;
+        });
+    }
+    countCommunityMemberByEducation(params) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const msg = yield this.communityAdminService.countCommunityMemberByEducationInCurrentCommunity(params.id);
+            return msg;
+        });
+    }
+    countCommunityMemberByEmployment(params) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const msg = yield this.communityAdminService.countCommunityMemberByEmploymentsInCurrentCommunity(params.id);
+            return msg;
+        });
+    }
 };
 __decorate([
     common_1.Get(),
@@ -144,6 +180,48 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], CommunityAdminController.prototype, "countBlockInCurrentCommunity", null);
+__decorate([
+    common_1.Get('familyInCurrentCommunity/:id'),
+    __param(0, common_1.Param()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], CommunityAdminController.prototype, "countFamilyInCurrentCommunity", null);
+__decorate([
+    common_1.Get('communityMemberByGenderInCommunity/:id'),
+    __param(0, common_1.Param()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], CommunityAdminController.prototype, "countCommunityMemberByGender", null);
+__decorate([
+    common_1.Get('communityMemberByRaceInCommunity/:id'),
+    __param(0, common_1.Param()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], CommunityAdminController.prototype, "countCommunityMemberByRace", null);
+__decorate([
+    common_1.Get('communityMemberByMarryInCommunity/:id'),
+    __param(0, common_1.Param()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], CommunityAdminController.prototype, "countCommunityMemberByMarry", null);
+__decorate([
+    common_1.Get('communityMemberByEducationInCommunity/:id'),
+    __param(0, common_1.Param()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], CommunityAdminController.prototype, "countCommunityMemberByEducation", null);
+__decorate([
+    common_1.Get('communityMemberByEmploymentsInCommunity/:id'),
+    __param(0, common_1.Param()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], CommunityAdminController.prototype, "countCommunityMemberByEmployment", null);
 CommunityAdminController = __decorate([
     common_1.Controller('communityAdmin'),
     __metadata("design:paramtypes", [communityAdmin_service_1.CommunityAdminService])

@@ -81,61 +81,84 @@ export class CommunityAdminService implements ICommunityService{
         .where("communityMember.community = :community",{community:communityId}).getCount();
     }
 
-    public async countBlockInCurrentCommunity(communityId:number):Promise<any>{
-      return await getRepository(CommunityMemberEntity).createQueryBuilder("communityMember")
+    public async countBlockInCurrentCommunity(communityId:number):Promise<number>{
+      const blockNumber =  await getRepository(CommunityMemberEntity).createQueryBuilder("communityMember")
         .innerJoinAndSelect("communityMember.community","community")
         .where("communityMember.community = :community",{community:communityId})
         .select("communityMember.block AS block")
         .addSelect("COUNT(*) AS count")
         .groupBy("communityMember.block")
         .getRawMany();
+      return blockNumber.length;
+
     }
 
     public async countFamilyInCurrentCommunity(communityId:number):Promise<number>{
-      return await getRepository(CommunityMemberEntity).createQueryBuilder("communityMember")
+      const familyNumber = await getRepository(CommunityMemberEntity).createQueryBuilder("communityMember")
         .innerJoinAndSelect("communityMember.community","community")
         .where("communityMember.community = :community",{community:communityId})
-        .groupBy("communityMember.family").getCount();
+        .select("communityMember.family AS family")
+        .addSelect("COUNT(*) AS count")
+        .groupBy("communityMember.family")
+        .getRawMany();
+      return familyNumber.length;
     }
 
     public async countCommunityMemberByGenderInCurrentCommunity(communityId:number):Promise<number>{
-      return await getRepository(CommunityMemberEntity).createQueryBuilder("communityMember")
+      const communityMemberNumberByGender =  await getRepository(CommunityMemberEntity).createQueryBuilder("communityMember")
         .innerJoinAndSelect("communityMember.community","community")
         .where("communityMember.community = :community",{community:communityId})
-        .orderBy("communityMember.gender")
-        .getCount();
+        .select("communityMember.gender AS gender")
+        .addSelect("COUNT(*) AS count")
+        .groupBy("communityMember.gender")
+        .getRawMany();
+      return communityMemberNumberByGender.length;
     }
 
     public async countCommunityMemberByRaceInCurrentCommunity(communityId:number):Promise<number>{
-      return await getRepository(CommunityMemberEntity).createQueryBuilder("communityMember")
+      const communityMemberNumberByRace = await getRepository(CommunityMemberEntity).createQueryBuilder("communityMember")
         .innerJoinAndSelect("communityMember.community","community")
         .where("communityMember.community = :community",{community:communityId})
-        .orderBy("communityMember.race")
-        .getCount();
+        .select("communityMember.race AS race")
+        .addSelect("COUNT(*) AS count")
+        .groupBy("communityMember.race")
+        .getRawMany();
+      return communityMemberNumberByRace.length;
     }
 
     public async countCommunityMemberByMarryInCurrentCommunity(communityId:number):Promise<number>{
-        return await getRepository(CommunityMemberEntity).createQueryBuilder("communityMember")
+        const communityMemberNumberByMarry = await getRepository(CommunityMemberEntity).createQueryBuilder("communityMember")
          .innerJoinAndSelect("communityMember.community","community")
          .where("communityMember.community = :community",{community:communityId})
-         .orderBy("communityMember.marry")
-         .getCount();
+          .select("communityMember.marry AS marry")
+          .addSelect("COUNT(*) AS count")
+          .groupBy("communityMember.marry")
+          .getRawMany();
+        return communityMemberNumberByMarry.length;
+
     }
 
     public async countCommunityMemberByEducationInCurrentCommunity(communityId:number):Promise<number>{
-        return await getRepository(CommunityMemberEntity).createQueryBuilder("communityMember")
+        const communityMemberNumberByEducation = await getRepository(CommunityMemberEntity).createQueryBuilder("communityMember")
          .innerJoinAndSelect("communityMember.community","community")
          .where("communityMember.community = :community",{community:communityId})
-         .orderBy("communityMember.education")
-         .getCount();
+          .select("communityMember.education AS education")
+          .addSelect("COUNT(*) AS count")
+          .groupBy("communityMember.education")
+          .getRawMany();
+        return communityMemberNumberByEducation.length;
     }
 
   public async countCommunityMemberByEmploymentsInCurrentCommunity(communityId:number):Promise<number>{
-    return await getRepository(CommunityMemberEntity).createQueryBuilder("communityMember")
+    const communityMemberNumberByEmployment = await getRepository(CommunityMemberEntity).createQueryBuilder("communityMember")
       .innerJoinAndSelect("communityMember.community","community")
       .where("communityMember.community = :community",{community:communityId})
-      .orderBy("communityMember.employments")
-      .getCount();
+      .where("communityMember.community = :community",{community:communityId})
+      .select("communityMember.employments AS employments")
+      .addSelect("COUNT(*) AS count")
+      .groupBy("communityMember.employments")
+      .getRawMany();
+    return communityMemberNumberByEmployment.length;
   }
 
 }

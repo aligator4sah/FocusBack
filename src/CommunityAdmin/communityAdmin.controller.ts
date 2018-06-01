@@ -62,4 +62,39 @@ export class CommunityAdminController{
         return msg;
     }
 
+    @Get('familyInCurrentCommunity/:id')
+    public async countFamilyInCurrentCommunity(@Param() params){
+        const msg = await this.communityAdminService.countFamilyInCurrentCommunity(params.id);
+        return msg;
+    }
+
+    @Get('communityMemberByGenderInCommunity/:id')
+    public async countCommunityMemberByGender(@Param() params){
+        const msg = await this.communityAdminService.countCommunityMemberByGenderInCurrentCommunity(params.id);
+        return msg;
+    }
+
+    @Get('communityMemberByRaceInCommunity/:id')
+    public async countCommunityMemberByRace(@Param() params){
+        const msg = await this.communityAdminService.countCommunityMemberByRaceInCurrentCommunity(params.id);
+        return msg;
+    }
+
+    @Get('communityMemberByMarryInCommunity/:id')
+    public async countCommunityMemberByMarry(@Param() params){
+        const msg = await this.communityAdminService.countCommunityMemberByMarryInCurrentCommunity(params.id);
+        return msg;
+    }
+
+    @Get('communityMemberByEducationInCommunity/:id')
+    public async countCommunityMemberByEducation(@Param() params){
+        const msg = await this.communityAdminService.countCommunityMemberByEducationInCurrentCommunity(params.id);
+        return msg;
+    }
+
+    @Get('communityMemberByEmploymentsInCommunity/:id')
+    public async countCommunityMemberByEmployment(@Param() params){
+        const msg = await this.communityAdminService.countCommunityMemberByEmploymentsInCurrentCommunity(params.id);
+        return msg;
+    }
 }
