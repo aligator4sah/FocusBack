@@ -57,6 +57,54 @@ let SystemAdminController = class SystemAdminController {
             return msg;
         });
     }
+    countCommunityMemberInSystem(params) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const msg = yield this.systemAdminService.countCommunityMemberInSystem();
+            return msg;
+        });
+    }
+    countCommunityMemberByStateInSystem(params) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const msg = yield this.systemAdminService.countCommunityMemberGroupByState();
+            return msg;
+        });
+    }
+    countCommunityMemberByGenderInSystem(params) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const msg = yield this.systemAdminService.countCommunityMemberByGenderInSystem();
+            return msg;
+        });
+    }
+    countCommunityMemberByRaceInSystem(params) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const msg = yield this.systemAdminService.countCommunityMemberByRaceInSystem();
+            return msg;
+        });
+    }
+    countCommunityMemberByMarryInSystem(params) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const msg = yield this.systemAdminService.countCommunityMemberByMarryInSystem();
+            return msg;
+        });
+    }
+    countCommunityMemberByEducationInSystem(params) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const msg = yield this.systemAdminService.countCommunityMemberByEducationInSystem();
+            return msg;
+        });
+    }
+    countCommunityMemberByEmploymentsInSystem(params) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const msg = yield this.systemAdminService.countCommunityMemberByEmploymentsInSystem();
+            return msg;
+        });
+    }
+    countCommunityMemberByAgeInSystem(params) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const msg = yield this.systemAdminService.countCommunityMemberByAgeInSystem();
+            return msg;
+        });
+    }
 };
 __decorate([
     common_1.Get(),
@@ -92,6 +140,62 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], SystemAdminController.prototype, "deleteSystemAdmin", null);
+__decorate([
+    common_1.Get('communityMemberInState/:id'),
+    __param(0, common_1.Param()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], SystemAdminController.prototype, "countCommunityMemberInSystem", null);
+__decorate([
+    common_1.Get('communityMemberInState/:id'),
+    __param(0, common_1.Param()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], SystemAdminController.prototype, "countCommunityMemberByStateInSystem", null);
+__decorate([
+    common_1.Get('communityMemberInState/:id'),
+    __param(0, common_1.Param()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], SystemAdminController.prototype, "countCommunityMemberByGenderInSystem", null);
+__decorate([
+    common_1.Get('communityMemberInState/:id'),
+    __param(0, common_1.Param()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], SystemAdminController.prototype, "countCommunityMemberByRaceInSystem", null);
+__decorate([
+    common_1.Get('communityMemberInState/:id'),
+    __param(0, common_1.Param()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], SystemAdminController.prototype, "countCommunityMemberByMarryInSystem", null);
+__decorate([
+    common_1.Get('communityMemberInState/:id'),
+    __param(0, common_1.Param()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], SystemAdminController.prototype, "countCommunityMemberByEducationInSystem", null);
+__decorate([
+    common_1.Get('communityMemberInState/:id'),
+    __param(0, common_1.Param()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], SystemAdminController.prototype, "countCommunityMemberByEmploymentsInSystem", null);
+__decorate([
+    common_1.Get('communityMemberInState/:id'),
+    __param(0, common_1.Param()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], SystemAdminController.prototype, "countCommunityMemberByAgeInSystem", null);
 SystemAdminController = __decorate([
     common_1.Controller('systemAdmin'),
     __metadata("design:paramtypes", [systemAdmin_service_1.SystemAdminService])

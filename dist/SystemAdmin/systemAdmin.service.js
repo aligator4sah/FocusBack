@@ -22,6 +22,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const typeorm_1 = require("typeorm");
 const common_1 = require("@nestjs/common");
+const communityMember_entity_1 = require("../CommunityMembers/communityMember.entity");
 let SystemAdminService = class SystemAdminService {
     constructor(systemAdminRepository) {
         this.systemAdminRepository = systemAdminRepository;
@@ -63,6 +64,90 @@ let SystemAdminService = class SystemAdminService {
             else {
                 return 'delete fail';
             }
+        });
+    }
+    countCommunityMemberInSystem() {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield typeorm_1.getConnection().getRepository(communityMember_entity_1.CommunityMemberEntity).createQueryBuilder("communityMember")
+                .getCount();
+        });
+    }
+    countCommunityMemberGroupByState() {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield typeorm_1.getConnection().getRepository(communityMember_entity_1.CommunityMemberEntity).createQueryBuilder("communityMember")
+                .select("communityMember.state AS state")
+                .addSelect("COUNT(*) AS count")
+                .groupBy("communityMember.state")
+                .getRawMany();
+        });
+    }
+    countCommunityMemberByGenderInSystem() {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield typeorm_1.getConnection().getRepository(communityMember_entity_1.CommunityMemberEntity).createQueryBuilder("communityMember")
+                .select("communityMember.gender AS gender")
+                .addSelect("COUNT(*) AS count")
+                .groupBy("communityMember.gender")
+                .getRawMany();
+        });
+    }
+    countCommunityMemberByRaceInSystem() {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield typeorm_1.getConnection().getRepository(communityMember_entity_1.CommunityMemberEntity).createQueryBuilder("communityMember")
+                .select("communityMember.race AS race")
+                .addSelect("COUNT(*) AS count")
+                .groupBy("communityMember.gender")
+                .getRawMany();
+        });
+    }
+    countCommunityMemberByMarryInSystem() {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield typeorm_1.getConnection().getRepository(communityMember_entity_1.CommunityMemberEntity).createQueryBuilder("communityMember")
+                .select("communityMember.marry AS marry")
+                .addSelect("COUNT(*) AS count")
+                .groupBy("communityMember.marry")
+                .getRawMany();
+        });
+    }
+    countCommunityMemberByEducationInSystem() {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield typeorm_1.getConnection().getRepository(communityMember_entity_1.CommunityMemberEntity).createQueryBuilder("communityMember")
+                .select("communityMember.education AS education")
+                .addSelect("COUNT(*) AS count")
+                .groupBy("communityMember.education")
+                .getRawMany();
+        });
+    }
+    countCommunityMemberByEmploymentsInSystem() {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield typeorm_1.getConnection().getRepository(communityMember_entity_1.CommunityMemberEntity).createQueryBuilder("communityMember")
+                .select("communityMember.employments AS employments")
+                .addSelect("COUNT(*) AS count")
+                .groupBy("communityMember.employments")
+                .getRawMany();
+        });
+    }
+    countCommunityMemberByAgeInSystem() {
+        return __awaiter(this, void 0, void 0, function* () {
+            const selectedCommunityMember = yield typeorm_1.getConnection().getRepository(communityMember_entity_1.CommunityMemberEntity).createQueryBuilder("communityMember")
+                .getMany();
+            let year = new Date().getFullYear();
+            console.log(year);
+            let teenager = 0;
+            let adult = 0;
+            let senior = 0;
+            selectedCommunityMember.forEach((item) => {
+                let gap = year - Number(item.date.substring(0, 4));
+                if (gap > 50) {
+                    senior++;
+                }
+                else if (gap > 20) {
+                    adult++;
+                }
+                else {
+                    teenager++;
+                }
+            });
+            return [{ type: "teenager", count: teenager }, { type: "adult", count: adult }, { type: "senior", count: senior }];
         });
     }
 };

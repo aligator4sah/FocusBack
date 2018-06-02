@@ -100,4 +100,5 @@ export class StateAdminController {
     const msg = await this.stateAdminService.countCommunityMemberByAgeInCurrentState(params.id);
     return msg;
   }
+
 }
