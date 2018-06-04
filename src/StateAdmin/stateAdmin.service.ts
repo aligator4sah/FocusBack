@@ -170,20 +170,29 @@ export class StateAdminService implements IStateAdminService{
 
     let year = new Date().getFullYear();
     console.log(year);
-    let teenager:number = 0;
-    let adult:number = 0;
-    let senior:number = 0;
+    let A:number = 0;
+    let B:number = 0;
+    let C:number = 0;
+    let D:number = 0;
+    let E:number = 0;
+    let F:number = 0;
     selectedCommunityMember.forEach((item) => {
       let gap = year - Number(item.date.substring(0,4));
-      if(gap > 50){
-        senior++;
-      }else if(gap > 20){
-        adult++;
+      if(gap > 65){
+        F++;
+      }else if(gap > 50){
+        E++;
+      }else if(gap > 40){
+        D++;
+      }else if(gap > 30){
+        C++;
+      }else if(gap > 18){
+        B++;
       }else{
-        teenager++;
+        A++;
       }
     })
-    return [{type:"teenager",count:teenager},{type:"adult",count:adult},{type:"senior",count:senior}];
+    return [{type:"0-18",count:A},{type:"18-30",count:B},{type:"30-40",count:C},{type:"40-50",count:D},{type:"50-65",count:E},{type:"65+",count:F}];
   }
 
 }

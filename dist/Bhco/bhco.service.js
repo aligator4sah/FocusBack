@@ -150,22 +150,34 @@ let BhcoService = class BhcoService {
                 .getMany();
             let year = new Date().getFullYear();
             console.log(year);
-            let teenager = 0;
-            let adult = 0;
-            let senior = 0;
+            let A = 0;
+            let B = 0;
+            let C = 0;
+            let D = 0;
+            let E = 0;
+            let F = 0;
             selectedCommunityMember.forEach((item) => {
                 let gap = year - Number(item.date.substring(0, 4));
-                if (gap > 50) {
-                    senior++;
+                if (gap > 65) {
+                    F++;
                 }
-                else if (gap > 20) {
-                    adult++;
+                else if (gap > 50) {
+                    E++;
+                }
+                else if (gap > 40) {
+                    D++;
+                }
+                else if (gap > 30) {
+                    C++;
+                }
+                else if (gap > 18) {
+                    B++;
                 }
                 else {
-                    teenager++;
+                    A++;
                 }
             });
-            return [{ type: "teenager", count: teenager }, { type: "adult", count: adult }, { type: "senior", count: senior }];
+            return [{ type: "0-18", count: A }, { type: "18-30", count: B }, { type: "30-40", count: C }, { type: "40-50", count: D }, { type: "50-65", count: E }, { type: "65+", count: F }];
         });
     }
 };
