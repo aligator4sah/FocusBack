@@ -49,7 +49,7 @@ export class StateAdminService implements IStateAdminService{
 
     public async countCommunityMemberInCurrentState(stateId:number):Promise<number>{
         const selectedState = await getConnection().getRepository(StateEntity).createQueryBuilder("state")
-          .where("state:id = :id",{id:stateId}).getOne();
+          .where("state.id = :id",{id:stateId}).getOne();
 
         const state:string = selectedState.state;
 
@@ -59,7 +59,7 @@ export class StateAdminService implements IStateAdminService{
 
     public async countCommunityMemberGroupByCountyInCurrentState(stateId:number):Promise<number>{
       const selectedState = await getConnection().getRepository(StateEntity).createQueryBuilder("state")
-        .where("state:id = :id",{id:stateId}).getOne();
+        .where("state.id = :id",{id:stateId}).getOne();
 
       const state:string = selectedState.state;
 
@@ -74,7 +74,7 @@ export class StateAdminService implements IStateAdminService{
 
   public async countCommunityMemberGroupByCityInCurrentState(stateId:number):Promise<number>{
     const selectedState = await getConnection().getRepository(StateEntity).createQueryBuilder("state")
-      .where("state:id = :id",{id:stateId}).getOne();
+      .where("state.id = :id",{id:stateId}).getOne();
 
     const state:string = selectedState.state;
 
@@ -89,7 +89,7 @@ export class StateAdminService implements IStateAdminService{
 
   public async countCommunityMemberByGenderInCurrentState(stateId:number):Promise<object>{
     const selectedState = await getConnection().getRepository(StateEntity).createQueryBuilder("state")
-      .where("state:id = :id",{id:stateId}).getOne();
+      .where("state.id = :id",{id:stateId}).getOne();
 
     const state:string = selectedState.state;
 
@@ -103,7 +103,7 @@ export class StateAdminService implements IStateAdminService{
 
   public async countCommunityMemberByRaceInCurrentState(stateId:number):Promise<object>{
     const selectedState = await getConnection().getRepository(StateEntity).createQueryBuilder("state")
-      .where("state:id = :id",{id:stateId}).getOne();
+      .where("state.id = :id",{id:stateId}).getOne();
 
     const state:string = selectedState.state;
 
@@ -117,7 +117,7 @@ export class StateAdminService implements IStateAdminService{
 
   public async countCommunityMemberByMarryInCurrentState(stateId:number):Promise<object>{
     const selectedState = await getConnection().getRepository(StateEntity).createQueryBuilder("state")
-      .where("state:id = :id",{id:stateId}).getOne();
+      .where("state.id = :id",{id:stateId}).getOne();
 
     const state:string = selectedState.state;
 
@@ -131,7 +131,7 @@ export class StateAdminService implements IStateAdminService{
 
   public async countCommunityMemberByEducationInCurrentState(stateId:number):Promise<object>{
     const selectedState = await getConnection().getRepository(StateEntity).createQueryBuilder("state")
-      .where("state:id = :id",{id:stateId}).getOne();
+      .where("state.id = :id",{id:stateId}).getOne();
 
     const state:string = selectedState.state;
 
@@ -146,7 +146,7 @@ export class StateAdminService implements IStateAdminService{
 
   public async countCommunityMemberByEmploymentsInCurrentState(stateId:number):Promise<object>{
     const selectedState = await getConnection().getRepository(StateEntity).createQueryBuilder("state")
-      .where("state:id = :id",{id:stateId}).getOne();
+      .where("state.id = :id",{id:stateId}).getOne();
 
     const state:string = selectedState.state;
 
@@ -160,7 +160,7 @@ export class StateAdminService implements IStateAdminService{
 
   public async countCommunityMemberByAgeInCurrentState(stateId:number):Promise<object[]>{
     const selectedState = await getConnection().getRepository(StateEntity).createQueryBuilder("state")
-      .where("state:id = :id",{id:stateId}).getOne();
+      .where("state.id = :id",{id:stateId}).getOne();
 
     const state:string = selectedState.state;
 
