@@ -57,19 +57,18 @@ export class StateAdminService implements IStateAdminService{
           .where("communityMember.state = :state",{state:state}).getCount();
     }
 
-    public async countCommunityMemberGroupByCountyInCurrentState(stateId:number):Promise<number>{
+    public async countCommunityMemberGroupByCountyInCurrentState(stateId:number):Promise<object>{
       const selectedState = await getConnection().getRepository(StateEntity).createQueryBuilder("state")
         .where("state.id = :id",{id:stateId}).getOne();
 
       const state:string = selectedState.state;
 
-      const result = await getConnection().getRepository(CommunityMemberEntity).createQueryBuilder("communityMember")
+      return await getConnection().getRepository(CommunityMemberEntity).createQueryBuilder("communityMember")
         .where("communityMember.state = :state",{state:state})
         .select("communityMember.county AS county")
         .addSelect("COUNT(*) AS count")
         .groupBy("communityMember.county")
         .getRawMany();
-      return result.length;
     }
 
   public async countCommunityMemberGroupByCityInCurrentState(stateId:number):Promise<object>{

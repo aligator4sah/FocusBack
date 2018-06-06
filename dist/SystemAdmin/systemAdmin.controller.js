@@ -148,49 +148,49 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], SystemAdminController.prototype, "countCommunityMemberInSystem", null);
 __decorate([
-    common_1.Get('communityMemberInState/:id'),
+    common_1.Get('communityMemberGroupByState/:id'),
     __param(0, common_1.Param()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], SystemAdminController.prototype, "countCommunityMemberByStateInSystem", null);
 __decorate([
-    common_1.Get('communityMemberInState/:id'),
+    common_1.Get('communityMemberGroupByGender/:id'),
     __param(0, common_1.Param()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], SystemAdminController.prototype, "countCommunityMemberByGenderInSystem", null);
 __decorate([
-    common_1.Get('communityMemberInState/:id'),
+    common_1.Get('communityMemberGroupByRace/:id'),
     __param(0, common_1.Param()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], SystemAdminController.prototype, "countCommunityMemberByRaceInSystem", null);
 __decorate([
-    common_1.Get('communityMemberInState/:id'),
+    common_1.Get('communityMemberGroupByMarry/:id'),
     __param(0, common_1.Param()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], SystemAdminController.prototype, "countCommunityMemberByMarryInSystem", null);
 __decorate([
-    common_1.Get('communityMemberInState/:id'),
+    common_1.Get('communityMemberGroupByEducation/:id'),
     __param(0, common_1.Param()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], SystemAdminController.prototype, "countCommunityMemberByEducationInSystem", null);
 __decorate([
-    common_1.Get('communityMemberInState/:id'),
+    common_1.Get('communityMemberGroupByEmployments/:id'),
     __param(0, common_1.Param()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], SystemAdminController.prototype, "countCommunityMemberByEmploymentsInSystem", null);
 __decorate([
-    common_1.Get('communityMemberInState/:id'),
+    common_1.Get('communityMemberGroupByAge/:id'),
     __param(0, common_1.Param()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),

@@ -53,43 +53,43 @@ export class SystemAdminController{
         return msg;
     }
 
-  @Get('communityMemberInState/:id')
+  @Get('communityMemberGroupByState/:id')
   public async countCommunityMemberByStateInSystem(@Param() params){
     const msg = await this.systemAdminService.countCommunityMemberGroupByState();
     return msg;
   }
 
-  @Get('communityMemberInState/:id')
+  @Get('communityMemberGroupByGender/:id')
   public async countCommunityMemberByGenderInSystem(@Param() params){
     const msg = await this.systemAdminService.countCommunityMemberByGenderInSystem();
     return msg;
   }
 
-  @Get('communityMemberInState/:id')
+  @Get('communityMemberGroupByRace/:id')
   public async countCommunityMemberByRaceInSystem(@Param() params){
     const msg = await this.systemAdminService.countCommunityMemberByRaceInSystem();
     return msg;
   }
 
-  @Get('communityMemberInState/:id')
+  @Get('communityMemberGroupByMarry/:id')
   public async countCommunityMemberByMarryInSystem(@Param() params){
     const msg = await this.systemAdminService.countCommunityMemberByMarryInSystem();
     return msg;
   }
 
-  @Get('communityMemberInState/:id')
+  @Get('communityMemberGroupByEducation/:id')
   public async countCommunityMemberByEducationInSystem(@Param() params){
     const msg = await this.systemAdminService.countCommunityMemberByEducationInSystem();
     return msg;
   }
 
-  @Get('communityMemberInState/:id')
+  @Get('communityMemberGroupByEmployments/:id')
   public async countCommunityMemberByEmploymentsInSystem(@Param() params){
     const msg = await this.systemAdminService.countCommunityMemberByEmploymentsInSystem();
     return msg;
   }
 
-  @Get('communityMemberInState/:id')
+  @Get('communityMemberGroupByAge/:id')
   public async countCommunityMemberByAgeInSystem(@Param() params){
     const msg = await this.systemAdminService.countCommunityMemberByAgeInSystem();
     return msg;
