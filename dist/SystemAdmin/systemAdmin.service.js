@@ -94,9 +94,9 @@ let SystemAdminService = class SystemAdminService {
     countCommunityMemberGroupByCommunity() {
         return __awaiter(this, void 0, void 0, function* () {
             return yield typeorm_1.getConnection().getRepository(communityMember_entity_1.CommunityMemberEntity).createQueryBuilder("communityMember")
-                .select("communityMember.communityId AS community")
+                .select("communityMember.community AS community")
                 .addSelect("COUNT(*) AS count")
-                .groupBy("communityMember.communityId")
+                .groupBy("communityMember.community")
                 .getRawMany();
         });
     }

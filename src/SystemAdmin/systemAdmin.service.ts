@@ -67,9 +67,9 @@ export class SystemAdminService implements ISystemAdminService{
 
     public async countCommunityMemberGroupByCommunity(): Promise<object> {
         return await getConnection().getRepository(CommunityMemberEntity).createQueryBuilder("communityMember")
-            .select("communityMember.communityId AS community")
+            .select("communityMember.community AS community")
             .addSelect("COUNT(*) AS count")
-            .groupBy("communityMember.communityId")
+            .groupBy("communityMember.community")
             .getRawMany();
     }
 
