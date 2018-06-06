@@ -79,7 +79,7 @@ export class StateAdminService implements IStateAdminService{
     const state:string = selectedState.state;
 
     const result = await getConnection().getRepository(CommunityMemberEntity).createQueryBuilder("communityMember")
-      .where("community.state = :state",{state:state})
+      .where("communityMember.state = :state",{state:state})
       .select("communityMember.city AS city")
       .addSelect("COUNT(*) AS count")
       .groupBy("communityMember.city")
@@ -94,7 +94,7 @@ export class StateAdminService implements IStateAdminService{
     const state:string = selectedState.state;
 
     return await getConnection().getRepository(CommunityMemberEntity).createQueryBuilder("communityMember")
-      .where("community.state = :state",{state:state})
+      .where("communityMember.state = :state",{state:state})
       .select("communityMember.gender AS gender")
       .addSelect("COUNT(*) AS count")
       .groupBy("communityMember.gender")
@@ -108,7 +108,7 @@ export class StateAdminService implements IStateAdminService{
     const state:string = selectedState.state;
 
     return await getConnection().getRepository(CommunityMemberEntity).createQueryBuilder("communityMember")
-      .where("community.state = :state",{state:state})
+      .where("communityMember.state = :state",{state:state})
       .select("communityMember.race AS race")
       .addSelect("COUNT(*) AS count")
       .groupBy("communityMember.race")

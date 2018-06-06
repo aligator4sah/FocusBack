@@ -98,7 +98,7 @@ let StateAdminService = class StateAdminService {
                 .where("state.id = :id", { id: stateId }).getOne();
             const state = selectedState.state;
             const result = yield typeorm_1.getConnection().getRepository(communityMember_entity_1.CommunityMemberEntity).createQueryBuilder("communityMember")
-                .where("community.state = :state", { state: state })
+                .where("communityMember.state = :state", { state: state })
                 .select("communityMember.city AS city")
                 .addSelect("COUNT(*) AS count")
                 .groupBy("communityMember.city")
@@ -112,7 +112,7 @@ let StateAdminService = class StateAdminService {
                 .where("state.id = :id", { id: stateId }).getOne();
             const state = selectedState.state;
             return yield typeorm_1.getConnection().getRepository(communityMember_entity_1.CommunityMemberEntity).createQueryBuilder("communityMember")
-                .where("community.state = :state", { state: state })
+                .where("communityMember.state = :state", { state: state })
                 .select("communityMember.gender AS gender")
                 .addSelect("COUNT(*) AS count")
                 .groupBy("communityMember.gender")
@@ -125,7 +125,7 @@ let StateAdminService = class StateAdminService {
                 .where("state.id = :id", { id: stateId }).getOne();
             const state = selectedState.state;
             return yield typeorm_1.getConnection().getRepository(communityMember_entity_1.CommunityMemberEntity).createQueryBuilder("communityMember")
-                .where("community.state = :state", { state: state })
+                .where("communityMember.state = :state", { state: state })
                 .select("communityMember.race AS race")
                 .addSelect("COUNT(*) AS count")
                 .groupBy("communityMember.race")
