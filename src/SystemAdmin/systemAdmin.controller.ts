@@ -59,6 +59,18 @@ export class SystemAdminController{
     return msg;
   }
 
+  @Get('communityMemberGroupByCommunity/:id')
+  public async  countCommunityMemberByCommunityInSystem(@Param() params) {
+        const msg = await this.systemAdminService.countCommunityMemberGroupByCommunity();
+        return msg;
+  }
+
+    @Get('communityMemberGroupByCity/:id')
+    public async  countCommunityMemberByCityInSystem(@Param() params) {
+        const msg = await this.systemAdminService.countCommunityMemberGroupByCity();
+        return msg;
+    }
+
   @Get('communityMemberGroupByGender/:id')
   public async countCommunityMemberByGenderInSystem(@Param() params){
     const msg = await this.systemAdminService.countCommunityMemberByGenderInSystem();

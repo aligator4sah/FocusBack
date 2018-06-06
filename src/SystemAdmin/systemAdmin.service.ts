@@ -57,6 +57,22 @@ export class SystemAdminService implements ISystemAdminService{
           .getRawMany();
     }
 
+    public async countCommunityMemberGroupByCity():Promise<object>{
+        return await getConnection().getRepository(CommunityMemberEntity).createQueryBuilder("communityMember")
+            .select("communityMember.city AS city")
+            .addSelect("COUNT(*) AS count")
+            .groupBy("communityMember.city")
+            .getRawMany();
+    }
+
+    public async countCommunityMemberGroupByCommunity(): Promise<object> {
+        return await getConnection().getRepository(CommunityMemberEntity).createQueryBuilder("communityMember")
+            .select("communityMember.communityId AS community")
+            .addSelect("COUNT(*) AS count")
+            .groupBy("communityMember.communityId")
+            .getRawMany();
+    }
+
     public async countCommunityMemberByGenderInSystem():Promise<object>{
       return await getConnection().getRepository(CommunityMemberEntity).createQueryBuilder("communityMember")
         .select("communityMember.gender AS gender")

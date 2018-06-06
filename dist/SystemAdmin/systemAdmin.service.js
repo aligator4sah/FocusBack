@@ -82,6 +82,24 @@ let SystemAdminService = class SystemAdminService {
                 .getRawMany();
         });
     }
+    countCommunityMemberGroupByCity() {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield typeorm_1.getConnection().getRepository(communityMember_entity_1.CommunityMemberEntity).createQueryBuilder("communityMember")
+                .select("communityMember.city AS city")
+                .addSelect("COUNT(*) AS count")
+                .groupBy("communityMember.city")
+                .getRawMany();
+        });
+    }
+    countCommunityMemberGroupByCommunity() {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield typeorm_1.getConnection().getRepository(communityMember_entity_1.CommunityMemberEntity).createQueryBuilder("communityMember")
+                .select("communityMember.communityId AS community")
+                .addSelect("COUNT(*) AS count")
+                .groupBy("communityMember.communityId")
+                .getRawMany();
+        });
+    }
     countCommunityMemberByGenderInSystem() {
         return __awaiter(this, void 0, void 0, function* () {
             return yield typeorm_1.getConnection().getRepository(communityMember_entity_1.CommunityMemberEntity).createQueryBuilder("communityMember")

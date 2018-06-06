@@ -69,6 +69,18 @@ let SystemAdminController = class SystemAdminController {
             return msg;
         });
     }
+    countCommunityMemberByCommunityInSystem(params) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const msg = yield this.systemAdminService.countCommunityMemberGroupByCommunity();
+            return msg;
+        });
+    }
+    countCommunityMemberByCityInSystem(params) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const msg = yield this.systemAdminService.countCommunityMemberGroupByCity();
+            return msg;
+        });
+    }
     countCommunityMemberByGenderInSystem(params) {
         return __awaiter(this, void 0, void 0, function* () {
             const msg = yield this.systemAdminService.countCommunityMemberByGenderInSystem();
@@ -160,6 +172,20 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], SystemAdminController.prototype, "countCommunityMemberByStateInSystem", null);
+__decorate([
+    common_1.Get('communityMemberGroupByCommunity/:id'),
+    __param(0, common_1.Param()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], SystemAdminController.prototype, "countCommunityMemberByCommunityInSystem", null);
+__decorate([
+    common_1.Get('communityMemberGroupByCity/:id'),
+    __param(0, common_1.Param()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], SystemAdminController.prototype, "countCommunityMemberByCityInSystem", null);
 __decorate([
     common_1.Get('communityMemberGroupByGender/:id'),
     __param(0, common_1.Param()),
