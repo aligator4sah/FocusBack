@@ -54,7 +54,7 @@ export class StateAdminService implements IStateAdminService{
         const state:string = selectedState.state;
 
         return await getConnection().getRepository(CommunityMemberEntity).createQueryBuilder("communityMember")
-          .where("community.state = :state",{state:state}).getCount();
+          .where("communityMember.state = :state",{state:state}).getCount();
     }
 
     public async countCommunityMemberGroupByCountyInCurrentState(stateId:number):Promise<number>{
@@ -122,7 +122,7 @@ export class StateAdminService implements IStateAdminService{
     const state:string = selectedState.state;
 
     return await getConnection().getRepository(CommunityMemberEntity).createQueryBuilder("communityMember")
-      .where("community.state = :state",{state:state})
+      .where("communityMember.state = :state",{state:state})
       .select("communityMember.marry AS marry")
       .addSelect("COUNT(*) AS count")
       .groupBy("communityMember.marry")
@@ -136,7 +136,7 @@ export class StateAdminService implements IStateAdminService{
     const state:string = selectedState.state;
 
     return await getConnection().getRepository(CommunityMemberEntity).createQueryBuilder("communityMember")
-      .where("community.state = :state",{state:state})
+      .where("communityMember.state = :state",{state:state})
       .select("communityMember.education AS education")
       .addSelect("COUNT(*) AS count")
       .groupBy("communityMember.education")
@@ -151,7 +151,7 @@ export class StateAdminService implements IStateAdminService{
     const state:string = selectedState.state;
 
     return await getConnection().getRepository(CommunityMemberEntity).createQueryBuilder("communityMember")
-      .where("community.state = :state",{state:state})
+      .where("communityMember.state = :state",{state:state})
       .select("communityMember.employments AS employments")
       .addSelect("COUNT(*) AS count")
       .groupBy("communityMember.employments")
@@ -165,7 +165,7 @@ export class StateAdminService implements IStateAdminService{
     const state:string = selectedState.state;
 
     const selectedCommunityMember = await getConnection().getRepository(CommunityMemberEntity).createQueryBuilder("communityMember")
-      .where("community.state = :state",{state:state})
+      .where("communityMember.state = :state",{state:state})
       .getMany();
 
     let year = new Date().getFullYear();
