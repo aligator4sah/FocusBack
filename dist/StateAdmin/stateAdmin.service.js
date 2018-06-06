@@ -97,13 +97,12 @@ let StateAdminService = class StateAdminService {
             const selectedState = yield typeorm_1.getConnection().getRepository(state_entity_1.StateEntity).createQueryBuilder("state")
                 .where("state.id = :id", { id: stateId }).getOne();
             const state = selectedState.state;
-            const result = yield typeorm_1.getConnection().getRepository(communityMember_entity_1.CommunityMemberEntity).createQueryBuilder("communityMember")
+            return yield typeorm_1.getConnection().getRepository(communityMember_entity_1.CommunityMemberEntity).createQueryBuilder("communityMember")
                 .where("communityMember.state = :state", { state: state })
                 .select("communityMember.city AS city")
                 .addSelect("COUNT(*) AS count")
                 .groupBy("communityMember.city")
                 .getRawMany();
-            return result.length;
         });
     }
     countCommunityMemberByGenderInCurrentState(stateId) {
