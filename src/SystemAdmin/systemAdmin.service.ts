@@ -69,7 +69,7 @@ export class SystemAdminService implements ISystemAdminService{
     return await getConnection().getRepository(CommunityMemberEntity).createQueryBuilder("communityMember")
       .select("communityMember.race AS race")
       .addSelect("COUNT(*) AS count")
-      .groupBy("communityMember.gender")
+      .groupBy("communityMember.race")
       .getRawMany();
   }
 
