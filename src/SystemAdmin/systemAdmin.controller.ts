@@ -47,7 +47,7 @@ export class SystemAdminController{
         return msg;
     }
 
-    @Get('communityMemberInState/:id')
+    @Get('communityMemberInSystem/:id')
     public async countCommunityMemberInSystem(@Param() params){
         const msg = await this.systemAdminService.countCommunityMemberInSystem();
         return msg;

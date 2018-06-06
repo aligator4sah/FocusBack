@@ -141,7 +141,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], SystemAdminController.prototype, "deleteSystemAdmin", null);
 __decorate([
-    common_1.Get('communityMemberInState/:id'),
+    common_1.Get('communityMemberInSystem/:id'),
     __param(0, common_1.Param()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
