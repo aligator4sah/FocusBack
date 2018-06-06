@@ -3,6 +3,7 @@ import { Component ,Inject} from "@nestjs/common";
 import { SystemAdminEntity} from "./systemAdmin.entity";
 import { ISystemAdmin,ISystemAdminService} from "./Interfaces";
 import { CommunityMemberEntity } from '../CommunityMembers/communityMember.entity';
+import { BhcoEntity } from '../Bhco/bhco.entity';
 
 
 @Component()
@@ -124,5 +125,9 @@ export class SystemAdminService implements ISystemAdminService{
       }
     })
     return [{type:"0-18",count:A},{type:"18-30",count:B},{type:"30-40",count:C},{type:"40-50",count:D},{type:"50-65",count:E},{type:"65+",count:F}];
+  }
+
+  public async countBhcoInSystem(): Promise<number> {
+      return await getConnection().getRepository(BhcoEntity).createQueryBuilder().getCount();
   }
 }

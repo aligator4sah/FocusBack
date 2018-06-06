@@ -94,4 +94,11 @@ export class SystemAdminController{
     const msg = await this.systemAdminService.countCommunityMemberByAgeInSystem();
     return msg;
   }
+
+  @Get('bhcoInSystem/:id')
+  public async countBhcoInSystem(@Param() params){
+      const msg = await this.systemAdminService.countBhcoInSystem();
+      return msg;
+  }
 }
+

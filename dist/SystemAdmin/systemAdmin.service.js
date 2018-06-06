@@ -23,6 +23,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const typeorm_1 = require("typeorm");
 const common_1 = require("@nestjs/common");
 const communityMember_entity_1 = require("../CommunityMembers/communityMember.entity");
+const bhco_entity_1 = require("../Bhco/bhco.entity");
 let SystemAdminService = class SystemAdminService {
     constructor(systemAdminRepository) {
         this.systemAdminRepository = systemAdminRepository;
@@ -160,6 +161,11 @@ let SystemAdminService = class SystemAdminService {
                 }
             });
             return [{ type: "0-18", count: A }, { type: "18-30", count: B }, { type: "30-40", count: C }, { type: "40-50", count: D }, { type: "50-65", count: E }, { type: "65+", count: F }];
+        });
+    }
+    countBhcoInSystem() {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield typeorm_1.getConnection().getRepository(bhco_entity_1.BhcoEntity).createQueryBuilder().getCount();
         });
     }
 };

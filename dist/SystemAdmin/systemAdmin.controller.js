@@ -105,6 +105,12 @@ let SystemAdminController = class SystemAdminController {
             return msg;
         });
     }
+    countBhcoInSystem(params) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const msg = yield this.systemAdminService.countBhcoInSystem();
+            return msg;
+        });
+    }
 };
 __decorate([
     common_1.Get(),
@@ -196,6 +202,13 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], SystemAdminController.prototype, "countCommunityMemberByAgeInSystem", null);
+__decorate([
+    common_1.Get('bhcoInSystem/:id'),
+    __param(0, common_1.Param()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], SystemAdminController.prototype, "countBhcoInSystem", null);
 SystemAdminController = __decorate([
     common_1.Controller('systemAdmin'),
     __metadata("design:paramtypes", [systemAdmin_service_1.SystemAdminService])
