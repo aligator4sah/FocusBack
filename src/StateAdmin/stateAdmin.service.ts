@@ -92,8 +92,10 @@ export class StateAdminService implements IStateAdminService{
       const state:string = selectedState.state;
     return await getConnection().getRepository(CommunityMemberEntity).createQueryBuilder("communityMember")
       .where("communityMember.state = :state",{state:state})
+      .leftJoinAndSelect("communityMember.community","community")
       .select("communityMember.community AS community")
       .addSelect("COUNT(*) AS count")
+      .addSelect("community.community AS communityName")
       .groupBy("communityMember.community")
       .getRawMany();
   }

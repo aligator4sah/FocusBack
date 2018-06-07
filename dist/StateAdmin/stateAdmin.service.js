@@ -112,8 +112,10 @@ let StateAdminService = class StateAdminService {
             const state = selectedState.state;
             return yield typeorm_1.getConnection().getRepository(communityMember_entity_1.CommunityMemberEntity).createQueryBuilder("communityMember")
                 .where("communityMember.state = :state", { state: state })
+                .leftJoinAndSelect("communityMember.community", "community")
                 .select("communityMember.community AS community")
                 .addSelect("COUNT(*) AS count")
+                .addSelect("community.community AS communityName")
                 .groupBy("communityMember.community")
                 .getRawMany();
         });
