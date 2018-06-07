@@ -92,19 +92,19 @@ export class StateAdminService implements IStateAdminService{
       const selectedState = await  getConnection().getRepository(StateEntity).createQueryBuilder("state")
         .where("state.id = :id",{id:stateId}).getOne();
       const state:string = selectedState.state;
-    const preResult =  await getConnection().getRepository(CommunityMemberEntity).createQueryBuilder("communityMember")
+      return  await getConnection().getRepository(CommunityMemberEntity).createQueryBuilder("communityMember")
       .where("communityMember.state = :state",{state:state})
       .select("communityMember.community AS community")
       .addSelect("COUNT(*) AS count")
       .groupBy("communityMember.community")
       .getRawMany();
-    let result:any;
-     result = Promise.all(preResult.map(async(item) => {
-      item["communityName"] = await getConnection().getRepository(CommunityEntity).createQueryBuilder("community")
-        .where("community.id = :id",{id: item.community});
-      return item;
-    }));
-    return result;
+    // let result:any;
+    //  result = Promise.all(preResult.map(async(item) => {
+    //   item["communityName"] = await getConnection().getRepository(CommunityEntity).createQueryBuilder("community")
+    //     .where("community.id = :id",{id: item.community});
+    //   return item;
+    // }));
+    // return result;
   }
 
   public async countBhcoGroupInCurrentState(stateId: number): Promise<number> {
