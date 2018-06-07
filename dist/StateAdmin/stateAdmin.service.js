@@ -117,7 +117,8 @@ let StateAdminService = class StateAdminService {
                 .addSelect("COUNT(*) AS count")
                 .groupBy("communityMember.community")
                 .getRawMany();
-            const result = Promise.all(preResult.map((item) => __awaiter(this, void 0, void 0, function* () {
+            let result;
+            result = Promise.all(preResult.map((item) => __awaiter(this, void 0, void 0, function* () {
                 item["communityName"] = yield typeorm_1.getConnection().getRepository(community_entity_1.CommunityEntity).createQueryBuilder("community")
                     .where("community.id = :id", { id: item.community });
                 return item;

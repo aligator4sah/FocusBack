@@ -98,7 +98,8 @@ export class StateAdminService implements IStateAdminService{
       .addSelect("COUNT(*) AS count")
       .groupBy("communityMember.community")
       .getRawMany();
-    const result = Promise.all(preResult.map(async(item) => {
+    let result:any;
+     result = Promise.all(preResult.map(async(item) => {
       item["communityName"] = await getConnection().getRepository(CommunityEntity).createQueryBuilder("community")
         .where("community.id = :id",{id: item.community});
       return item;
