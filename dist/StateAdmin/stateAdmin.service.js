@@ -25,6 +25,7 @@ const common_1 = require("@nestjs/common");
 const state_entity_1 = require("../State/state.entity");
 const communityMember_entity_1 = require("../CommunityMembers/communityMember.entity");
 const bhco_entity_1 = require("../Bhco/bhco.entity");
+const community_entity_1 = require("../Community/community.entity");
 let StateAdminService = class StateAdminService {
     constructor(stateAdminRepository) {
         this.stateAdminRepository = stateAdminRepository;
@@ -110,14 +111,18 @@ let StateAdminService = class StateAdminService {
             const selectedState = yield typeorm_1.getConnection().getRepository(state_entity_1.StateEntity).createQueryBuilder("state")
                 .where("state.id = :id", { id: stateId }).getOne();
             const state = selectedState.state;
-            return yield typeorm_1.getConnection().getRepository(communityMember_entity_1.CommunityMemberEntity).createQueryBuilder("communityMember")
+            const preResult = yield typeorm_1.getConnection().getRepository(communityMember_entity_1.CommunityMemberEntity).createQueryBuilder("communityMember")
                 .where("communityMember.state = :state", { state: state })
-                .leftJoinAndSelect("communityMember.community", "community")
                 .select("communityMember.community AS community")
                 .addSelect("COUNT(*) AS count")
-                .addSelect("community.community AS communityName")
                 .groupBy("communityMember.community")
                 .getRawMany();
+            const result = Promise.all(preResult.map((item) => __awaiter(this, void 0, void 0, function* () {
+                item["communityName"] = yield typeorm_1.getConnection().getRepository(community_entity_1.CommunityEntity).createQueryBuilder("community")
+                    .where("community.id = :id", { id: item.community });
+                return item;
+            })));
+            return result;
         });
     }
     countBhcoGroupInCurrentState(stateId) {

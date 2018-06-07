@@ -5,6 +5,8 @@ import {IStateAdmin,IStateAdminService} from "./Interfaces";
 import { StateEntity } from '../State/state.entity';
 import { CommunityMemberEntity } from '../CommunityMembers/communityMember.entity';
 import { BhcoEntity } from '../Bhco/bhco.entity';
+import { async } from 'rxjs/scheduler/async';
+import { CommunityEntity } from '../Community/community.entity';
 
 @Component()
 export class StateAdminService implements IStateAdminService{
@@ -90,14 +92,18 @@ export class StateAdminService implements IStateAdminService{
       const selectedState = await  getConnection().getRepository(StateEntity).createQueryBuilder("state")
         .where("state.id = :id",{id:stateId}).getOne();
       const state:string = selectedState.state;
-    return await getConnection().getRepository(CommunityMemberEntity).createQueryBuilder("communityMember")
+    const preResult =  await getConnection().getRepository(CommunityMemberEntity).createQueryBuilder("communityMember")
       .where("communityMember.state = :state",{state:state})
-      .leftJoinAndSelect("communityMember.community","community")
       .select("communityMember.community AS community")
       .addSelect("COUNT(*) AS count")
-      .addSelect("community.community AS communityName")
       .groupBy("communityMember.community")
       .getRawMany();
+    const result = Promise.all(preResult.map(async(item) => {
+      item["communityName"] = await getConnection().getRepository(CommunityEntity).createQueryBuilder("community")
+        .where("community.id = :id",{id: item.community});
+      return item;
+    }));
+    return result;
   }
 
   public async countBhcoGroupInCurrentState(stateId: number): Promise<number> {
