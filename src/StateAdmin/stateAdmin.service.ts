@@ -4,6 +4,7 @@ import { StateAdminEntity} from "./stateAdmin.entity";
 import {IStateAdmin,IStateAdminService} from "./Interfaces";
 import { StateEntity } from '../State/state.entity';
 import { CommunityMemberEntity } from '../CommunityMembers/communityMember.entity';
+import { BhcoEntity } from '../Bhco/bhco.entity';
 
 @Component()
 export class StateAdminService implements IStateAdminService{
@@ -83,6 +84,27 @@ export class StateAdminService implements IStateAdminService{
       .addSelect("COUNT(*) AS count")
       .groupBy("communityMember.city")
       .getRawMany();
+  }
+
+  public async countCommunityMemberGroupByCommunityInCurrentState(stateId:number): Promise<object> {
+      const selectedState = await  getConnection().getRepository(StateEntity).createQueryBuilder("state")
+        .where("state.id = :id",{id:stateId}).getOne();
+      const state:string = selectedState.state;
+    return await getConnection().getRepository(CommunityMemberEntity).createQueryBuilder("communityMember")
+      .where("communityMember.state = :state",{state:state})
+      .select("communityMember.community AS community")
+      .addSelect("COUNT(*) AS count")
+      .groupBy("communityMember.community")
+      .getRawMany();
+  }
+
+  public async countBhcoGroupInCurrentState(stateId: number): Promise<number> {
+    const selectedState = await getConnection().getRepository(StateEntity).createQueryBuilder("state")
+      .where("state.id = :id",{id:stateId}).getOne();
+
+    const state:string = selectedState.state;
+    return await getConnection().getRepository(BhcoEntity).createQueryBuilder("bhco").
+      where('bhco.state = :state',{state: state}).getCount();
   }
 
   public async countCommunityMemberByGenderInCurrentState(stateId:number):Promise<object>{

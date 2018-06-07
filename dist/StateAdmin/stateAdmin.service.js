@@ -24,6 +24,7 @@ const typeorm_1 = require("typeorm");
 const common_1 = require("@nestjs/common");
 const state_entity_1 = require("../State/state.entity");
 const communityMember_entity_1 = require("../CommunityMembers/communityMember.entity");
+const bhco_entity_1 = require("../Bhco/bhco.entity");
 let StateAdminService = class StateAdminService {
     constructor(stateAdminRepository) {
         this.stateAdminRepository = stateAdminRepository;
@@ -102,6 +103,28 @@ let StateAdminService = class StateAdminService {
                 .addSelect("COUNT(*) AS count")
                 .groupBy("communityMember.city")
                 .getRawMany();
+        });
+    }
+    countCommunityMemberGroupByCommunityInCurrentState(stateId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const selectedState = yield typeorm_1.getConnection().getRepository(state_entity_1.StateEntity).createQueryBuilder("state")
+                .where("state.id = :id", { id: stateId }).getOne();
+            const state = selectedState.state;
+            return yield typeorm_1.getConnection().getRepository(communityMember_entity_1.CommunityMemberEntity).createQueryBuilder("communityMember")
+                .where("communityMember.state = :state", { state: state })
+                .select("communityMember.community AS community")
+                .addSelect("COUNT(*) AS count")
+                .groupBy("communityMember.community")
+                .getRawMany();
+        });
+    }
+    countBhcoGroupInCurrentState(stateId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const selectedState = yield typeorm_1.getConnection().getRepository(state_entity_1.StateEntity).createQueryBuilder("state")
+                .where("state.id = :id", { id: stateId }).getOne();
+            const state = selectedState.state;
+            return yield typeorm_1.getConnection().getRepository(bhco_entity_1.BhcoEntity).createQueryBuilder("bhco").
+                where('bhco.state = :state', { state: state }).getCount();
         });
     }
     countCommunityMemberByGenderInCurrentState(stateId) {

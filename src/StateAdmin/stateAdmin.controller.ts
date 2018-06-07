@@ -53,6 +53,12 @@ export class StateAdminController {
         return msg;
     }
 
+    @Get('bhcoInState/:id')
+    public async countBhcoInState(@Param() params) {
+      const msg = await this.stateAdminService.countBhcoGroupInCurrentState(params.id);
+      return msg;
+    }
+
     @Get('communityMemberByCityInState/:id')
     public async countCommunityByCityInState(@Param() params){
         const msg = await this.stateAdminService.countCommunityMemberGroupByCityInCurrentState(params.id);
@@ -64,6 +70,13 @@ export class StateAdminController {
         const msg = await this.stateAdminService.countCommunityMemberGroupByCountyInCurrentState(params.id);
         return msg;
     }
+
+    @Get('communityMemberByCommunityInState/:id')
+    public async countCommunityByCommunityInState(@Param() params){
+      const msg = await this.stateAdminService.countCommunityMemberGroupByCommunityInCurrentState(params.id);
+      return msg;
+    }
+
 
   @Get('communityMemberByGenderInState/:id')
   public async countCommunityByGenderInState(@Param() params){

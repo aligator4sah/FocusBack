@@ -62,6 +62,12 @@ let StateAdminController = class StateAdminController {
             return msg;
         });
     }
+    countBhcoInState(params) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const msg = yield this.stateAdminService.countBhcoGroupInCurrentState(params.id);
+            return msg;
+        });
+    }
     countCommunityByCityInState(params) {
         return __awaiter(this, void 0, void 0, function* () {
             const msg = yield this.stateAdminService.countCommunityMemberGroupByCityInCurrentState(params.id);
@@ -71,6 +77,12 @@ let StateAdminController = class StateAdminController {
     countCommunityByCountyInState(params) {
         return __awaiter(this, void 0, void 0, function* () {
             const msg = yield this.stateAdminService.countCommunityMemberGroupByCountyInCurrentState(params.id);
+            return msg;
+        });
+    }
+    countCommunityByCommunityInState(params) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const msg = yield this.stateAdminService.countCommunityMemberGroupByCommunityInCurrentState(params.id);
             return msg;
         });
     }
@@ -153,6 +165,13 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], StateAdminController.prototype, "countCommunityMemberInState", null);
 __decorate([
+    common_1.Get('bhcoInState/:id'),
+    __param(0, common_1.Param()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], StateAdminController.prototype, "countBhcoInState", null);
+__decorate([
     common_1.Get('communityMemberByCityInState/:id'),
     __param(0, common_1.Param()),
     __metadata("design:type", Function),
@@ -166,6 +185,13 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], StateAdminController.prototype, "countCommunityByCountyInState", null);
+__decorate([
+    common_1.Get('communityMemberByCommunityInState/:id'),
+    __param(0, common_1.Param()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], StateAdminController.prototype, "countCommunityByCommunityInState", null);
 __decorate([
     common_1.Get('communityMemberByGenderInState/:id'),
     __param(0, common_1.Param()),
