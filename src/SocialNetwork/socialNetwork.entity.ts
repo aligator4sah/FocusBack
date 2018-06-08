@@ -7,8 +7,8 @@ export class SocialNetworkEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
-  sessionId: number;
+  @Column('date')
+  sessionId: any;
 
   @Column()
   questionId: number;

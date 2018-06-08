@@ -18,8 +18,8 @@ __decorate([
     __metadata("design:type", Number)
 ], SocialNetworkEntity.prototype, "id", void 0);
 __decorate([
-    typeorm_1.Column(),
-    __metadata("design:type", Number)
+    typeorm_1.Column('date'),
+    __metadata("design:type", Object)
 ], SocialNetworkEntity.prototype, "sessionId", void 0);
 __decorate([
     typeorm_1.Column(),
