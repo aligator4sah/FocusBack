@@ -1,6 +1,6 @@
 export interface ISocialNetwork {
   readonly id: number;
-  readonly sessionId: number;
+  readonly sessionId: any;
   readonly questionId: number;
   readonly userId: number;
   readonly firstName: string;
