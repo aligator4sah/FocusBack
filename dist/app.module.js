@@ -27,6 +27,7 @@ const session_module_1 = require("./Session/session.module");
 const answer_module_1 = require("./Answer/answer.module");
 const socialNetwork_module_1 = require("./SocialNetwork/socialNetwork.module");
 const relationship_module_1 = require("./Relationship/relationship.module");
+const frontend_module_1 = require("./Frontend/frontend.module");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -51,7 +52,8 @@ AppModule = __decorate([
             session_module_1.SessionModule,
             answer_module_1.AnswerModule,
             socialNetwork_module_1.SocialNetworkModule,
-            relationship_module_1.RelationshipModule
+            relationship_module_1.RelationshipModule,
+            frontend_module_1.FrontendModule
         ]
     })
 ], AppModule);

@@ -1,12 +1,17 @@
 import { NestFactory } from '@nestjs/core';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AppModule } from './app.module';
+import * as path from 'path';
 require("reflect-metadata")
+const express = require("express")
 
 const port = process.env.PORT || 3000;
 async function bootstrap() {
     const app = await NestFactory.create(AppModule);
-    // app.useGlobalPipes(new ValidationPipe());
+    app.setGlobalPrefix('/api')
+    // app.useGlobalPipes(new ValidationPipe()th;
+    app.use(express.static(path.join(__dirname,"..","static")))
+
     //swagger
     app.enableCors({
         origin: 'http://localhost:4200'
@@ -18,7 +23,12 @@ async function bootstrap() {
         .addTag('Focus')
         .build();
     const document = SwaggerModule.createDocument(app, options);
-    SwaggerModule.setup('/api', app, document);
+    SwaggerModule.setup('/doc', app, document);
     await app.listen(port);
+    app.use((req,res,next)=>{
+        return res.sendFile(path.join(__dirname,"..","static","index.html"))
+
+    })
+
 }
 bootstrap();

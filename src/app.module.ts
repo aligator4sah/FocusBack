@@ -22,6 +22,7 @@ import {SessionModule} from "./Session/session.module";
 import {AnswerModule} from "./Answer/answer.module";
 import { SocialNetworkModule } from './SocialNetwork/socialNetwork.module';
 import { RelationshipModule } from './Relationship/relationship.module';
+import {FrontendModule} from './Frontend/frontend.module';
 
 @Module({
   modules:[
@@ -44,7 +45,8 @@ import { RelationshipModule } from './Relationship/relationship.module';
       SessionModule,
       AnswerModule,
       SocialNetworkModule,
-      RelationshipModule
+      RelationshipModule,
+      FrontendModule
   ]
 })
 
