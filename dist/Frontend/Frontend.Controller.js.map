@@ -1,1 +1,1 @@
-{"version":3,"file":"Frontend.Controller.js","sourceRoot":"","sources":["../../src/Frontend/Frontend.Controller.ts"],"names":[],"mappings":";;;;;;;;AAAA,2CAA8D;AAI9D,IAAa,kBAAkB,GAA/B;CAEC,CAAA;AAFY,kBAAkB;IAD9B,mBAAU,EAAE;GACA,kBAAkB,CAE9B;AAFY,gDAAkB"}
+{"version":3,"file":"frontend.controller.js","sourceRoot":"","sources":["../../src/Frontend/frontend.controller.ts"],"names":[],"mappings":";;;;;;;;AAAA,2CAA8D;AAI9D,IAAa,kBAAkB,GAA/B;CAEC,CAAA;AAFY,kBAAkB;IAD9B,mBAAU,EAAE;GACA,kBAAkB,CAE9B;AAFY,gDAAkB"}

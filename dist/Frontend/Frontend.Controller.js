@@ -13,4 +13,4 @@ FrontendController = __decorate([
     common_1.Controller()
 ], FrontendController);
 exports.FrontendController = FrontendController;
-//# sourceMappingURL=Frontend.Controller.js.map
+//# sourceMappingURL=frontend.controller.js.map
