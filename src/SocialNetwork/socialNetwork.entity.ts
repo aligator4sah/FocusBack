@@ -31,7 +31,10 @@ export class SocialNetworkEntity {
   @Column()
   block: number;
 
-  @OneToOne(type=>RelationshipEntity,relationship => relationship.socialNetwork)
-  @JoinColumn()
-  relationship:RelationshipEntity;
+  @Column({nullable: true})
+  relationship: number;
+
+  // @OneToOne(type=>RelationshipEntity,relationship => relationship.socialNetwork)
+  // @JoinColumn()
+  // relationship:RelationshipEntity;
 }

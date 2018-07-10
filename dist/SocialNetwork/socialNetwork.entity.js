@@ -10,7 +10,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const typeorm_1 = require("typeorm");
-const relationship_entity_1 = require("../Relationship/relationship.entity");
 let SocialNetworkEntity = class SocialNetworkEntity {
 };
 __decorate([
@@ -50,9 +49,8 @@ __decorate([
     __metadata("design:type", Number)
 ], SocialNetworkEntity.prototype, "block", void 0);
 __decorate([
-    typeorm_1.OneToOne(type => relationship_entity_1.RelationshipEntity, relationship => relationship.socialNetwork),
-    typeorm_1.JoinColumn(),
-    __metadata("design:type", relationship_entity_1.RelationshipEntity)
+    typeorm_1.Column({ nullable: true }),
+    __metadata("design:type", Number)
 ], SocialNetworkEntity.prototype, "relationship", void 0);
 SocialNetworkEntity = __decorate([
     typeorm_1.Entity()

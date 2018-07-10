@@ -10,27 +10,32 @@ export class SocialNetworkService implements ISocialNetworkServicce{
     @Inject('SocialNetworkRepository') private readonly socialNetworkRepository:Repository<SocialNetworkEntity>
   ){}
 
-  public async addSocialNetwork(socialNetworks:Array<ISocialNetwork>):Promise<Array<SocialNetworkEntity>>{
-    const currentSocialNetwork = await this.socialNetworkRepository.find();
-    await Promise.all(socialNetworks.map(async(item)=>{
-      const selectedRelationship = await getConnection().getRepository(RelationshipEntity).createQueryBuilder("relationship")
-        .where("relationship.relationship = :re",{re:item.relationship}).getOne();
+  // public async addSocialNetwork(socialNetworks:Array<ISocialNetwork>):Promise<Array<SocialNetworkEntity>>{
+  //   const currentSocialNetwork = await this.socialNetworkRepository.find();
+  //   await Promise.all(socialNetworks.map(async(item)=>{
+  //     const selectedRelationship = await getConnection().getRepository(RelationshipEntity).createQueryBuilder("relationship")
+  //       .where("relationship.relationship = :re",{re:item.relationship}).getOne();
+  //
+  //     const selectedSocialNetwork = await this.socialNetworkRepository.save(item);
+  //     await getConnection()
+  //       .createQueryBuilder()
+  //       .relation(SocialNetworkEntity, "relationship")
+  //       .of(selectedSocialNetwork.id)
+  //       .set(selectedRelationship.id);
+  //     return {socialNetwork:selectedSocialNetwork};
+  //   })).then((items) => {
+  //     items.forEach(item =>{
+  //       currentSocialNetwork.push(item.socialNetwork);
+  //     })
+  //   });
+  //   console.log(currentSocialNetwork);
+  //   return currentSocialNetwork;
+  // }
 
-      const selectedSocialNetwork = await this.socialNetworkRepository.save(item);
-      await getConnection()
-        .createQueryBuilder()
-        .relation(SocialNetworkEntity, "relationship")
-        .of(selectedSocialNetwork.id)
-        .set(selectedRelationship.id);
-      return {socialNetwork:selectedSocialNetwork};
-    })).then((items) => {
-      items.forEach(item =>{
-        currentSocialNetwork.push(item.socialNetwork);
-      })
-    });
-    // console.log(currentSocialNetwork);
-    return currentSocialNetwork;
+  public async addSocialNetwork(socialNetworks:Array<ISocialNetwork>) {
+     socialNetworks.forEach(answer => this.socialNetworkRepository.save(answer));
   }
+
 
   public async findAllSocialNetwork():Promise<Array<SocialNetworkEntity>>{
     return await this.socialNetworkRepository.find();

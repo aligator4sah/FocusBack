@@ -21,32 +21,14 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const common_1 = require("@nestjs/common");
-const socialNetwork_entity_1 = require("./socialNetwork.entity");
 const typeorm_1 = require("typeorm");
-const relationship_entity_1 = require("../Relationship/relationship.entity");
 let SocialNetworkService = class SocialNetworkService {
     constructor(socialNetworkRepository) {
         this.socialNetworkRepository = socialNetworkRepository;
     }
     addSocialNetwork(socialNetworks) {
         return __awaiter(this, void 0, void 0, function* () {
-            const currentSocialNetwork = yield this.socialNetworkRepository.find();
-            yield Promise.all(socialNetworks.map((item) => __awaiter(this, void 0, void 0, function* () {
-                const selectedRelationship = yield typeorm_1.getConnection().getRepository(relationship_entity_1.RelationshipEntity).createQueryBuilder("relationship")
-                    .where("relationship.relationship = :re", { re: item.relationship }).getOne();
-                const selectedSocialNetwork = yield this.socialNetworkRepository.save(item);
-                yield typeorm_1.getConnection()
-                    .createQueryBuilder()
-                    .relation(socialNetwork_entity_1.SocialNetworkEntity, "relationship")
-                    .of(selectedSocialNetwork.id)
-                    .set(selectedRelationship.id);
-                return { socialNetwork: selectedSocialNetwork };
-            }))).then((items) => {
-                items.forEach(item => {
-                    currentSocialNetwork.push(item.socialNetwork);
-                });
-            });
-            return currentSocialNetwork;
+            socialNetworks.forEach(answer => this.socialNetworkRepository.save(answer));
         });
     }
     findAllSocialNetwork() {
