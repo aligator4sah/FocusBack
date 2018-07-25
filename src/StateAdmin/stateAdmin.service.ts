@@ -5,8 +5,8 @@ import {IStateAdmin,IStateAdminService} from "./Interfaces";
 import { StateEntity } from '../State/state.entity';
 import { CommunityMemberEntity } from '../CommunityMembers/communityMember.entity';
 import { BhcoEntity } from '../Bhco/bhco.entity';
-import { async } from 'rxjs/scheduler/async';
-import { CommunityEntity } from '../Community/community.entity';
+import {JwtPayload} from '../shared/Auth/interfaces/jwt-payload.interface';
+import * as jwt from 'jsonwebtoken';
 
 @Component()
 export class StateAdminService implements IStateAdminService{
@@ -22,6 +22,32 @@ export class StateAdminService implements IStateAdminService{
         const selectedStateAdmin =  await this.stateAdminRepository.findOneById(id);
         selectedStateAdmin["role"] = "stateAdmin";
         return selectedStateAdmin;
+    }
+
+    public async loginCheck(logInfo: any): Promise<any> {
+        const user = await this.stateAdminRepository.findOne({where: {username: logInfo.username}});
+        if (user && user.password == logInfo.password) {
+            const userToken = await this.createToken(logInfo);
+            const state = await getConnection().getRepository(StateEntity).createQueryBuilder('state')
+                .where("state.state = :state", {state: user.state}).getOne();
+            userToken['id'] = user.id;
+            userToken['name'] = user.username;
+            userToken['location'] = state.id;
+            userToken['locName'] = state.state;
+            return userToken;
+        } else {
+            return null;
+        }
+    }
+
+    private async createToken(logInfo: any) {
+        const user: JwtPayload = logInfo;
+        const expiresIn = 3600;
+        const accessToken = jwt.sign(user, 'secretKey', { expiresIn });
+        return {
+            expiresIn,
+            accessToken,
+        };
     }
 
     public async addStateAdmin(stateAdmin:IStateAdmin):Promise<StateAdminEntity>{

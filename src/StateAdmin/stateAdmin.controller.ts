@@ -27,6 +27,11 @@ export class StateAdminController {
         return msg;
     }
 
+    @Post('/login')
+    public async stateLoginCheck(@Body() logInfo) {
+        return await this.stateAdminService.loginCheck(logInfo);
+    }
+
     @Post()
     // @Roles('systemAdmin','stateAdmin')
     public async addStateAdmin(@Body() stateAdmin:CreateStateAdminDto){

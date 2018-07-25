@@ -25,6 +25,7 @@ const common_1 = require("@nestjs/common");
 const state_entity_1 = require("../State/state.entity");
 const communityMember_entity_1 = require("../CommunityMembers/communityMember.entity");
 const bhco_entity_1 = require("../Bhco/bhco.entity");
+const jwt = require("jsonwebtoken");
 let StateAdminService = class StateAdminService {
     constructor(stateAdminRepository) {
         this.stateAdminRepository = stateAdminRepository;
@@ -39,6 +40,35 @@ let StateAdminService = class StateAdminService {
             const selectedStateAdmin = yield this.stateAdminRepository.findOneById(id);
             selectedStateAdmin["role"] = "stateAdmin";
             return selectedStateAdmin;
+        });
+    }
+    loginCheck(logInfo) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const user = yield this.stateAdminRepository.findOne({ where: { username: logInfo.username } });
+            if (user && user.password == logInfo.password) {
+                const userToken = yield this.createToken(logInfo);
+                const state = yield typeorm_1.getConnection().getRepository(state_entity_1.StateEntity).createQueryBuilder('state')
+                    .where("state.state = :state", { state: user.state }).getOne();
+                userToken['id'] = user.id;
+                userToken['name'] = user.username;
+                userToken['location'] = state.id;
+                userToken['locName'] = state.state;
+                return userToken;
+            }
+            else {
+                return null;
+            }
+        });
+    }
+    createToken(logInfo) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const user = logInfo;
+            const expiresIn = 3600;
+            const accessToken = jwt.sign(user, 'secretKey', { expiresIn });
+            return {
+                expiresIn,
+                accessToken,
+            };
         });
     }
     addStateAdmin(stateAdmin) {

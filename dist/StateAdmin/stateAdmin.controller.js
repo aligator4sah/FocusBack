@@ -39,6 +39,11 @@ let StateAdminController = class StateAdminController {
             return msg;
         });
     }
+    stateLoginCheck(logInfo) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield this.stateAdminService.loginCheck(logInfo);
+        });
+    }
     addStateAdmin(stateAdmin) {
         return __awaiter(this, void 0, void 0, function* () {
             const msg = yield this.stateAdminService.addStateAdmin(stateAdmin);
@@ -136,6 +141,13 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], StateAdminController.prototype, "getStateAdmin", null);
+__decorate([
+    common_1.Post('/login'),
+    __param(0, common_1.Body()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], StateAdminController.prototype, "stateLoginCheck", null);
 __decorate([
     common_1.Post(),
     __param(0, common_1.Body()),
