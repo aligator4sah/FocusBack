@@ -24,6 +24,7 @@ const typeorm_1 = require("typeorm");
 const common_1 = require("@nestjs/common");
 const communityMember_entity_1 = require("../CommunityMembers/communityMember.entity");
 const bhco_entity_1 = require("../Bhco/bhco.entity");
+const jwt = require("jsonwebtoken");
 let SystemAdminService = class SystemAdminService {
     constructor(systemAdminRepository) {
         this.systemAdminRepository = systemAdminRepository;
@@ -41,6 +42,31 @@ let SystemAdminService = class SystemAdminService {
     addSystemAdmin(systemAdmin) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield this.systemAdminRepository.save(systemAdmin);
+        });
+    }
+    loginCheck(logInfo) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const user = yield this.systemAdminRepository.findOne({ where: { username: logInfo.username } });
+            if (user && user.password == logInfo.password) {
+                const userToken = yield this.createToken(logInfo);
+                userToken['id'] = user.id;
+                userToken['name'] = user.username;
+                return userToken;
+            }
+            else {
+                return null;
+            }
+        });
+    }
+    createToken(logInfo) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const user = logInfo;
+            const expiresIn = 3600;
+            const accessToken = jwt.sign(user, 'secretKey', { expiresIn });
+            return {
+                expiresIn,
+                accessToken,
+            };
         });
     }
     updateSystemAdmin(id, newSystemAdmin) {

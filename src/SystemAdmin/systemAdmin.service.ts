@@ -4,12 +4,13 @@ import { SystemAdminEntity} from "./systemAdmin.entity";
 import { ISystemAdmin,ISystemAdminService} from "./Interfaces";
 import { CommunityMemberEntity } from '../CommunityMembers/communityMember.entity';
 import { BhcoEntity } from '../Bhco/bhco.entity';
-
+import {JwtPayload} from '../shared/Auth/interfaces/jwt-payload.interface';
+import * as jwt from 'jsonwebtoken';
 
 @Component()
 export class SystemAdminService implements ISystemAdminService{
     constructor(
-        @Inject('SystemAdminRepository') private readonly systemAdminRepository :Repository<SystemAdminEntity>
+        @Inject('SystemAdminRepository') private readonly systemAdminRepository :Repository<SystemAdminEntity>,
     ){}
 
     public async getAllSystemAdmin():Promise<Array<SystemAdminEntity>>{
@@ -22,6 +23,28 @@ export class SystemAdminService implements ISystemAdminService{
 
     public async addSystemAdmin(systemAdmin:ISystemAdmin):Promise<SystemAdminEntity>{
         return await  this.systemAdminRepository.save(systemAdmin);
+    }
+
+    public async loginCheck(logInfo: any): Promise<any> {
+        const user = await this.systemAdminRepository.findOne({where: {username: logInfo.username}});
+        if (user && user.password == logInfo.password) {
+            const userToken = await this.createToken(logInfo);
+            userToken['id'] = user.id;
+            userToken['name'] = user.username;
+            return userToken;
+        } else {
+            return null;
+        }
+    }
+
+    private async createToken(logInfo: any) {
+        const user: JwtPayload = logInfo;
+        const expiresIn = 3600;
+        const accessToken = jwt.sign(user, 'secretKey', { expiresIn });
+        return {
+            expiresIn,
+            accessToken,
+        };
     }
 
     public async updateSystemAdmin(id:number,newSystemAdmin:ISystemAdmin):Promise<SystemAdminEntity|null>{

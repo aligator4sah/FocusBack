@@ -26,6 +26,11 @@ export class SystemAdminController{
         return msg;
     }
 
+    @Post('/login')
+    public async loginCheck(@Body() logInfo) {
+        return await this.systemAdminService.loginCheck(logInfo);
+    }
+
     @Get(':id')
     // @Roles('systemAdmin')
     public async getSystemAdmin(@Param() params){

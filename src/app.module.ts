@@ -23,6 +23,7 @@ import {AnswerModule} from "./Answer/answer.module";
 import { SocialNetworkModule } from './SocialNetwork/socialNetwork.module';
 import { RelationshipModule } from './Relationship/relationship.module';
 import {FrontendModule} from './Frontend/frontend.module';
+import {AuthModule} from './shared/Auth/auth.module';
 
 @Module({
   modules:[
@@ -46,7 +47,8 @@ import {FrontendModule} from './Frontend/frontend.module';
       AnswerModule,
       SocialNetworkModule,
       RelationshipModule,
-      FrontendModule
+      FrontendModule,
+      AuthModule
   ]
 })
 

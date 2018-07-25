@@ -1,0 +1,30 @@
+version: "3"
+services:
+  node:
+    image: "node:10"
+    user: "node"
+    working_dir: /home/node/app
+    environment:
+      - NODE_ENV=production
+      - PORT=8080
+    volumes:
+      - ./:/home/node/app
+    expose:
+      - "8080"
+    ports:
+      - "8080:8080"
+    command: "npm run start"
+    links:
+      - db
+    restart: always
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: 12345
+      POSTGRES_USER: postgres
+      POSTGRES_DB: HealthyU
+    volumes:
+      - database_volume:/var/lib/postgresql/data
+volumes:
+  database_volume:

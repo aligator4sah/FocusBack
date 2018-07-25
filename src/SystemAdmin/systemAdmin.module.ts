@@ -3,9 +3,12 @@ import { DatabaseModule } from '../Database/database.module'
 import { systemAdminProvider} from "./systemAdmin.providers";
 import {SystemAdminController} from "./systemAdmin.controller";
 import {SystemAdminService} from "./systemAdmin.service";
+import {AuthModule} from '../shared/Auth/auth.module';
 
 @Module({
-    imports:[DatabaseModule],
+    imports:[
+        DatabaseModule
+    ],
     components:[
         systemAdminProvider,
         SystemAdminService

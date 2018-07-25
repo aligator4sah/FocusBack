@@ -15,7 +15,9 @@ let SystemAdminModule = class SystemAdminModule {
 };
 SystemAdminModule = __decorate([
     common_1.Module({
-        imports: [database_module_1.DatabaseModule],
+        imports: [
+            database_module_1.DatabaseModule
+        ],
         components: [
             systemAdmin_providers_1.systemAdminProvider,
             systemAdmin_service_1.SystemAdminService
