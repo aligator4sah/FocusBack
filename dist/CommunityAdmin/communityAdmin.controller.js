@@ -51,6 +51,11 @@ let CommunityAdminController = class CommunityAdminController {
             return msg;
         });
     }
+    loginCheck(logInfo) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield this.communityAdminService.loginCheck(logInfo);
+        });
+    }
     updateCommunityAdmin(params, newCommunityAdmin) {
         return __awaiter(this, void 0, void 0, function* () {
             const msg = yield this.communityAdminService.updateCommunityAdmin(params.id, newCommunityAdmin);
@@ -151,6 +156,13 @@ __decorate([
     __metadata("design:paramtypes", [create_CAdmin_dto_1.CreateCAdminDto]),
     __metadata("design:returntype", Promise)
 ], CommunityAdminController.prototype, "addCommunityAdmin", null);
+__decorate([
+    common_1.Post('/login'),
+    __param(0, common_1.Body()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], CommunityAdminController.prototype, "loginCheck", null);
 __decorate([
     common_1.Patch(':id'),
     __param(0, common_1.Param()), __param(1, common_1.Body()),

@@ -32,6 +32,11 @@ export class CommunityAdminController{
         return msg;
     }
 
+    @Post('/login')
+    public async loginCheck(@Body() logInfo) {
+        return await this.communityAdminService.loginCheck(logInfo);
+    }
+
     @Patch(':id')
     public async updateCommunityAdmin(@Param() params,@Body() newCommunityAdmin:CreateCAdminDto){
         const msg = await this.communityAdminService.updateCommunityAdmin(params.id,newCommunityAdmin);

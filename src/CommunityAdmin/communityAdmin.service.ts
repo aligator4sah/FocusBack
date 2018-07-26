@@ -1,5 +1,5 @@
 import { Component ,Inject} from "@nestjs/common";
-import {getRepository, Repository} from 'typeorm';
+import {getConnection, getRepository, Repository} from 'typeorm';
 import { ICommunityAdmin,ICommunityService} from "./Interfaces";
 import { CommunityAdminEntity} from "./communityAdmin.entity";
 import {CommunityEntity} from "../Community/community.entity";
@@ -7,8 +7,8 @@ import {CityEntity} from "../City/city.entity";
 import {CountyEntity} from "../County/county.entity";
 import {StateEntity} from "../State/state.entity";
 import { CommunityMemberEntity } from '../CommunityMembers/communityMember.entity';
-import { BlockEntity } from '../Block/block.entity';
-import { async } from 'rxjs/scheduler/async';
+import {JwtPayload} from '../shared/Auth/interfaces/jwt-payload.interface';
+import * as jwt from 'jsonwebtoken';
 
 @Component()
 export class CommunityAdminService implements ICommunityService{
@@ -33,6 +33,32 @@ export class CommunityAdminService implements ICommunityService{
 
     public async addCommunityAdmin(communityAdmin:ICommunityAdmin): Promise<CommunityAdminEntity>{
         return await this.communityAdminRepository.save(communityAdmin);
+    }
+
+    //TODO: get the authorization service from shared auth module and add user guard to controller
+    public async loginCheck(logInfo: any): Promise<any> {
+        const user = await this.communityAdminRepository.findOne({where: {username: logInfo.username}});
+        if (user && user.password == logInfo.password) {
+            const userToken = await this.createToken(logInfo);
+            const community = await getConnection().getRepository(CommunityEntity).createQueryBuilder('community')
+                .where('community.community = :community', {community: user.community}).getOne();
+            userToken['id'] = user.id;
+            userToken['location'] = community.id;
+            userToken['name'] = user.username;
+            return userToken;
+        } else {
+            return null;
+        }
+    }
+
+    private async createToken(logInfo: any) {
+        const user: JwtPayload = logInfo;
+        const expiresIn = 3600;
+        const accessToken = jwt.sign(user, 'secretKey', { expiresIn });
+        return {
+            expiresIn,
+            accessToken,
+        };
     }
 
     public async updateCommunityAdmin(id:number,newCommunityAdmin:ICommunityAdmin): Promise<CommunityAdminEntity | null>{

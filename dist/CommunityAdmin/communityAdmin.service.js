@@ -27,6 +27,7 @@ const city_entity_1 = require("../City/city.entity");
 const county_entity_1 = require("../County/county.entity");
 const state_entity_1 = require("../State/state.entity");
 const communityMember_entity_1 = require("../CommunityMembers/communityMember.entity");
+const jwt = require("jsonwebtoken");
 let CommunityAdminService = class CommunityAdminService {
     constructor(communityAdminRepository) {
         this.communityAdminRepository = communityAdminRepository;
@@ -52,6 +53,34 @@ let CommunityAdminService = class CommunityAdminService {
     addCommunityAdmin(communityAdmin) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield this.communityAdminRepository.save(communityAdmin);
+        });
+    }
+    loginCheck(logInfo) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const user = yield this.communityAdminRepository.findOne({ where: { username: logInfo.username } });
+            if (user && user.password == logInfo.password) {
+                const userToken = yield this.createToken(logInfo);
+                const community = yield typeorm_1.getConnection().getRepository(community_entity_1.CommunityEntity).createQueryBuilder('community')
+                    .where('community.community = :community', { community: user.community }).getOne();
+                userToken['id'] = user.id;
+                userToken['location'] = community.id;
+                userToken['name'] = user.username;
+                return userToken;
+            }
+            else {
+                return null;
+            }
+        });
+    }
+    createToken(logInfo) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const user = logInfo;
+            const expiresIn = 3600;
+            const accessToken = jwt.sign(user, 'secretKey', { expiresIn });
+            return {
+                expiresIn,
+                accessToken,
+            };
         });
     }
     updateCommunityAdmin(id, newCommunityAdmin) {

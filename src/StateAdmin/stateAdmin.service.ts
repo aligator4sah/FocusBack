@@ -23,7 +23,7 @@ export class StateAdminService implements IStateAdminService{
         selectedStateAdmin["role"] = "stateAdmin";
         return selectedStateAdmin;
     }
-
+    //TODO: get the authorization service from shared auth module and add user guard to controller
     public async loginCheck(logInfo: any): Promise<any> {
         const user = await this.stateAdminRepository.findOne({where: {username: logInfo.username}});
         if (user && user.password == logInfo.password) {

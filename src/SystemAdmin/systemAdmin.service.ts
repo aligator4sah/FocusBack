@@ -25,6 +25,7 @@ export class SystemAdminService implements ISystemAdminService{
         return await  this.systemAdminRepository.save(systemAdmin);
     }
 
+    //TODO: get the authorization service from shared module and add user guard to controller
     public async loginCheck(logInfo: any): Promise<any> {
         const user = await this.systemAdminRepository.findOne({where: {username: logInfo.username}});
         if (user && user.password == logInfo.password) {
