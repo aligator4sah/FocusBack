@@ -36,6 +36,7 @@ export class CommunityAdminService implements ICommunityService{
     }
 
     //TODO: get the authorization service from shared auth module and add user guard to controller
+
     public async loginCheck(logInfo: any): Promise<any> {
         const user = await this.communityAdminRepository.findOne({where: {username: logInfo.username}});
         if (user && user.password == logInfo.password) {

@@ -26,9 +26,35 @@ const typeorm_1 = require("typeorm");
 const state_entity_1 = require("../State/state.entity");
 const bhco_entity_1 = require("../Bhco/bhco.entity");
 const block_entity_1 = require("../Block/block.entity");
+const jwt = require("jsonwebtoken");
 let CommunityMemberService = class CommunityMemberService {
     constructor(communityMemberRepository) {
         this.communityMemberRepository = communityMemberRepository;
+    }
+    loginCheck(logInfo) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const user = yield this.communityMemberRepository.findOne({ where: { username: logInfo.username } });
+            if (user && user.password == logInfo.password) {
+                const userToken = yield this.createToken(logInfo);
+                userToken['id'] = user.id;
+                userToken['name'] = user.username;
+                return userToken;
+            }
+            else {
+                return null;
+            }
+        });
+    }
+    createToken(logInfo) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const user = logInfo;
+            const expiresIn = 3600;
+            const accessToken = jwt.sign(user, 'secretKey', { expiresIn });
+            return {
+                expiresIn,
+                accessToken,
+            };
+        });
     }
     getAllCommunityMember() {
         return __awaiter(this, void 0, void 0, function* () {

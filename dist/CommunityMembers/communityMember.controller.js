@@ -47,6 +47,11 @@ let CommunityMemberController = class CommunityMemberController {
         });
     }
     ;
+    loginCheck(logInfo) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield this.communityMemberService.loginCheck(logInfo);
+        });
+    }
     getCommunityMember(params) {
         return __awaiter(this, void 0, void 0, function* () {
             const msg = yield this.communityMemberService.getCommunityMember(params.id);
@@ -129,6 +134,13 @@ __decorate([
     __metadata("design:paramtypes", [create_CMember_dto_1.CreateCMemberDto]),
     __metadata("design:returntype", Promise)
 ], CommunityMemberController.prototype, "addCommunityMember", null);
+__decorate([
+    common_1.Post('communityMember/login'),
+    __param(0, common_1.Body()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], CommunityMemberController.prototype, "loginCheck", null);
 __decorate([
     common_1.Get('communityMember/:id'),
     __param(0, common_1.Param()),

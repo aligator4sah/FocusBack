@@ -55,6 +55,11 @@ export class CommunityMemberController{
         return msg;
     };
 
+    @Post('communityMember/login')
+    public async loginCheck(@Body() logInfo) {
+        return await this.communityMemberService.loginCheck(logInfo);
+    }
+
     @Get('communityMember/:id')
     // @Roles('systemAdmin','stateAdmin','communityAdmin','bhco')
     public async getCommunityMember(@Param() params){

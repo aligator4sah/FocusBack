@@ -32,6 +32,11 @@ export class BhcoController{
         return msg;
     }
 
+    @Post('/Bhco/login')
+    public async loginCheck(@Body() logInfo) {
+        return await this.bhcoService.loginCheck(logInfo);
+    }
+
     @Get('bhco/:id')
     public async getBhco(@Param() params){
        const msg =await this.bhcoService.getBhco(params.id);

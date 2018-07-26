@@ -5,6 +5,8 @@ import {IBcho,IBhcoService} from "./Interfaces";
 import {StateEntity} from "../State/state.entity";
 import {CommunityEntity} from "../Community/community.entity";
 import { CommunityMemberEntity } from '../CommunityMembers/communityMember.entity';
+import {JwtPayload} from '../shared/Auth/interfaces/jwt-payload.interface';
+import * as jwt from 'jsonwebtoken';
 
 @Component()
 export class BhcoService implements IBhcoService{
@@ -30,6 +32,33 @@ export class BhcoService implements IBhcoService{
         const selectedBhco = await this.bhcoRepository.findOneById(id);
         selectedBhco["role"] = "bhco";
         return selectedBhco;
+    }
+
+    //TODO: get the authorization service from shared auth module and add user guard to controller
+    public async loginCheck(logInfo: any): Promise<any> {
+        const user = await this.bhcoRepository.findOne({where: {username: logInfo.username}});
+        if (user && user.password == logInfo.password) {
+            const userToken = await this.createToken(logInfo);
+            const community = await getConnection().getRepository(CommunityEntity).createQueryBuilder('community')
+                .where('community.community = :community', {community: user.community}).getOne();
+
+            userToken['id'] = user.id;
+            userToken['location'] = community.id;
+            userToken['name'] = user.username;
+            return userToken;
+        } else {
+            return null;
+        }
+    }
+
+    private async createToken(logInfo: any) {
+        const user: JwtPayload = logInfo;
+        const expiresIn = 3600;
+        const accessToken = jwt.sign(user, 'secretKey', { expiresIn });
+        return {
+            expiresIn,
+            accessToken,
+        };
     }
 
     public async addBhco(bhco: IBcho): Promise<BhcoEntity>{

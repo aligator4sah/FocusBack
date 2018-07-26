@@ -25,6 +25,7 @@ const typeorm_1 = require("typeorm");
 const state_entity_1 = require("../State/state.entity");
 const community_entity_1 = require("../Community/community.entity");
 const communityMember_entity_1 = require("../CommunityMembers/communityMember.entity");
+const jwt = require("jsonwebtoken");
 let BhcoService = class BhcoService {
     constructor(bhcoRepository) {
         this.bhcoRepository = bhcoRepository;
@@ -51,6 +52,34 @@ let BhcoService = class BhcoService {
             const selectedBhco = yield this.bhcoRepository.findOneById(id);
             selectedBhco["role"] = "bhco";
             return selectedBhco;
+        });
+    }
+    loginCheck(logInfo) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const user = yield this.bhcoRepository.findOne({ where: { username: logInfo.username } });
+            if (user && user.password == logInfo.password) {
+                const userToken = yield this.createToken(logInfo);
+                const community = yield typeorm_1.getConnection().getRepository(community_entity_1.CommunityEntity).createQueryBuilder('community')
+                    .where('community.community = :community', { community: user.community }).getOne();
+                userToken['id'] = user.id;
+                userToken['location'] = community.id;
+                userToken['name'] = user.username;
+                return userToken;
+            }
+            else {
+                return null;
+            }
+        });
+    }
+    createToken(logInfo) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const user = logInfo;
+            const expiresIn = 3600;
+            const accessToken = jwt.sign(user, 'secretKey', { expiresIn });
+            return {
+                expiresIn,
+                accessToken,
+            };
         });
     }
     addBhco(bhco) {

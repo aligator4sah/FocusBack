@@ -8,6 +8,8 @@ import {CityEntity} from "../City/city.entity";
 import {CountyEntity} from "../County/county.entity";
 import {BhcoEntity} from "../Bhco/bhco.entity";
 import { BlockEntity } from '../Block/block.entity';
+import * as jwt from 'jsonwebtoken';
+import {JwtPayload} from '../shared/Auth/interfaces/jwt-payload.interface';
 
 @Component()
 export class CommunityMemberService implements ICommunityMemberService{
@@ -15,6 +17,29 @@ export class CommunityMemberService implements ICommunityMemberService{
     constructor(
         @Inject('CommunityMemberRepository') private readonly communityMemberRepository: Repository<CommunityMemberEntity>
     ){}
+
+    //TODO: get the authorization service from shared auth module and add user guard to controller
+    public async loginCheck(logInfo: any): Promise<any> {
+        const user = await this.communityMemberRepository.findOne({where: {username: logInfo.username}});
+        if (user && user.password == logInfo.password) {
+            const userToken = await this.createToken(logInfo);
+            userToken['id'] = user.id;
+            userToken['name'] = user.username;
+            return userToken;
+        } else {
+            return null;
+        }
+    }
+
+    private async createToken(logInfo: any) {
+        const user: JwtPayload = logInfo;
+        const expiresIn = 3600;
+        const accessToken = jwt.sign(user, 'secretKey', { expiresIn });
+        return {
+            expiresIn,
+            accessToken,
+        };
+    }
 
     public async getAllCommunityMember(): Promise<Array<CommunityMemberEntity>>{
         return await getRepository(CommunityMemberEntity).createQueryBuilder("communityMember")
